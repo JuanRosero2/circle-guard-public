@@ -2,19 +2,19 @@
 # Stage 1: Builder — Monorepo Gradle, contexto = raíz del repo
 # promotion-service es el más pesado: Neo4j client + Kafka + Redis
 # ============================================================
-FROM alpine:3.19 AS builder
+FROM eclipse-temurin:17-jdk-alpine AS builder
 
 WORKDIR /workspace
 
-# Instalar OpenJDK 17
-RUN apk add --no-cache openjdk17 --update-cache
-
+# Copiar wrapper de Gradle y archivos de configuración del monorepo
 COPY gradlew .
 COPY gradle/ gradle/
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
+# Copiar únicamente el source del servicio que vamos a compilar
 COPY services/circleguard-promotion-service/ services/circleguard-promotion-service/
 
+# Dar permisos de ejecución al wrapper
 RUN chmod +x gradlew
 RUN ./gradlew :services:circleguard-promotion-service:bootJar -x test --no-daemon
 
