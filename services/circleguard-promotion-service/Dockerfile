@@ -2,9 +2,12 @@
 # Stage 1: Builder — Monorepo Gradle, contexto = raíz del repo
 # promotion-service es el más pesado: Neo4j client + Kafka + Redis
 # ============================================================
-FROM openjdk:17-jdk-alpine AS builder
+FROM alpine:3.19 AS builder
 
 WORKDIR /workspace
+
+# Instalar OpenJDK 17
+RUN apk add --no-cache openjdk17 --update-cache
 
 COPY gradlew .
 COPY gradle/ gradle/
@@ -18,7 +21,7 @@ RUN ./gradlew :services:circleguard-promotion-service:bootJar -x test --no-daemo
 # ============================================================
 # Stage 2: Runtime
 # ============================================================
-FROM openjdk:17-jre-alpine AS runtime
+FROM alpine:3.19 AS runtime
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
