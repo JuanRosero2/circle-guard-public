@@ -1,0 +1,20 @@
+---
+# ConfigMap para auth-service — ambiente dev
+# Externaliza la configuración Spring Boot sin hardcodear en la imagen Docker
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-service-config
+  namespace: cg-dev
+data:
+  SPRING_PROFILES_ACTIVE: dev
+  SERVER_PORT: "8180"
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-service:5432/circleguard_auth
+  SPRING_DATASOURCE_USERNAME: admin
+  SPRING_LDAP_URLS: ldap://openldap-service:389
+  SPRING_LDAP_BASE: dc=circleguard,dc=edu
+  SPRING_LDAP_USERNAME: "cn=admin,dc=circleguard,dc=edu"
+  JWT_SECRET: "my-super-secret-dev-key-32-chars-long-12345678"
+  JWT_EXPIRATION: "3600000"
+  QR_SECRET: "my-qr-secret-key-for-dev-1234567890"
+  QR_EXPIRATION: "300"

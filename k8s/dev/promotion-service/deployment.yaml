@@ -1,0 +1,53 @@
+---
+# promotion-service tiene los recursos más altos por ser el más complejo:
+# cliente Neo4j + Kafka consumer + Redis cache + PostgreSQL JPA
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: promotion-service
+  namespace: cg-dev
+  labels:
+    app: promotion-service
+    env: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: promotion-service
+  template:
+    metadata:
+      labels:
+        app: promotion-service
+    spec:
+      containers:
+        - name: promotion-service
+          image: circleguard/promotion-service:dev
+          ports:
+            - containerPort: 8088
+          envFrom:
+            - configMapRef:
+                name: promotion-service-config
+          env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: password
+            - name: SPRING_NEO4J_AUTHENTICATION_PASSWORD
+              value: password
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8088
+            initialDelaySeconds: 30
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8088
+            initialDelaySeconds: 60
+            periodSeconds: 30

@@ -1,0 +1,352 @@
+// ============================================================
+// Jenkinsfile.master — Pipeline declarativo para producción cg-master
+// Requiere aprobación manual del tech-lead antes de desplegar.
+// Genera Release Notes automáticos desde Conventional Commits.
+// Etiqueta el repositorio con la versión semántica.
+// ============================================================
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_REGISTRY = "registry.circleguard.internal"
+        // La versión se determina a partir de la variable BUILD_NUMBER
+        // En producción se puede leer de un archivo VERSION o desde el tag Git
+        VERSION         = sh(script: "git tag --sort=-creatordate | grep -E '^v[0-9]' | head -1 | sed 's/v//'", returnStdout: true).trim() ?: "1.0.${env.BUILD_NUMBER}"
+        IMAGE_TAG       = "v${VERSION}"
+        K8S_NAMESPACE   = "cg-master"
+        DOCKER_CREDS    = credentials('docker-registry-credentials')
+        GIT_CREDS       = credentials('git-credentials')
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+                sh 'chmod +x gradlew'
+                // Configurar git para poder crear tags
+                sh '''
+                    git config user.email "ci-bot@circleguard.edu"
+                    git config user.name "CircleGuard CI"
+                '''
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 2: Unit Tests
+        // -------------------------------------------------------
+        stage('Unit Tests') {
+            parallel {
+                stage('Test: auth-service') {
+                    steps { sh './gradlew :services:circleguard-auth-service:test --parallel --continue' }
+                    post { always { junit 'services/circleguard-auth-service/build/test-results/**/*.xml' } }
+                }
+                stage('Test: promotion-service') {
+                    steps { sh './gradlew :services:circleguard-promotion-service:test --parallel --continue' }
+                    post { always { junit 'services/circleguard-promotion-service/build/test-results/**/*.xml' } }
+                }
+                stage('Test: notification-service') {
+                    steps { sh './gradlew :services:circleguard-notification-service:test --parallel --continue' }
+                    post { always { junit 'services/circleguard-notification-service/build/test-results/**/*.xml' } }
+                }
+                stage('Test: form-service') {
+                    steps { sh './gradlew :services:circleguard-form-service:test --parallel --continue' }
+                    post { always { junit 'services/circleguard-form-service/build/test-results/**/*.xml' } }
+                }
+                stage('Test: identity-service') {
+                    steps { sh './gradlew :services:circleguard-identity-service:test --parallel --continue' }
+                    post { always { junit allowEmptyResults: true, testResults: 'services/circleguard-identity-service/build/test-results/**/*.xml' } }
+                }
+                stage('Test: gateway-service') {
+                    steps { sh './gradlew :services:circleguard-gateway-service:test --parallel --continue' }
+                    post { always { junit allowEmptyResults: true, testResults: 'services/circleguard-gateway-service/build/test-results/**/*.xml' } }
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 3: Integration Tests (Testcontainers)
+        // Deben pasar ANTES de construir la imagen de producción.
+        // -------------------------------------------------------
+        stage('Integration Tests') {
+            steps {
+                sh './gradlew :services:circleguard-promotion-service:test --tests "*integration*" --no-daemon'
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true,
+                          testResults: 'services/circleguard-promotion-service/build/test-results/**/*.xml'
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 4: Build JARs (paralelo)
+        // -------------------------------------------------------
+        stage('Build JARs') {
+            parallel {
+                stage('JAR: auth-service')         { steps { sh './gradlew :services:circleguard-auth-service:bootJar --parallel -x test --no-daemon' } }
+                stage('JAR: gateway-service')      { steps { sh './gradlew :services:circleguard-gateway-service:bootJar --parallel -x test --no-daemon' } }
+                stage('JAR: identity-service')     { steps { sh './gradlew :services:circleguard-identity-service:bootJar --parallel -x test --no-daemon' } }
+                stage('JAR: promotion-service')    { steps { sh './gradlew :services:circleguard-promotion-service:bootJar --parallel -x test --no-daemon' } }
+                stage('JAR: notification-service') { steps { sh './gradlew :services:circleguard-notification-service:bootJar --parallel -x test --no-daemon' } }
+                stage('JAR: form-service')         { steps { sh './gradlew :services:circleguard-form-service:bootJar --parallel -x test --no-daemon' } }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 5: Docker Build & Tag con versión semántica
+        // Imagen etiquetada con v1.2.3 Y "latest" para producción
+        // -------------------------------------------------------
+        stage('Docker Build & Tag') {
+            parallel {
+                stage('Docker: auth-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-auth-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/auth-service:${IMAGE_TAG} \
+                                -t ${DOCKER_REGISTRY}/circleguard/auth-service:latest .
+                            docker push ${DOCKER_REGISTRY}/circleguard/auth-service:${IMAGE_TAG}
+                            docker push ${DOCKER_REGISTRY}/circleguard/auth-service:latest
+                        """
+                    }
+                }
+                stage('Docker: gateway-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-gateway-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/gateway-service:${IMAGE_TAG} \
+                                -t ${DOCKER_REGISTRY}/circleguard/gateway-service:latest .
+                            docker push ${DOCKER_REGISTRY}/circleguard/gateway-service:${IMAGE_TAG}
+                            docker push ${DOCKER_REGISTRY}/circleguard/gateway-service:latest
+                        """
+                    }
+                }
+                stage('Docker: identity-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-identity-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/identity-service:${IMAGE_TAG} \
+                                -t ${DOCKER_REGISTRY}/circleguard/identity-service:latest .
+                            docker push ${DOCKER_REGISTRY}/circleguard/identity-service:${IMAGE_TAG}
+                            docker push ${DOCKER_REGISTRY}/circleguard/identity-service:latest
+                        """
+                    }
+                }
+                stage('Docker: promotion-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-promotion-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/promotion-service:${IMAGE_TAG} \
+                                -t ${DOCKER_REGISTRY}/circleguard/promotion-service:latest .
+                            docker push ${DOCKER_REGISTRY}/circleguard/promotion-service:${IMAGE_TAG}
+                            docker push ${DOCKER_REGISTRY}/circleguard/promotion-service:latest
+                        """
+                    }
+                }
+                stage('Docker: notification-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-notification-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/notification-service:${IMAGE_TAG} \
+                                -t ${DOCKER_REGISTRY}/circleguard/notification-service:latest .
+                            docker push ${DOCKER_REGISTRY}/circleguard/notification-service:${IMAGE_TAG}
+                            docker push ${DOCKER_REGISTRY}/circleguard/notification-service:latest
+                        """
+                    }
+                }
+                stage('Docker: form-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-form-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/form-service:${IMAGE_TAG} \
+                                -t ${DOCKER_REGISTRY}/circleguard/form-service:latest .
+                            docker push ${DOCKER_REGISTRY}/circleguard/form-service:${IMAGE_TAG}
+                            docker push ${DOCKER_REGISTRY}/circleguard/form-service:latest
+                        """
+                    }
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 6: Validate STAGE Health
+        // Verifica que cg-stage está saludable antes de pedir aprobación
+        // -------------------------------------------------------
+        stage('Validate STAGE Health') {
+            steps {
+                script {
+                    def services = ['auth-service', 'gateway-service', 'identity-service',
+                                    'promotion-service', 'notification-service', 'form-service']
+                    services.each { svc ->
+                        sh """
+                            kubectl rollout status deployment/${svc} -n cg-stage --timeout=60s
+                        """
+                    }
+
+                    // Smoke test sobre el gateway de stage
+                    sh '''
+                        STAGE_GW=$(kubectl get svc gateway-service -n cg-stage \
+                            -o jsonpath='{.spec.clusterIP}')
+                        curl -f http://${STAGE_GW}:8087/actuator/health || \
+                            (echo "STAGE health check FAILED" && exit 1)
+                        echo "STAGE health check PASSED"
+                    '''
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 7: Smoke Tests on STAGE
+        // Ejecuta los tests E2E básicos contra stage antes de la aprobación
+        // -------------------------------------------------------
+        stage('Smoke Tests on STAGE') {
+            steps {
+                sh '''
+                    cd tests/e2e
+                    pip install -q pytest requests
+                    pytest test_circleguard_flows.py::test_login_and_access_protected_resource \
+                           test_circleguard_flows.py::test_expired_qr_token -v || true
+                '''
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 8: APPROVAL GATE — Aprobación manual del tech-lead
+        // El pipeline se detiene aquí hasta que alguien del grupo
+        // "tech-lead" haga clic en "Proceed" en la UI de Jenkins.
+        // Timeout de 24 horas para no bloquear indefinidamente.
+        // -------------------------------------------------------
+        stage('Approval Gate') {
+            steps {
+                timeout(time: 24, unit: 'HOURS') {
+                    input(
+                        message: "¿Aprobar despliegue de ${IMAGE_TAG} a producción (cg-master)?",
+                        ok: 'Desplegar a Producción',
+                        submitter: 'tech-lead',
+                        parameters: [
+                            string(name: 'DEPLOY_NOTES',
+                                   defaultValue: '',
+                                   description: 'Notas adicionales del aprobador (opcional)')
+                        ]
+                    )
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 9: Deploy to cg-master (2 réplicas para HA)
+        // -------------------------------------------------------
+        stage('Deploy to cg-master') {
+            steps {
+                script {
+                    sh "kubectl apply -f k8s/master/ --recursive"
+                    def services = ['auth-service', 'gateway-service', 'identity-service',
+                                    'promotion-service', 'notification-service', 'form-service']
+                    services.each { svc ->
+                        sh """
+                            kubectl set image deployment/${svc} \
+                                ${svc}=${DOCKER_REGISTRY}/circleguard/${svc}:${IMAGE_TAG} \
+                                -n ${K8S_NAMESPACE}
+                        """
+                    }
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 10: Rollout Status en master
+        // -------------------------------------------------------
+        stage('Rollout Status') {
+            steps {
+                script {
+                    def services = ['auth-service', 'gateway-service', 'identity-service',
+                                    'promotion-service', 'notification-service', 'form-service']
+                    services.each { svc ->
+                        sh "kubectl rollout status deployment/${svc} -n ${K8S_NAMESPACE} --timeout=180s"
+                    }
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 11: Smoke Tests on MASTER
+        // -------------------------------------------------------
+        stage('Smoke Tests on MASTER') {
+            steps {
+                sh '''
+                    sleep 15   # Dar tiempo a los pods para que levanten
+                    MASTER_GW=$(kubectl get svc gateway-service -n cg-master \
+                        -o jsonpath='{.spec.clusterIP}')
+                    curl -f http://${MASTER_GW}:8087/actuator/health || \
+                        (echo "MASTER smoke test FAILED" && exit 1)
+                    echo "MASTER smoke test PASSED"
+                '''
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 12: Generate Release Notes (Conventional Commits)
+        // Parsea feat:, fix:, perf:, refactor: del último tag al HEAD
+        // -------------------------------------------------------
+        stage('Generate Release Notes') {
+            steps {
+                script {
+                    def previousTag = sh(
+                        script: "git tag --sort=-creatordate | grep -E '^v[0-9]' | head -2 | tail -1",
+                        returnStdout: true
+                    ).trim() ?: "HEAD~50"
+
+                    sh """
+                        echo "# Release Notes — ${IMAGE_TAG}" > release-notes.md
+                        echo "**Fecha:** \$(date '+%Y-%m-%d %H:%M:%S')" >> release-notes.md
+                        echo "" >> release-notes.md
+
+                        echo "## ✨ Nuevas Funcionalidades" >> release-notes.md
+                        git log ${previousTag}..HEAD --oneline --format="%s" | grep "^feat:" >> release-notes.md || echo "_Ninguna_" >> release-notes.md
+
+                        echo "" >> release-notes.md
+                        echo "## 🐛 Correcciones" >> release-notes.md
+                        git log ${previousTag}..HEAD --oneline --format="%s" | grep "^fix:" >> release-notes.md || echo "_Ninguna_" >> release-notes.md
+
+                        echo "" >> release-notes.md
+                        echo "## ⚡ Mejoras de Rendimiento" >> release-notes.md
+                        git log ${previousTag}..HEAD --oneline --format="%s" | grep "^perf:" >> release-notes.md || echo "_Ninguna_" >> release-notes.md
+
+                        echo "" >> release-notes.md
+                        echo "## 🔧 Refactorizaciones" >> release-notes.md
+                        git log ${previousTag}..HEAD --oneline --format="%s" | grep "^refactor:" >> release-notes.md || echo "_Ninguna_" >> release-notes.md
+
+                        cat release-notes.md
+                    """
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 13: Git Tag
+        // Etiqueta el commit actual con la versión semántica y
+        // lo empuja al repositorio remoto.
+        // -------------------------------------------------------
+        stage('Git Tag') {
+            steps {
+                sh """
+                    git tag -a ${IMAGE_TAG} -m "Release ${IMAGE_TAG} — desplegado por CI/CD"
+                    git push https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@github.com/JuanRosero2/circle-guard-public.git ${IMAGE_TAG}
+                """
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts allowEmptyArchive: true, artifacts: 'release-notes.md'
+        }
+        failure {
+            echo "Pipeline MASTER FAILED — NO SE DESPLEGÓ A PRODUCCIÓN"
+        }
+        success {
+            echo "Pipeline MASTER EXITOSO — ${IMAGE_TAG} en producción"
+        }
+    }
+}

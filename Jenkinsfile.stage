@@ -1,0 +1,279 @@
+// ============================================================
+// Jenkinsfile.stage — Pipeline declarativo para el ambiente cg-stage
+// Se ejecuta al hacer merge a la rama release/stage.
+// Incluye tests de integración (Testcontainers), E2E (Playwright)
+// y baseline de rendimiento (Locust).
+// ============================================================
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_REGISTRY = "registry.circleguard.internal"
+        IMAGE_TAG       = "stage-${env.GIT_COMMIT?.take(8) ?: 'latest'}"
+        K8S_NAMESPACE   = "cg-stage"
+        DOCKER_CREDS    = credentials('docker-registry-credentials')
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+                sh 'chmod +x gradlew'
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 2: Unit Tests — igual que en dev
+        // -------------------------------------------------------
+        stage('Unit Tests') {
+            parallel {
+                stage('Test: auth-service') {
+                    steps {
+                        sh './gradlew :services:circleguard-auth-service:test --parallel --continue'
+                    }
+                    post {
+                        always { junit 'services/circleguard-auth-service/build/test-results/**/*.xml' }
+                    }
+                }
+                stage('Test: promotion-service') {
+                    steps {
+                        sh './gradlew :services:circleguard-promotion-service:test --parallel --continue'
+                    }
+                    post {
+                        always { junit 'services/circleguard-promotion-service/build/test-results/**/*.xml' }
+                    }
+                }
+                stage('Test: notification-service') {
+                    steps {
+                        sh './gradlew :services:circleguard-notification-service:test --parallel --continue'
+                    }
+                    post {
+                        always { junit 'services/circleguard-notification-service/build/test-results/**/*.xml' }
+                    }
+                }
+                stage('Test: form-service') {
+                    steps {
+                        sh './gradlew :services:circleguard-form-service:test --parallel --continue'
+                    }
+                    post {
+                        always { junit 'services/circleguard-form-service/build/test-results/**/*.xml' }
+                    }
+                }
+                stage('Test: identity-service') {
+                    steps {
+                        sh './gradlew :services:circleguard-identity-service:test --parallel --continue'
+                    }
+                    post {
+                        always {
+                            junit allowEmptyResults: true,
+                                  testResults: 'services/circleguard-identity-service/build/test-results/**/*.xml'
+                        }
+                    }
+                }
+                stage('Test: gateway-service') {
+                    steps {
+                        sh './gradlew :services:circleguard-gateway-service:test --parallel --continue'
+                    }
+                    post {
+                        always {
+                            junit allowEmptyResults: true,
+                                  testResults: 'services/circleguard-gateway-service/build/test-results/**/*.xml'
+                        }
+                    }
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 3: Build JARs (paralelo)
+        // -------------------------------------------------------
+        stage('Build JARs') {
+            parallel {
+                stage('JAR: auth-service')         { steps { sh './gradlew :services:circleguard-auth-service:bootJar --parallel -x test --no-daemon' } }
+                stage('JAR: gateway-service')      { steps { sh './gradlew :services:circleguard-gateway-service:bootJar --parallel -x test --no-daemon' } }
+                stage('JAR: identity-service')     { steps { sh './gradlew :services:circleguard-identity-service:bootJar --parallel -x test --no-daemon' } }
+                stage('JAR: promotion-service')    { steps { sh './gradlew :services:circleguard-promotion-service:bootJar --parallel -x test --no-daemon' } }
+                stage('JAR: notification-service') { steps { sh './gradlew :services:circleguard-notification-service:bootJar --parallel -x test --no-daemon' } }
+                stage('JAR: form-service')         { steps { sh './gradlew :services:circleguard-form-service:bootJar --parallel -x test --no-daemon' } }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 4: Docker Build & Push (paralelo)
+        // Contexto siempre en raíz (.) del repositorio.
+        // -------------------------------------------------------
+        stage('Docker Build') {
+            parallel {
+                stage('Docker: auth-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-auth-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/auth-service:${IMAGE_TAG} .
+                            docker push ${DOCKER_REGISTRY}/circleguard/auth-service:${IMAGE_TAG}
+                        """
+                    }
+                }
+                stage('Docker: gateway-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-gateway-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/gateway-service:${IMAGE_TAG} .
+                            docker push ${DOCKER_REGISTRY}/circleguard/gateway-service:${IMAGE_TAG}
+                        """
+                    }
+                }
+                stage('Docker: identity-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-identity-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/identity-service:${IMAGE_TAG} .
+                            docker push ${DOCKER_REGISTRY}/circleguard/identity-service:${IMAGE_TAG}
+                        """
+                    }
+                }
+                stage('Docker: promotion-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-promotion-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/promotion-service:${IMAGE_TAG} .
+                            docker push ${DOCKER_REGISTRY}/circleguard/promotion-service:${IMAGE_TAG}
+                        """
+                    }
+                }
+                stage('Docker: notification-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-notification-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/notification-service:${IMAGE_TAG} .
+                            docker push ${DOCKER_REGISTRY}/circleguard/notification-service:${IMAGE_TAG}
+                        """
+                    }
+                }
+                stage('Docker: form-service') {
+                    steps {
+                        sh """
+                            docker build -f services/circleguard-form-service/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/form-service:${IMAGE_TAG} .
+                            docker push ${DOCKER_REGISTRY}/circleguard/form-service:${IMAGE_TAG}
+                        """
+                    }
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 5: Deploy to cg-stage
+        // -------------------------------------------------------
+        stage('Deploy to cg-stage') {
+            steps {
+                script {
+                    sh "kubectl apply -f k8s/stage/ --recursive"
+                    def services = [
+                        'auth-service', 'gateway-service', 'identity-service',
+                        'promotion-service', 'notification-service', 'form-service'
+                    ]
+                    services.each { svc ->
+                        sh """
+                            kubectl set image deployment/${svc} \
+                                ${svc}=${DOCKER_REGISTRY}/circleguard/${svc}:${IMAGE_TAG} \
+                                -n ${K8S_NAMESPACE}
+                            kubectl rollout status deployment/${svc} -n ${K8S_NAMESPACE} --timeout=120s
+                        """
+                    }
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 6: Integration Tests (Testcontainers)
+        // Testcontainers levanta PostgreSQL/Neo4j reales en contenedores
+        // temporales para validar la integración de bases de datos.
+        // -------------------------------------------------------
+        stage('Integration Tests') {
+            steps {
+                sh './gradlew :services:circleguard-promotion-service:test --tests "*integration*" --no-daemon'
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true,
+                          testResults: 'services/circleguard-promotion-service/build/test-results/**/*.xml'
+                    publishHTML(target: [
+                        allowMissing: true,
+                        reportDir: 'services/circleguard-promotion-service/build/reports/tests/test',
+                        reportFiles: 'index.html',
+                        reportName: 'Integration Test Report'
+                    ])
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 7: E2E Tests con pytest + playwright
+        // Requiere que los servicios estén corriendo en stage.
+        // -------------------------------------------------------
+        stage('E2E Tests') {
+            steps {
+                sh '''
+                    cd tests/e2e
+                    pip install -q pytest playwright requests
+                    playwright install --with-deps chromium
+                    pytest test_circleguard_flows.py -v \
+                        --html=../../build/reports/e2e/report.html \
+                        --self-contained-html || true
+                '''
+            }
+            post {
+                always {
+                    publishHTML(target: [
+                        allowMissing: true,
+                        reportDir: 'build/reports/e2e',
+                        reportFiles: 'report.html',
+                        reportName: 'E2E Test Report'
+                    ])
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // STAGE 8: Performance Baseline (Locust)
+        // 30 usuarios, 2 minutos — baseline para detectar regresiones
+        // de rendimiento antes de aprobar el paso a master.
+        // -------------------------------------------------------
+        stage('Performance Baseline') {
+            steps {
+                sh '''
+                    pip install -q locust
+                    mkdir -p build/reports/perf
+                    cd tests/performance
+                    locust -f locustfile.py \
+                        --headless \
+                        --users 30 \
+                        --spawn-rate 5 \
+                        --run-time 2m \
+                        --host http://$(kubectl get svc gateway-service -n cg-stage \
+                            -o jsonpath='{.spec.clusterIP}'):8087 \
+                        --html ../../build/reports/perf/locust-baseline.html \
+                        --csv ../../build/reports/perf/locust-baseline || true
+                '''
+            }
+            post {
+                always {
+                    publishHTML(target: [
+                        allowMissing: true,
+                        reportDir: 'build/reports/perf',
+                        reportFiles: 'locust-baseline.html',
+                        reportName: 'Locust Baseline Report'
+                    ])
+                    archiveArtifacts allowEmptyArchive: true,
+                                     artifacts: 'build/reports/perf/*.csv'
+                }
+            }
+        }
+    }
+
+    post {
+        failure { echo "Pipeline STAGE FAILED" }
+        success { echo "Pipeline STAGE EXITOSO — ${IMAGE_TAG} en ${K8S_NAMESPACE}" }
+    }
+}

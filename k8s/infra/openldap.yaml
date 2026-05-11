@@ -1,0 +1,54 @@
+---
+# OpenLDAP 1.5.0 — directorio de usuarios para auth-service
+# Dominio: circleguard.edu, admin password: admin
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openldap
+  namespace: cg-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openldap
+  template:
+    metadata:
+      labels:
+        app: openldap
+    spec:
+      containers:
+        - name: openldap
+          image: osixia/openldap:1.5.0
+          ports:
+            - containerPort: 389    # LDAP sin TLS
+            - containerPort: 636    # LDAPS
+          env:
+            - name: LDAP_ORGANISATION
+              value: "CircleGuard"
+            - name: LDAP_DOMAIN
+              value: "circleguard.edu"
+            - name: LDAP_ADMIN_PASSWORD
+              value: "admin"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+            limits:
+              memory: "256Mi"
+              cpu: "150m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openldap-service
+  namespace: cg-dev
+spec:
+  selector:
+    app: openldap
+  ports:
+    - name: ldap
+      port: 389
+      targetPort: 389
+    - name: ldaps
+      port: 636
+      targetPort: 636
