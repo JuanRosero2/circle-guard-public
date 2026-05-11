@@ -17,6 +17,8 @@ pipeline {
         K8S_NAMESPACE   = "cg-dev"
         // Credencial de Docker configurada en Jenkins
         DOCKER_CREDS    = credentials('docker-hub-credentials')
+        // Controlar si se hace Docker Push (true/false)
+        DOCKER_PUSH_ENABLED = "true"
     }
 
     stages {
@@ -169,8 +171,13 @@ pipeline {
                             docker build -f services/circleguard-${service}/Dockerfile \
                                 -t ${DOCKER_REGISTRY}/circleguard/${service}:${IMAGE_TAG} .
                             echo "Successfully built ${service}"
-                            # Intentar hacer push pero continuar si falla (problema de scope del token)
-                            docker push ${DOCKER_REGISTRY}/circleguard/${service}:${IMAGE_TAG} || echo "Docker push failed for ${service} - continuing with pipeline..."
+                            # Docker push condicional basado en DOCKER_PUSH_ENABLED
+                            if [ "${DOCKER_PUSH_ENABLED}" = "true" ]; then
+                                echo "Attempting Docker push for ${service}..."
+                                docker push ${DOCKER_REGISTRY}/circleguard/${service}:${IMAGE_TAG} || echo "Docker push failed for ${service} - continuing with pipeline..."
+                            else
+                                echo "Docker push is disabled - skipping push for ${service}"
+                            fi
                         """
                     }
                 }
