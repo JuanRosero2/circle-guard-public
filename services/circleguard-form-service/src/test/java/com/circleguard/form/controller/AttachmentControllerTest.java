@@ -24,6 +24,8 @@ class AttachmentControllerTest {
 
     @Test
     void shouldUploadFile() throws Exception {
+        org.mockito.Mockito.when(storageService.store(org.mockito.ArgumentMatchers.any(MockMultipartFile.class))).thenReturn("random-file-name.pdf");
+
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "test.pdf",

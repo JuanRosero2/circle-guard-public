@@ -67,7 +67,7 @@ class StatusPromotionServiceTest {
         
         // Simular que el segundo query (update) retorna IDs liberados
         val resultMap = mapOf("releasedIds" to listOf(testAnonId))
-        `when`(querySpec.bind(any()).to(anyString()).fetch().one()).thenReturn(Optional.of(resultMap))
+        `when`(querySpec.bind(org.mockito.ArgumentMatchers.any(Any::class.java)).to(org.mockito.ArgumentMatchers.anyString()).fetch().one()).thenReturn(Optional.of(resultMap))
 
         statusLifecycleService.processAutomaticTransitions()
 
@@ -84,7 +84,7 @@ class StatusPromotionServiceTest {
         `when`(neo4jClient.query(anyString())).thenReturn(querySpec)
         
         // Simular resultado vacio
-        `when`(querySpec.bind(any()).to(anyString()).fetch().one()).thenReturn(Optional.empty())
+        `when`(querySpec.bind(org.mockito.ArgumentMatchers.any(Any::class.java)).to(org.mockito.ArgumentMatchers.anyString()).fetch().one()).thenReturn(Optional.empty())
 
         statusLifecycleService.processAutomaticTransitions()
 
