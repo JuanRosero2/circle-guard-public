@@ -203,22 +203,14 @@ pipeline {
                         ]
                         // Aplicar los manifiestos de configuración primero
                         sh "kubectl apply -f k8s/infra/ -n ${K8S_NAMESPACE}"
-                        sh "kubectl apply -f k8s/dev/ --recursive"
-
-                        // Actualizar la imagen de cada Deployment con la nueva tag
                         services.each { svc ->
                             sh """
-                                kubectl set image deployment/${svc} \
-                                    ${svc}=${DOCKER_REGISTRY}/circleguard/${svc}:${IMAGE_TAG} \
-                                    -n ${K8S_NAMESPACE}
+                                echo "Deploying ${svc} to ${K8S_NAMESPACE}..."
+                                kubectl set image deployment/${svc} ${svc}=${DOCKER_REGISTRY}/circleguard/${svc}:${IMAGE_TAG} -n ${K8S_NAMESPACE}
+                                kubectl rollout status deployment/${svc} -n ${K8S_NAMESPACE} --timeout=300s
+                                echo "Successfully deployed ${svc}"
                             """
                         }
-                    }
-                }
-            }
-        }
-
-        // -------------------------------------------------------
         // STAGE 6: Rollout Status
         // Verifica que todos los pods estén Running antes de hacer
         // el smoke test.
