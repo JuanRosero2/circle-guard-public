@@ -211,6 +211,10 @@ pipeline {
                                 echo "Successfully deployed ${svc}"
                             """
                         }
+                    }
+                }
+            }
+        }
         // STAGE 6: Rollout Status
         // Verifica que todos los pods estén Running antes de hacer
         // el smoke test.
