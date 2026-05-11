@@ -10,13 +10,13 @@ pipeline {
 
     environment {
         // Registry donde se publican las imágenes Docker
-        DOCKER_REGISTRY = "ghcr.io/juan0073"  // GitHub Container Registry - sin restricciones
+        DOCKER_REGISTRY = "ghcr.io/JuanRosero2"  // GitHub Container Registry - cuenta del proyecto
         // Tag de imagen basado en el short commit SHA para trazabilidad
         IMAGE_TAG       = "dev-${env.GIT_COMMIT?.take(8) ?: 'latest'}"
         // Namespace de Kubernetes para dev
         K8S_NAMESPACE   = "cg-dev"
         // Credencial de GitHub Container Registry configurada en Jenkins
-        DOCKER_CREDS    = credentials('ghcr-credentials')
+        DOCKER_CREDS    = credentials('docker-hub-credentials')
         // Controlar si se hace Docker Push (true/false)
         DOCKER_PUSH_ENABLED = "true"  // Habilitado para GitHub Container Registry
     }
