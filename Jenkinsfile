@@ -16,7 +16,7 @@ pipeline {
         // Namespace de Kubernetes para dev
         K8S_NAMESPACE   = "cg-dev"
         // Credencial de GitHub Container Registry configurada en Jenkins
-        DOCKER_CREDS    = credentials('docker-hub-credentials')
+        DOCKER_CREDS    = credentials('ghcr-credentials')
         // Controlar si se hace Docker Push (true/false)
         DOCKER_PUSH_ENABLED = "true"  // Habilitado para GitHub Container Registry
     }
