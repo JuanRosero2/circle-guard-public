@@ -254,7 +254,7 @@ pipeline {
     }
 
     post {
-    always {
+        always {
         // Solo intenta publicar si la carpeta de reportes existe
         script {
             if (fileExists('build/reports')) {
