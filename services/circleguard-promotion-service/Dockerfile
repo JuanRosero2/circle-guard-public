@@ -2,7 +2,7 @@
 # Stage 1: Builder — Monorepo Gradle, contexto = raíz del repo
 # promotion-service es el más pesado: Neo4j client + Kafka + Redis
 # ============================================================
-FROM ghcr.io/juanrosero2/openjdk:17-jdk-alpine AS builder
+FROM eclipse-temurin:17-jdk-alpine AS builder
 
 WORKDIR /workspace
 
@@ -21,7 +21,7 @@ RUN ./gradlew :services:circleguard-promotion-service:bootJar -x test --no-daemo
 # ============================================================
 # Stage 2: Runtime
 # ============================================================
-FROM ghcr.io/juanrosero2/openjdk:17-jdk-alpine AS runtime
+FROM eclipse-temurin:17-jre-alpine AS runtime
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
