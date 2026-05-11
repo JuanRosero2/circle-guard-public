@@ -3,6 +3,7 @@
 // Se ejecuta automáticamente en cada push a la rama main/develop.
 // Ejecuta tests unitarios, compila JARs, construye imágenes Docker
 // y despliega en el namespace cg-dev de Kubernetes.
+// Updated: Docker socket mounting configured for Jenkins
 // ============================================================
 pipeline {
     agent any
