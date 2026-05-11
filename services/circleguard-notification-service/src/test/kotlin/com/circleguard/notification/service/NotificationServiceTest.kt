@@ -144,7 +144,7 @@ class NotificationServiceTest {
 
         // Assert: no debe despachar para ACTIVE
         assertFalse(shouldDispatch, "Estado ACTIVE no debe generar notificaciones")
-        verifyNoInteractions(notificationDispatcher)
+        verifyNoInteractions(emailService, smsService, pushService, templateService)
     }
 
     /**

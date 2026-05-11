@@ -65,7 +65,7 @@ class StatusPromotionServiceTest {
         // Arrange: mock del cliente Neo4j que simula un usuario SUSPECT
         // con al menos un contacto CONFIRMED dentro de los últimos 14 días
         val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java)
-        val bindSpec = mock(Neo4jClient.OngoingMatchAndReturnWithBoundSortingAndPagingStatement::class.java)
+        val bindSpec = mock(Neo4jClient.RunnableSpec::class.java)
         val fetchSpec = mock(Neo4jClient.MappingSpec::class.java)
 
         `when`(neo4jClient.query(anyString())).thenReturn(querySpec as Neo4jClient.UnboundRunnableSpec)
@@ -87,7 +87,7 @@ class StatusPromotionServiceTest {
     fun `sin contactos confirmados el estado no cambia y no se publica en Kafka`() {
         // Arrange: Neo4j retorna lista vacía de usuarios a transicionar
         val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java)
-        val ongoingSpec = mock(Neo4jClient.OngoingMatchAndReturnWithBoundSortingAndPagingStatement::class.java)
+        val ongoingSpec = mock(Neo4jClient.RunnableSpec::class.java)
         val fetchSpec = mock(Neo4jClient.MappingSpec::class.java)
         val runnableSpec = mock(Neo4jClient.RunnableSpec::class.java)
 

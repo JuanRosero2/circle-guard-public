@@ -75,7 +75,7 @@ class AuthServiceTest {
     fun `credenciales invalidas lanzan excepcion de autenticacion`() {
         // Arrange: simular usuario existente
         val user = mock(LocalUser::class.java)
-        `when`(user.password).thenReturn("hashed_correct_password")
+        // No stubbing user.password here since it's not being called by the code under test before the exception is thrown
         `when`(localUserRepository.findByUsername("estudiante01")).thenReturn(Optional.of(user))
 
         // Assert: No debe retornar token con password incorrecto
