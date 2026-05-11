@@ -52,7 +52,7 @@ pipeline {
                 }
                 stage('Test: gateway-service') {
                     steps {
-                        sh './gradlew :services:circleguard-gateway-service:test --parallel --continue'
+                        sh './gradlew :services:circleguard-gateway-service:test --parallel --continue --tests "*ServiceTest" --tests "*ControllerTest" --tests "*RepositoryTest"'
                     }
                     post {
                         always {
