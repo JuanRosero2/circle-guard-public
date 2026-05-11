@@ -26,7 +26,7 @@ RUN ./gradlew :services:circleguard-auth-service:bootJar -x test --no-daemon
 # ============================================================
 # Stage 2: Runtime — Imagen mínima de producción
 # ============================================================
-FROM alpine:3.19 AS runtime
+FROM openjdk:17-jre-alpine AS runtime
 
 # Crear grupo y usuario no-root para ejecutar la aplicación
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
