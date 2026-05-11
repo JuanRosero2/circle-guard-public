@@ -1,0 +1,633 @@
+Started by user admin
+Obtained Jenkinsfile from git https://github.com/JuanRosero2/circle-guard-public.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/CircleGuard-Dev
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 8ea0133b-a528-42db-9bc3-d2502e5cc609
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/CircleGuard-Dev/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 4b33d464c1f4a6add340e34b1e8800f9a89ec703 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 4b33d464c1f4a6add340e34b1e8800f9a89ec703 # timeout=10
+Commit message: "jenkins6"
+ > git rev-list --no-walk 0ff8b757f7fb0f00b5c55e9cd75fc372d409ed30 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_CREDS or $DOCKER_CREDS_PSW
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 8ea0133b-a528-42db-9bc3-d2502e5cc609
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/CircleGuard-Dev/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 4b33d464c1f4a6add340e34b1e8800f9a89ec703 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 4b33d464c1f4a6add340e34b1e8800f9a89ec703 # timeout=10
+Commit message: "jenkins6"
+[Pipeline] sh
++ chmod +x gradlew
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] parallel
+[Pipeline] { (Branch: Test: auth-service)
+[Pipeline] { (Branch: Test: gateway-service)
+[Pipeline] { (Branch: Test: identity-service)
+[Pipeline] { (Branch: Test: promotion-service)
+[Pipeline] { (Branch: Test: notification-service)
+[Pipeline] { (Branch: Test: form-service)
+[Pipeline] stage
+[Pipeline] { (Test: auth-service)
+[Pipeline] stage
+[Pipeline] { (Test: gateway-service)
+[Pipeline] stage
+[Pipeline] { (Test: identity-service)
+[Pipeline] stage
+[Pipeline] { (Test: promotion-service)
+[Pipeline] stage
+[Pipeline] { (Test: notification-service)
+[Pipeline] stage
+[Pipeline] { (Test: form-service)
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ ./gradlew :services:circleguard-auth-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-gateway-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-identity-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-promotion-service:test --parallel --continue --tests *ServiceTest --tests *ListenerTest
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-notification-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-form-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+Starting a Gradle Daemon, 6 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 6 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 6 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 6 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 6 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 6 stopped Daemons could not be reused, use --status for details
+> Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-form-service:compileJava UP-TO-DATE
+> Task :services:circleguard-form-service:processResources UP-TO-DATE
+> Task :services:circleguard-form-service:classes UP-TO-DATE
+> Task :services:circleguard-form-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-form-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-form-service:processTestResources NO-SOURCE
+> Task :services:circleguard-form-service:testClasses UP-TO-DATE
+> Task :services:circleguard-form-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 15s
+5 actionable tasks: 5 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-auth-service:compileJava UP-TO-DATE
+> Task :services:circleguard-auth-service:processResources UP-TO-DATE
+> Task :services:circleguard-auth-service:classes UP-TO-DATE
+> Task :services:circleguard-auth-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-auth-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-auth-service:processTestResources UP-TO-DATE
+> Task :services:circleguard-auth-service:testClasses UP-TO-DATE
+> Task :services:circleguard-auth-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 19s
+6 actionable tasks: 6 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-promotion-service:compileJava UP-TO-DATE
+> Task :services:circleguard-promotion-service:processResources UP-TO-DATE
+> Task :services:circleguard-promotion-service:classes UP-TO-DATE
+> Task :services:circleguard-promotion-service:processTestResources UP-TO-DATE
+> Task :services:circleguard-notification-service:compileJava UP-TO-DATE
+> Task :services:circleguard-notification-service:processResources UP-TO-DATE
+> Task :services:circleguard-notification-service:classes UP-TO-DATE
+> Task :services:circleguard-notification-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-notification-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-notification-service:processTestResources NO-SOURCE
+> Task :services:circleguard-notification-service:testClasses UP-TO-DATE
+> Task :services:circleguard-notification-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 26s
+5 actionable tasks: 5 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-gateway-service:compileJava UP-TO-DATE
+> Task :services:circleguard-gateway-service:processResources UP-TO-DATE
+> Task :services:circleguard-gateway-service:classes UP-TO-DATE
+> Task :services:circleguard-gateway-service:compileTestKotlin NO-SOURCE
+> Task :services:circleguard-gateway-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-gateway-service:processTestResources NO-SOURCE
+> Task :services:circleguard-gateway-service:testClasses UP-TO-DATE
+> Task :services:circleguard-gateway-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 30s
+4 actionable tasks: 4 up-to-date
+> Task :services:circleguard-promotion-service:compileTestKotlin
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileTestJava
+> Task :services:circleguard-promotion-service:testClasses
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-identity-service:compileJava UP-TO-DATE
+> Task :services:circleguard-identity-service:processResources UP-TO-DATE
+> Task :services:circleguard-identity-service:classes UP-TO-DATE
+> Task :services:circleguard-identity-service:compileTestKotlin NO-SOURCE
+> Task :services:circleguard-identity-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-identity-service:processTestResources UP-TO-DATE
+> Task :services:circleguard-identity-service:testClasses UP-TO-DATE
+> Task :services:circleguard-identity-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 29s
+5 actionable tasks: 5 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+2026-05-11T08:21:32.974Z  INFO 4767 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:21:32.974Z  INFO 4767 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:21:32.974Z  INFO 4767 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:21:32.975Z  INFO 4767 --- [ntainer#1-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T08:21:32.975Z  INFO 4767 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:21:32.975Z  INFO 4767 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T08:21:32.975Z  INFO 4767 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:21:32.975Z  INFO 4767 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:21:32.975Z  INFO 4767 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:21:32.975Z  INFO 4767 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:21:32.975Z  INFO 4767 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T08:21:32.975Z  INFO 4767 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T08:21:32.976Z  INFO 4767 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T08:21:32.976Z  INFO 4767 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T08:21:32.976Z  INFO 4767 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T08:21:32.976Z  INFO 4767 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T08:21:32.978Z  INFO 4767 --- [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-2 unregistered
+2026-05-11T08:21:32.979Z  INFO 4767 --- [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+2026-05-11T08:21:32.979Z  INFO 4767 --- [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-1 unregistered
+2026-05-11T08:21:32.979Z  INFO 4767 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+2026-05-11T08:21:32.981Z  INFO 4767 --- [ionShutdownHook] o.neo4j.driver.internal.InternalDriver   : Closing driver instance 885633501
+2026-05-11T08:21:33.197Z  INFO 4767 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+> Task :services:circleguard-promotion-service:test
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 41s
+6 actionable tasks: 3 executed, 3 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build JARs)
+[Pipeline] parallel
+[Pipeline] { (Branch: JAR: auth-service)
+[Pipeline] { (Branch: JAR: gateway-service)
+[Pipeline] { (Branch: JAR: identity-service)
+[Pipeline] { (Branch: JAR: promotion-service)
+[Pipeline] { (Branch: JAR: notification-service)
+[Pipeline] { (Branch: JAR: form-service)
+[Pipeline] stage
+[Pipeline] { (JAR: auth-service)
+[Pipeline] stage
+[Pipeline] { (JAR: gateway-service)
+[Pipeline] stage
+[Pipeline] { (JAR: identity-service)
+[Pipeline] stage
+[Pipeline] { (JAR: promotion-service)
+[Pipeline] stage
+[Pipeline] { (JAR: notification-service)
+[Pipeline] stage
+[Pipeline] { (JAR: form-service)
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ ./gradlew :services:circleguard-auth-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-gateway-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-identity-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-notification-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-promotion-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-form-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+> Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-gateway-service:compileJava UP-TO-DATE
+> Task :services:circleguard-gateway-service:processResources UP-TO-DATE
+> Task :services:circleguard-gateway-service:classes UP-TO-DATE
+> Task :services:circleguard-gateway-service:resolveMainClassName
+> Task :services:circleguard-gateway-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 21s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-notification-service:compileJava UP-TO-DATE
+> Task :services:circleguard-notification-service:processResources UP-TO-DATE
+> Task :services:circleguard-notification-service:classes UP-TO-DATE
+> Task :services:circleguard-notification-service:resolveMainClassName
+> Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-notification-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 29s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileJava UP-TO-DATE
+> Task :services:circleguard-promotion-service:processResources UP-TO-DATE
+> Task :services:circleguard-promotion-service:classes UP-TO-DATE
+> Task :services:circleguard-promotion-service:resolveMainClassName
+> Task :services:circleguard-promotion-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 32s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-identity-service:compileJava UP-TO-DATE
+> Task :services:circleguard-identity-service:processResources UP-TO-DATE
+> Task :services:circleguard-identity-service:classes UP-TO-DATE
+> Task :services:circleguard-identity-service:resolveMainClassName
+> Task :services:circleguard-identity-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 34s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-form-service:compileJava UP-TO-DATE
+> Task :services:circleguard-form-service:processResources UP-TO-DATE
+> Task :services:circleguard-form-service:classes UP-TO-DATE
+> Task :services:circleguard-form-service:resolveMainClassName
+> Task :services:circleguard-form-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 34s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-auth-service:compileJava UP-TO-DATE
+> Task :services:circleguard-auth-service:processResources UP-TO-DATE
+> Task :services:circleguard-auth-service:classes UP-TO-DATE
+> Task :services:circleguard-auth-service:resolveMainClassName
+> Task :services:circleguard-auth-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 33s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker Build)
+[Pipeline] parallel
+[Pipeline] { (Branch: Docker: auth-service)
+[Pipeline] { (Branch: Docker: gateway-service)
+[Pipeline] { (Branch: Docker: identity-service)
+[Pipeline] { (Branch: Docker: promotion-service)
+[Pipeline] { (Branch: Docker: notification-service)
+[Pipeline] { (Branch: Docker: form-service)
+[Pipeline] stage
+[Pipeline] { (Docker: auth-service)
+[Pipeline] stage
+[Pipeline] { (Docker: gateway-service)
+[Pipeline] stage
+[Pipeline] { (Docker: identity-service)
+[Pipeline] stage
+[Pipeline] { (Docker: promotion-service)
+[Pipeline] stage
+[Pipeline] { (Docker: notification-service)
+[Pipeline] stage
+[Pipeline] { (Docker: form-service)
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PSW
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PSW
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PSW
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PSW
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PSW
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PSW
+[Pipeline] {
+[Pipeline] {
+[Pipeline] {
+[Pipeline] {
+[Pipeline] {
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ echo ****
++ docker login -u rosero007 --password-stdin
+/var/jenkins_home/workspace/CircleGuard-Dev@tmp/durable-1eaac35c/script.sh.copy: 2: docker: not found
+[Pipeline] }
++ echo ****
++ docker login -u rosero007 --password-stdin
+/var/jenkins_home/workspace/CircleGuard-Dev@tmp/durable-63b21337/script.sh.copy: 2: docker: not found
++ echo ****
++ docker login -u rosero007 --password-stdin
+/var/jenkins_home/workspace/CircleGuard-Dev@tmp/durable-3ebf07ff/script.sh.copy: 2: docker: not found
++ echo ****
++ docker login -u rosero007 --password-stdin
+/var/jenkins_home/workspace/CircleGuard-Dev@tmp/durable-bfd02a6d/script.sh.copy: 2: docker: not found
+[Pipeline] // withCredentials
++ echo ****
++ docker login -u rosero007 --password-stdin
+/var/jenkins_home/workspace/CircleGuard-Dev@tmp/durable-925dd9c3/script.sh.copy: 2: docker: not found
++ echo ****
++ docker login -u rosero007 --password-stdin
+/var/jenkins_home/workspace/CircleGuard-Dev@tmp/durable-08d885d6/script.sh.copy: 2: docker: not found
+[Pipeline] }
+[Pipeline] }
+[Pipeline] }
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // withCredentials
+[Pipeline] // withCredentials
+[Pipeline] }
+Failed in branch Docker: auth-service
+[Pipeline] }
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // withCredentials
+[Pipeline] }
+Failed in branch Docker: gateway-service
+[Pipeline] }
+Failed in branch Docker: identity-service
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] }
+Failed in branch Docker: promotion-service
+[Pipeline] }
+Failed in branch Docker: notification-service
+[Pipeline] // stage
+[Pipeline] }
+Failed in branch Docker: form-service
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy to cg-dev)
+Stage "Deploy to cg-dev" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Rollout Status)
+Stage "Rollout Status" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Smoke Test)
+Stage "Smoke Test" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] publishHTML
+[htmlpublisher] Archiving HTML reports...
+[htmlpublisher] Archiving at PROJECT level /var/jenkins_home/workspace/CircleGuard-Dev/build/reports to Test_20Report
+[htmlpublisher] Copying recursive using current thread
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 127
+Finished: FAILURE
