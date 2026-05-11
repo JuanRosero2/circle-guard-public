@@ -1,0 +1,542 @@
+Started by user admin
+Obtained Jenkinsfile from git https://github.com/JuanRosero2/circle-guard-public.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/CircleGuard-Dev
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 8ea0133b-a528-42db-9bc3-d2502e5cc609
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/CircleGuard-Dev/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 0ff8b757f7fb0f00b5c55e9cd75fc372d409ed30 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0ff8b757f7fb0f00b5c55e9cd75fc372d409ed30 # timeout=10
+Commit message: "jenkins5"
+ > git rev-list --no-walk 0ff8b757f7fb0f00b5c55e9cd75fc372d409ed30 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_CREDS or $DOCKER_CREDS_PSW
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 8ea0133b-a528-42db-9bc3-d2502e5cc609
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/CircleGuard-Dev/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 0ff8b757f7fb0f00b5c55e9cd75fc372d409ed30 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0ff8b757f7fb0f00b5c55e9cd75fc372d409ed30 # timeout=10
+Commit message: "jenkins5"
+[Pipeline] sh
++ chmod +x gradlew
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] parallel
+[Pipeline] { (Branch: Test: auth-service)
+[Pipeline] { (Branch: Test: gateway-service)
+[Pipeline] { (Branch: Test: identity-service)
+[Pipeline] { (Branch: Test: promotion-service)
+[Pipeline] { (Branch: Test: notification-service)
+[Pipeline] { (Branch: Test: form-service)
+[Pipeline] stage
+[Pipeline] { (Test: auth-service)
+[Pipeline] stage
+[Pipeline] { (Test: gateway-service)
+[Pipeline] stage
+[Pipeline] { (Test: identity-service)
+[Pipeline] stage
+[Pipeline] { (Test: promotion-service)
+[Pipeline] stage
+[Pipeline] { (Test: notification-service)
+[Pipeline] stage
+[Pipeline] { (Test: form-service)
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ ./gradlew :services:circleguard-auth-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-gateway-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-identity-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-promotion-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-notification-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-form-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+Starting a Gradle Daemon, 2 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 2 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 2 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 2 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 2 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 2 stopped Daemons could not be reused, use --status for details
+> Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-gateway-service:compileJava UP-TO-DATE
+> Task :services:circleguard-gateway-service:processResources UP-TO-DATE
+> Task :services:circleguard-gateway-service:classes UP-TO-DATE
+> Task :services:circleguard-gateway-service:compileTestKotlin NO-SOURCE
+> Task :services:circleguard-gateway-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-gateway-service:processTestResources NO-SOURCE
+> Task :services:circleguard-gateway-service:testClasses UP-TO-DATE
+> Task :services:circleguard-gateway-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 31s
+4 actionable tasks: 4 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-form-service:compileJava UP-TO-DATE
+> Task :services:circleguard-form-service:processResources UP-TO-DATE
+> Task :services:circleguard-form-service:classes UP-TO-DATE
+> Task :services:circleguard-form-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-form-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-form-service:processTestResources NO-SOURCE
+> Task :services:circleguard-form-service:testClasses UP-TO-DATE
+> Task :services:circleguard-form-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 34s
+5 actionable tasks: 5 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-notification-service:compileJava UP-TO-DATE
+> Task :services:circleguard-notification-service:processResources UP-TO-DATE
+> Task :services:circleguard-notification-service:classes UP-TO-DATE
+> Task :services:circleguard-notification-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-notification-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-notification-service:processTestResources NO-SOURCE
+> Task :services:circleguard-notification-service:testClasses UP-TO-DATE
+> Task :services:circleguard-notification-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 35s
+5 actionable tasks: 5 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-promotion-service:compileJava UP-TO-DATE
+> Task :services:circleguard-promotion-service:processResources UP-TO-DATE
+> Task :services:circleguard-promotion-service:classes UP-TO-DATE
+> Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-auth-service:compileJava UP-TO-DATE
+> Task :services:circleguard-auth-service:processResources UP-TO-DATE
+> Task :services:circleguard-auth-service:classes UP-TO-DATE
+> Task :services:circleguard-auth-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-auth-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-auth-service:processTestResources UP-TO-DATE
+> Task :services:circleguard-auth-service:testClasses UP-TO-DATE
+> Task :services:circleguard-auth-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 38s
+6 actionable tasks: 6 up-to-date
+Post stage
+> Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-identity-service:compileJava UP-TO-DATE
+> Task :services:circleguard-identity-service:processResources UP-TO-DATE
+> Task :services:circleguard-identity-service:classes UP-TO-DATE
+> Task :services:circleguard-identity-service:compileTestKotlin NO-SOURCE
+> Task :services:circleguard-identity-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-identity-service:processTestResources UP-TO-DATE
+> Task :services:circleguard-identity-service:testClasses UP-TO-DATE
+> Task :services:circleguard-identity-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 40s
+5 actionable tasks: 5 up-to-date
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+Post stage
+[Pipeline] junit
+Recording test results
+[Pipeline] }
+[Checks API] No suitable checks publisher found.
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-promotion-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-promotion-service:processTestResources UP-TO-DATE
+> Task :services:circleguard-promotion-service:testClasses UP-TO-DATE
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :services:circleguard-promotion-service:test
+
+HealthStatusControllerTestFixed > resolve_WithoutPermission_Returns403() FAILED
+    java.lang.AssertionError at HealthStatusControllerTest.java:75
+
+HealthStatusControllerTestFixed > resolve_WithPermission_CallsResolveStatus() FAILED
+    org.mockito.exceptions.verification.WantedButNotInvoked at HealthStatusControllerTest.java:64
+
+HealthStatusControllerTestFixed > confirmPositive_WithPermission_CallsUpdateStatus() FAILED
+    org.mockito.exceptions.verification.WantedButNotInvoked at HealthStatusControllerTest.java:51
+
+HealthStatusControllerTestFixed > resolve_Unauthenticated_Returns403() FAILED
+    java.lang.AssertionError at HealthStatusControllerTest.java:85
+
+PromotionPerformanceTest > initializationError FAILED
+    java.lang.IllegalStateException at DockerClientProviderStrategy.java:276
+
+AdministrativeCorrectionTest > initializationError FAILED
+    java.lang.IllegalStateException at DockerClientProviderStrategy.java:231
+
+HealthStatusReevaluationTest > initializationError FAILED
+    java.lang.IllegalStateException at DockerClientProviderStrategy.java:231
+
+FormPromotionIntegrationTest > initializationError FAILED
+    java.lang.IllegalStateException at DockerClientProviderStrategy.java:231
+
+PromotionIntegrationTest > initializationError FAILED
+    java.lang.IllegalStateException at DockerClientProviderStrategy.java:231
+
+2026-05-11T08:14:39.063Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.063Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.063Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.063Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T08:14:39.063Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.063Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T08:14:39.064Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.064Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.064Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.064Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.064Z  INFO 2334 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T08:14:39.064Z  INFO 2334 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T08:14:39.064Z  INFO 2334 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T08:14:39.064Z  INFO 2334 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T08:14:39.064Z  INFO 2334 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T08:14:39.064Z  INFO 2334 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T08:14:39.069Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-1 unregistered
+2026-05-11T08:14:39.069Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-2 unregistered
+2026-05-11T08:14:39.069Z  INFO 2334 --- [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+2026-05-11T08:14:39.069Z  INFO 2334 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+2026-05-11T08:14:39.071Z  INFO 2334 --- [ionShutdownHook] o.neo4j.driver.internal.InternalDriver   : Closing driver instance 83922010
+2026-05-11T08:14:39.157Z  INFO 2334 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Node -1 disconnected.
+2026-05-11T08:14:39.157Z  WARN 2334 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T08:14:39.157Z  WARN 2334 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T08:14:39.159Z  INFO 2334 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Node -1 disconnected.
+2026-05-11T08:14:39.159Z  WARN 2334 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T08:14:39.159Z  WARN 2334 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T08:14:39.288Z  INFO 2334 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-11T08:14:39.290Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.290Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.290Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.290Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T08:14:39.290Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.290Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T08:14:39.291Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.291Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.291Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.291Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T08:14:39.291Z  INFO 2334 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T08:14:39.291Z  INFO 2334 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T08:14:39.291Z  INFO 2334 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T08:14:39.291Z  INFO 2334 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T08:14:39.291Z  INFO 2334 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T08:14:39.291Z  INFO 2334 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T08:14:39.296Z  INFO 2334 --- [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-4 unregistered
+2026-05-11T08:14:39.296Z  INFO 2334 --- [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+2026-05-11T08:14:39.297Z  INFO 2334 --- [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-3 unregistered
+2026-05-11T08:14:39.297Z  INFO 2334 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+2026-05-11T08:14:39.299Z  INFO 2334 --- [ionShutdownHook] o.neo4j.driver.internal.InternalDriver   : Closing driver instance 617956928
+2026-05-11T08:14:39.522Z  INFO 2334 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+
+> Task :services:circleguard-promotion-service:test
+
+23 tests completed, 9 failed
+
+> Task :services:circleguard-promotion-service:test FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':services:circleguard-promotion-service:test'.
+> There were failing tests. See the report at: file:///var/jenkins_home/workspace/CircleGuard-Dev/services/circleguard-promotion-service/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 55s
+6 actionable tasks: 1 executed, 5 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+Failed in branch Test: promotion-service
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build JARs)
+Stage "Build JARs" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] parallel
+[Pipeline] { (Branch: JAR: auth-service)
+[Pipeline] { (Branch: JAR: gateway-service)
+[Pipeline] { (Branch: JAR: identity-service)
+[Pipeline] { (Branch: JAR: promotion-service)
+[Pipeline] { (Branch: JAR: notification-service)
+[Pipeline] { (Branch: JAR: form-service)
+[Pipeline] stage
+[Pipeline] { (JAR: auth-service)
+[Pipeline] stage
+[Pipeline] { (JAR: gateway-service)
+[Pipeline] stage
+[Pipeline] { (JAR: identity-service)
+[Pipeline] stage
+[Pipeline] { (JAR: promotion-service)
+[Pipeline] stage
+[Pipeline] { (JAR: notification-service)
+[Pipeline] stage
+[Pipeline] { (JAR: form-service)
+Stage "JAR: auth-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+Stage "JAR: gateway-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+Stage "JAR: identity-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+Stage "JAR: promotion-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+Stage "JAR: notification-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+Stage "JAR: form-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] }
+Failed in branch JAR: auth-service
+[Pipeline] }
+Failed in branch JAR: gateway-service
+[Pipeline] }
+Failed in branch JAR: identity-service
+[Pipeline] }
+Failed in branch JAR: promotion-service
+[Pipeline] }
+Failed in branch JAR: notification-service
+[Pipeline] }
+Failed in branch JAR: form-service
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker Build)
+Stage "Docker Build" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] parallel
+[Pipeline] { (Branch: Docker: auth-service)
+[Pipeline] { (Branch: Docker: gateway-service)
+[Pipeline] { (Branch: Docker: identity-service)
+[Pipeline] { (Branch: Docker: promotion-service)
+[Pipeline] { (Branch: Docker: notification-service)
+[Pipeline] { (Branch: Docker: form-service)
+[Pipeline] stage
+[Pipeline] { (Docker: auth-service)
+[Pipeline] stage
+[Pipeline] { (Docker: gateway-service)
+[Pipeline] stage
+[Pipeline] { (Docker: identity-service)
+[Pipeline] stage
+[Pipeline] { (Docker: promotion-service)
+[Pipeline] stage
+[Pipeline] { (Docker: notification-service)
+[Pipeline] stage
+[Pipeline] { (Docker: form-service)
+Stage "Docker: auth-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+Stage "Docker: gateway-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+Stage "Docker: identity-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+Stage "Docker: promotion-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+Stage "Docker: notification-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+Stage "Docker: form-service" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] }
+Failed in branch Docker: auth-service
+[Pipeline] }
+Failed in branch Docker: gateway-service
+[Pipeline] }
+Failed in branch Docker: identity-service
+[Pipeline] }
+Failed in branch Docker: promotion-service
+[Pipeline] }
+Failed in branch Docker: notification-service
+[Pipeline] }
+Failed in branch Docker: form-service
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy to cg-dev)
+Stage "Deploy to cg-dev" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Rollout Status)
+Stage "Rollout Status" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Smoke Test)
+Stage "Smoke Test" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] publishHTML
+[htmlpublisher] Archiving HTML reports...
+[htmlpublisher] Archiving at PROJECT level /var/jenkins_home/workspace/CircleGuard-Dev/build/reports to Test_20Report
+[htmlpublisher] Copying recursive using current thread
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE

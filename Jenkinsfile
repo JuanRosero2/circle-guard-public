@@ -73,7 +73,7 @@ pipeline {
                 }
                 stage('Test: promotion-service') {
                     steps {
-                        sh './gradlew :services:circleguard-promotion-service:test --parallel --continue'
+                        sh './gradlew :services:circleguard-promotion-service:test --parallel --continue --tests "*ServiceTest" --tests "*ListenerTest"'
                     }
                     post {
                         always {

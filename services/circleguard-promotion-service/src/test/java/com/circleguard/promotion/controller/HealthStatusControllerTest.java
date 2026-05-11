@@ -1,7 +1,6 @@
 package com.circleguard.promotion.controller;
 
 import com.circleguard.promotion.service.HealthStatusService;
-import com.circleguard.promotion.security.SecurityConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,14 +10,16 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.mockito.Mockito;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(HealthStatusController.class)
-@Import(SecurityConfig.class)
-class HealthStatusControllerTestFixed {
+@Import(com.circleguard.promotion.security.SecurityConfig.class)
+class HealthStatusControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -43,9 +44,13 @@ class HealthStatusControllerTestFixed {
     void confirmPositive_WithPermission_CallsUpdateStatus() throws Exception {
         String json = "{\"anonymousId\": \"user-1\"}";
 
+        // Configurar el mock para que no haga nada cuando se llame updateStatus
+        doNothing().when(statusService).updateStatus("user-1", "CONFIRMED");
+
         mockMvc.perform(post("/api/v1/health/confirmed")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
+                        .content(json)
+                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isOk());
 
         verify(statusService).updateStatus("user-1", "CONFIRMED");
@@ -56,9 +61,13 @@ class HealthStatusControllerTestFixed {
     void resolve_WithPermission_CallsResolveStatus() throws Exception {
         String json = "{\"anonymousId\": \"user-1\"}";
 
+        // Configurar el mock para que no haga nada cuando se llame resolveStatus
+        doNothing().when(statusService).resolveStatus("user-1", false);
+
         mockMvc.perform(post("/api/v1/health/resolve")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
+                        .content(json)
+                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isOk());
 
         verify(statusService).resolveStatus("user-1", false);
@@ -71,17 +80,19 @@ class HealthStatusControllerTestFixed {
 
         mockMvc.perform(post("/api/v1/health/resolve")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
+                        .content(json)
+                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    void resolve_Unauthenticated_Returns403() throws Exception {
+    void resolve_Unauthenticated_Returns401() throws Exception {
         String json = "{\"anonymousId\": \"user-1\"}";
 
         mockMvc.perform(post("/api/v1/health/resolve")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
-                .andExpect(status().isForbidden());
+                        .content(json)
+                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
+                .andExpect(status().isUnauthorized());
     }
 }
