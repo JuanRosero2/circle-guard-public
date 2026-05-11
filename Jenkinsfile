@@ -164,17 +164,13 @@ pipeline {
                     
                     // Build and push images sequentially to avoid resource conflicts
                     services.each { service ->
-                        stage("Docker: ${service}") {
-                            steps {
-                                sh """
-                                    echo "Building and pushing ${service}..."
-                                    docker build -f services/circleguard-${service}/Dockerfile \
-                                        -t ${DOCKER_REGISTRY}/circleguard/${service}:${IMAGE_TAG} .
-                                    docker push ${DOCKER_REGISTRY}/circleguard/${service}:${IMAGE_TAG}
-                                    echo "Successfully built and pushed ${service}"
-                                """
-                            }
-                        }
+                        sh """
+                            echo "Building and pushing ${service}..."
+                            docker build -f services/circleguard-${service}/Dockerfile \
+                                -t ${DOCKER_REGISTRY}/circleguard/${service}:${IMAGE_TAG} .
+                            docker push ${DOCKER_REGISTRY}/circleguard/${service}:${IMAGE_TAG}
+                            echo "Successfully built and pushed ${service}"
+                        """
                     }
                 }
             }
