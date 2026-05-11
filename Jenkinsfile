@@ -146,81 +146,34 @@ pipeline {
         }
 
         // -------------------------------------------------------
-        // STAGE 4: Docker Build & Push (paralelo)
+        // STAGE 4: Docker Build & Push (secuencial)
         // El contexto de build es SIEMPRE el punto (.) = raíz del repo.
         // Se usa -f para apuntar al Dockerfile del servicio específico.
         // -------------------------------------------------------
-        stage('Docker Build') {
-            parallel {
-                stage('Docker: auth-service') {
-                    steps {
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
-                            sh """
-                                echo \$DOCKER_PSW | docker login -u \$DOCKER_USR --password-stdin
-                                docker build -f services/circleguard-auth-service/Dockerfile \
-                                    -t ${DOCKER_REGISTRY}/circleguard/auth-service:${IMAGE_TAG} .
-                                docker push ${DOCKER_REGISTRY}/circleguard/auth-service:${IMAGE_TAG}
-                            """
-                        }
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    def services = ['auth-service', 'gateway-service', 'identity-service', 'promotion-service', 'notification-service', 'form-service']
+                    
+                    // Login to Docker Hub once
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
+                        sh """
+                            echo \$DOCKER_PSW | docker login -u \$DOCKER_USR --password-stdin
+                        """
                     }
-                }
-                stage('Docker: gateway-service') {
-                    steps {
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
-                            sh """
-                                echo \$DOCKER_PSW | docker login -u \$DOCKER_USR --password-stdin
-                                docker build -f services/circleguard-gateway-service/Dockerfile \
-                                    -t ${DOCKER_REGISTRY}/circleguard/gateway-service:${IMAGE_TAG} .
-                                docker push ${DOCKER_REGISTRY}/circleguard/gateway-service:${IMAGE_TAG}
-                            """
-                        }
-                    }
-                }
-                stage('Docker: identity-service') {
-                    steps {
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
-                            sh """
-                                echo \$DOCKER_PSW | docker login -u \$DOCKER_USR --password-stdin
-                                docker build -f services/circleguard-identity-service/Dockerfile \
-                                    -t ${DOCKER_REGISTRY}/circleguard/identity-service:${IMAGE_TAG} .
-                                docker push ${DOCKER_REGISTRY}/circleguard/identity-service:${IMAGE_TAG}
-                            """
-                        }
-                    }
-                }
-                stage('Docker: promotion-service') {
-                    steps {
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
-                            sh """
-                                echo \$DOCKER_PSW | docker login -u \$DOCKER_USR --password-stdin
-                                docker build -f services/circleguard-promotion-service/Dockerfile \
-                                    -t ${DOCKER_REGISTRY}/circleguard/promotion-service:${IMAGE_TAG} .
-                                docker push ${DOCKER_REGISTRY}/circleguard/promotion-service:${IMAGE_TAG}
-                            """
-                        }
-                    }
-                }
-                stage('Docker: notification-service') {
-                    steps {
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
-                            sh """
-                                echo \$DOCKER_PSW | docker login -u \$DOCKER_USR --password-stdin
-                                docker build -f services/circleguard-notification-service/Dockerfile \
-                                    -t ${DOCKER_REGISTRY}/circleguard/notification-service:${IMAGE_TAG} .
-                                docker push ${DOCKER_REGISTRY}/circleguard/notification-service:${IMAGE_TAG}
-                            """
-                        }
-                    }
-                }
-                stage('Docker: form-service') {
-                    steps {
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
-                            sh """
-                                echo \$DOCKER_PSW | docker login -u \$DOCKER_USR --password-stdin
-                                docker build -f services/circleguard-form-service/Dockerfile \
-                                    -t ${DOCKER_REGISTRY}/circleguard/form-service:${IMAGE_TAG} .
-                                docker push ${DOCKER_REGISTRY}/circleguard/form-service:${IMAGE_TAG}
-                            """
+                    
+                    // Build and push images sequentially to avoid resource conflicts
+                    services.each { service ->
+                        stage("Docker: ${service}") {
+                            steps {
+                                sh """
+                                    echo "Building and pushing ${service}..."
+                                    docker build -f services/circleguard-${service}/Dockerfile \
+                                        -t ${DOCKER_REGISTRY}/circleguard/${service}:${IMAGE_TAG} .
+                                    docker push ${DOCKER_REGISTRY}/circleguard/${service}:${IMAGE_TAG}
+                                    echo "Successfully built and pushed ${service}"
+                                """
+                            }
                         }
                     }
                 }
