@@ -1,0 +1,761 @@
+Started by user admin
+Obtained Jenkinsfile from git https://github.com/JuanRosero2/circle-guard-public.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/CircleGuard-Dev2
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 8ea0133b-a528-42db-9bc3-d2502e5cc609
+Cloning the remote Git repository
+Cloning repository https://github.com/JuanRosero2/circle-guard-public.git
+ > git init /var/jenkins_home/workspace/CircleGuard-Dev2 # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision c2cbe8a6e6aba6fbe17fd5fe4ec7c410a3a6516c (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c2cbe8a6e6aba6fbe17fd5fe4ec7c410a3a6516c # timeout=10
+Commit message: "jenkins28: update credentials to use ghcr-credentials for JuanRosero2"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_CREDS or $DOCKER_CREDS_PSW
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 8ea0133b-a528-42db-9bc3-d2502e5cc609
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/CircleGuard-Dev2/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision c2cbe8a6e6aba6fbe17fd5fe4ec7c410a3a6516c (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c2cbe8a6e6aba6fbe17fd5fe4ec7c410a3a6516c # timeout=10
+Commit message: "jenkins28: update credentials to use ghcr-credentials for JuanRosero2"
+[Pipeline] sh
++ chmod +x gradlew
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] parallel
+[Pipeline] { (Branch: Test: auth-service)
+[Pipeline] { (Branch: Test: gateway-service)
+[Pipeline] { (Branch: Test: identity-service)
+[Pipeline] { (Branch: Test: promotion-service)
+[Pipeline] { (Branch: Test: notification-service)
+[Pipeline] { (Branch: Test: form-service)
+[Pipeline] stage
+[Pipeline] { (Test: auth-service)
+[Pipeline] stage
+[Pipeline] { (Test: gateway-service)
+[Pipeline] stage
+[Pipeline] { (Test: identity-service)
+[Pipeline] stage
+[Pipeline] { (Test: promotion-service)
+[Pipeline] stage
+[Pipeline] { (Test: notification-service)
+[Pipeline] stage
+[Pipeline] { (Test: form-service)
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ ./gradlew :services:circleguard-auth-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-gateway-service:test --parallel --continue --tests *ServiceTest --tests *ControllerTest --tests *RepositoryTest
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-identity-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-promotion-service:test --parallel --continue --tests *ServiceTest --tests *ListenerTest
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-notification-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-form-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+Starting a Gradle Daemon, 10 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 10 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 10 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 10 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 10 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 10 stopped Daemons could not be reused, use --status for details
+> Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+
+> Task :services:circleguard-identity-service:compileJava
+Note: /var/jenkins_home/workspace/CircleGuard-Dev2/services/circleguard-identity-service/src/main/java/com/circleguard/identity/config/JwtAuthenticationFilter.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :services:circleguard-identity-service:processResources
+> Task :services:circleguard-identity-service:classes
+> Task :services:circleguard-identity-service:compileTestKotlin NO-SOURCE
+> Task :services:circleguard-identity-service:compileTestJava
+> Task :services:circleguard-identity-service:processTestResources
+> Task :services:circleguard-identity-service:testClasses
+> Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-gateway-service:compileJava
+> Task :services:circleguard-gateway-service:processResources
+> Task :services:circleguard-gateway-service:classes
+> Task :services:circleguard-gateway-service:compileTestKotlin NO-SOURCE
+> Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+
+> Task :services:circleguard-gateway-service:compileTestJava
+Note: /var/jenkins_home/workspace/CircleGuard-Dev2/services/circleguard-gateway-service/src/test/java/com/circleguard/gateway/service/QrValidationServiceTest.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :services:circleguard-gateway-service:processTestResources NO-SOURCE
+> Task :services:circleguard-gateway-service:testClasses
+> Task :services:circleguard-auth-service:compileJava
+> Task :services:circleguard-auth-service:processResources
+> Task :services:circleguard-auth-service:classes
+
+> Task :services:circleguard-promotion-service:compileJava
+Note: /var/jenkins_home/workspace/CircleGuard-Dev2/services/circleguard-promotion-service/src/main/java/com/circleguard/promotion/security/JwtAuthenticationFilter.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :services:circleguard-promotion-service:processResources
+> Task :services:circleguard-promotion-service:classes
+> Task :services:circleguard-notification-service:compileJava
+> Task :services:circleguard-notification-service:processResources
+> Task :services:circleguard-notification-service:classes
+> Task :services:circleguard-auth-service:processTestResources
+> Task :services:circleguard-promotion-service:processTestResources
+> Task :services:circleguard-notification-service:processTestResources NO-SOURCE
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :services:circleguard-form-service:compileJava
+> Task :services:circleguard-form-service:processResources
+> Task :services:circleguard-form-service:classes
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :services:circleguard-form-service:processTestResources NO-SOURCE
+> Task :services:circleguard-gateway-service:test
+w: Detected multiple Kotlin daemon sessions at kotlin/sessions
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 43s
+4 actionable tasks: 4 executed
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+2026-05-11T12:06:23.863Z  INFO 2646 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: drop table if exists identity_mappings cascade 
+> Task :services:circleguard-identity-service:test
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 46s
+5 actionable tasks: 5 executed
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-form-service:compileTestKotlin
+> Task :services:circleguard-promotion-service:compileTestKotlin
+
+> Task :services:circleguard-notification-service:compileTestKotlin
+w: file:///var/jenkins_home/workspace/CircleGuard-Dev2/services/circleguard-notification-service/src/test/kotlin/com/circleguard/notification/service/NotificationServiceTest.kt:139:13 Variable 'userId' is never used
+
+> Task :services:circleguard-notification-service:compileTestJava
+> Task :services:circleguard-notification-service:testClasses
+> Task :services:circleguard-auth-service:compileTestKotlin
+
+> Task :services:circleguard-auth-service:compileTestJava
+Note: /var/jenkins_home/workspace/CircleGuard-Dev2/services/circleguard-auth-service/src/test/java/com/circleguard/auth/service/JwtTokenServiceTest.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :services:circleguard-auth-service:testClasses
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :services:circleguard-form-service:compileTestJava
+> Task :services:circleguard-form-service:testClasses
+> Task :services:circleguard-promotion-service:compileTestJava
+> Task :services:circleguard-promotion-service:testClasses
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :services:circleguard-auth-service:test
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 59s
+6 actionable tasks: 6 executed
+> Task :services:circleguard-form-service:test
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 59s
+5 actionable tasks: 5 executed
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+Post stage
+[Pipeline] junit
+Recording test results
+[Pipeline] }
+[Checks API] No suitable checks publisher found.
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.142Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.143Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.143Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:42.143Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:42.143Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:42.143Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.143Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:42.143Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:42.143Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:42.143Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:42.145Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.145Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-3 unregistered
+2026-05-11T12:06:42.146Z  INFO 3107 --- [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+2026-05-11T12:06:42.146Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-priority-group-1 unregistered
+2026-05-11T12:06:42.146Z  INFO 3107 --- [ntainer#2-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-priority-group: Consumer stopped
+2026-05-11T12:06:42.146Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:42.146Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:42.146Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:42.147Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-2 unregistered
+2026-05-11T12:06:42.147Z  INFO 3107 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+2026-05-11T12:06:42.167Z  INFO 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Node -1 disconnected.
+2026-05-11T12:06:42.167Z  INFO 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:42.167Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:42.167Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:42.167Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:42.167Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:42.267Z  INFO 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:42.267Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:42.268Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:42.368Z  INFO 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:42.368Z  INFO 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Node -1 disconnected.
+2026-05-11T12:06:42.368Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:42.368Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:42.368Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:42.368Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:42.462Z  INFO 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Node -1 disconnected.
+2026-05-11T12:06:42.462Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:42.462Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:42.468Z  INFO 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:42.468Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:42.468Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:42.624Z  INFO 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:42.624Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:42.624Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:42.673Z  INFO 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:42.674Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:42.674Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:43.175Z  INFO 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:43.176Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:43.176Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:43.265Z  INFO 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:43.265Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:43.265Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:43.271Z  INFO 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:43.271Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:43.271Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:43.297Z  INFO 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Node -1 disconnected.
+2026-05-11T12:06:43.297Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:43.298Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:43.316Z  INFO 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Node -1 disconnected.
+2026-05-11T12:06:43.316Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:43.316Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:43.571Z  INFO 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Node -1 disconnected.
+2026-05-11T12:06:43.571Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:43.571Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:43.572Z  INFO 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:43.572Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:43.572Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:42.136Z  INFO 3274 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.136Z  INFO 3274 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.136Z  INFO 3274 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.136Z  INFO 3274 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.136Z  INFO 3274 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:42.136Z  INFO 3274 --- [ntainer#1-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:42.137Z  INFO 3274 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.137Z  INFO 3274 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.137Z  INFO 3274 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.137Z  INFO 3274 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:42.137Z  INFO 3274 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:42.137Z  INFO 3274 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:42.137Z  INFO 3274 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:42.137Z  INFO 3274 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:42.138Z  INFO 3274 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:42.138Z  INFO 3274 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:42.142Z  INFO 3274 --- [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-1 unregistered
+2026-05-11T12:06:42.143Z  INFO 3274 --- [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-2 unregistered
+2026-05-11T12:06:42.143Z  INFO 3274 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+2026-05-11T12:06:42.144Z  INFO 3274 --- [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+2026-05-11T12:06:42.147Z  INFO 3274 --- [ionShutdownHook] o.neo4j.driver.internal.InternalDriver   : Closing driver instance 103753745
+2026-05-11T12:06:42.363Z  INFO 3274 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+> Task :services:circleguard-promotion-service:test
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 4s
+6 actionable tasks: 6 executed
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+2026-05-11T12:06:43.677Z  INFO 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:43.677Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:43.677Z  WARN 3107 --- [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:43.877Z  INFO 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:43.877Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:43.877Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:44.150Z  INFO 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Node -1 disconnected.
+2026-05-11T12:06:44.150Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:44.151Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:44.169Z  INFO 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Node -1 disconnected.
+2026-05-11T12:06:44.169Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:44.169Z  WARN 3107 --- [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:44.175Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:44.177Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-priority-group-4 unregistered
+2026-05-11T12:06:44.177Z  INFO 3107 --- [ntainer#2-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-priority-group: Consumer stopped
+2026-05-11T12:06:44.178Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-6 unregistered
+2026-05-11T12:06:44.178Z  INFO 3107 --- [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+2026-05-11T12:06:44.178Z  INFO 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Node -1 disconnected.
+2026-05-11T12:06:44.178Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+2026-05-11T12:06:44.179Z  WARN 3107 --- [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+2026-05-11T12:06:44.179Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-5 unregistered
+2026-05-11T12:06:44.179Z  INFO 3107 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+2026-05-11T12:06:44.181Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.181Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.181Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:44.181Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.181Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.181Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-7, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-9, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-8, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:44.182Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:44.183Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:44.183Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:44.183Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:44.185Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-9 unregistered
+2026-05-11T12:06:44.185Z  INFO 3107 --- [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+2026-05-11T12:06:44.185Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-priority-group-7 unregistered
+2026-05-11T12:06:44.185Z  INFO 3107 --- [ntainer#2-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-priority-group: Consumer stopped
+2026-05-11T12:06:44.186Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-8 unregistered
+2026-05-11T12:06:44.186Z  INFO 3107 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Unsubscribed all topics or patterns and assigned partitions
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-12, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-11, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.188Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-10, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+2026-05-11T12:06:44.189Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:44.189Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:44.189Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-11T12:06:44.189Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:44.189Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:44.189Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-11T12:06:44.189Z  INFO 3107 --- [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:44.189Z  INFO 3107 --- [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:44.189Z  INFO 3107 --- [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-11T12:06:44.190Z  INFO 3107 --- [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-12 unregistered
+2026-05-11T12:06:44.190Z  INFO 3107 --- [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+2026-05-11T12:06:44.190Z  INFO 3107 --- [ntainer#2-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-priority-group-10 unregistered
+2026-05-11T12:06:44.190Z  INFO 3107 --- [ntainer#2-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-priority-group: Consumer stopped
+2026-05-11T12:06:44.191Z  INFO 3107 --- [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-11 unregistered
+2026-05-11T12:06:44.191Z  INFO 3107 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+> Task :services:circleguard-notification-service:test
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 6s
+5 actionable tasks: 5 executed
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build JARs)
+[Pipeline] parallel
+[Pipeline] { (Branch: JAR: auth-service)
+[Pipeline] { (Branch: JAR: gateway-service)
+[Pipeline] { (Branch: JAR: identity-service)
+[Pipeline] { (Branch: JAR: promotion-service)
+[Pipeline] { (Branch: JAR: notification-service)
+[Pipeline] { (Branch: JAR: form-service)
+[Pipeline] stage
+[Pipeline] { (JAR: auth-service)
+[Pipeline] stage
+[Pipeline] { (JAR: gateway-service)
+[Pipeline] stage
+[Pipeline] { (JAR: identity-service)
+[Pipeline] stage
+[Pipeline] { (JAR: promotion-service)
+[Pipeline] stage
+[Pipeline] { (JAR: notification-service)
+[Pipeline] stage
+[Pipeline] { (JAR: form-service)
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ ./gradlew :services:circleguard-auth-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-gateway-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-identity-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-promotion-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-notification-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-form-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+> Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-gateway-service:compileJava UP-TO-DATE
+> Task :services:circleguard-gateway-service:processResources UP-TO-DATE
+> Task :services:circleguard-gateway-service:classes UP-TO-DATE
+> Task :services:circleguard-gateway-service:resolveMainClassName
+> Task :services:circleguard-gateway-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 17s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-identity-service:compileJava UP-TO-DATE
+> Task :services:circleguard-identity-service:processResources UP-TO-DATE
+> Task :services:circleguard-identity-service:classes UP-TO-DATE
+> Task :services:circleguard-identity-service:resolveMainClassName
+> Task :services:circleguard-identity-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 22s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-notification-service:compileJava UP-TO-DATE
+> Task :services:circleguard-notification-service:processResources UP-TO-DATE
+> Task :services:circleguard-notification-service:classes UP-TO-DATE
+> Task :services:circleguard-notification-service:resolveMainClassName
+> Task :services:circleguard-notification-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 23s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileJava UP-TO-DATE
+> Task :services:circleguard-promotion-service:processResources UP-TO-DATE
+> Task :services:circleguard-promotion-service:classes UP-TO-DATE
+> Task :services:circleguard-promotion-service:resolveMainClassName
+> Task :services:circleguard-promotion-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 28s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-auth-service:compileJava UP-TO-DATE
+> Task :services:circleguard-auth-service:processResources UP-TO-DATE
+> Task :services:circleguard-auth-service:classes UP-TO-DATE
+> Task :services:circleguard-auth-service:resolveMainClassName
+> Task :services:circleguard-auth-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 26s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-form-service:compileJava UP-TO-DATE
+> Task :services:circleguard-form-service:processResources UP-TO-DATE
+> Task :services:circleguard-form-service:classes UP-TO-DATE
+> Task :services:circleguard-form-service:resolveMainClassName
+> Task :services:circleguard-form-service:bootJar
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev2/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 29s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker Build & Push)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PSW
+[Pipeline] {
+[Pipeline] sh
++ echo ****
++ docker login -u juan0073 --password-stdin
+/var/jenkins_home/workspace/CircleGuard-Dev2@tmp/durable-2a6a642f/script.sh.copy: 2: docker: not found
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy to cg-dev)
+Stage "Deploy to cg-dev" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Rollout Status)
+Stage "Rollout Status" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Smoke Test)
+Stage "Smoke Test" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] publishHTML
+[htmlpublisher] Archiving HTML reports...
+[htmlpublisher] Archiving at PROJECT level /var/jenkins_home/workspace/CircleGuard-Dev2/build/reports to Test_20Report
+[htmlpublisher] Copying recursive using current thread
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 127
+Finished: FAILURE

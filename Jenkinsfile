@@ -157,10 +157,10 @@ pipeline {
                 script {
                     def services = ['auth-service', 'gateway-service', 'identity-service', 'promotion-service', 'notification-service', 'form-service']
                     
-                    // Login to Docker Hub once
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
+                    // Login to GitHub Container Registry once
+                    withCredentials([usernamePassword(credentialsId: 'ghcr-credentials', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
                         sh """
-                            echo \$DOCKER_PSW | docker login -u \$DOCKER_USR --password-stdin
+                            echo \$DOCKER_PSW | docker login ${DOCKER_REGISTRY} -u \$DOCKER_USR --password-stdin
                         """
                     }
                     
