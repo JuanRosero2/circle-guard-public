@@ -304,20 +304,18 @@ pipeline {
     }
 
     post {
-        always {
-            // Publicar reporte de cobertura si existe
-            publishHTML(target: [
-                allowMissing: true,
-                reportDir: 'build/reports',
-                reportFiles: 'index.html',
-                reportName: 'Test Report'
-            ])
-        }
-        failure {
-            echo "Pipeline DEV FAILED — Revisar logs arriba"
-        }
-        success {
-            echo "Pipeline DEV EXITOSO — Imagen: ${IMAGE_TAG} desplegada en ${K8S_NAMESPACE}"
+    always {
+        // Solo intenta publicar si la carpeta de reportes existe
+        script {
+            if (fileExists('build/reports')) {
+                publishHTML(target: [
+                    allowMissing: true,
+                    reportDir: 'build/reports',
+                    reportFiles: 'index.html',
+                    reportName: 'Test Report'
+                ])
+            }
         }
     }
+}
 }
