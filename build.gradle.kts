@@ -1,9 +1,9 @@
 plugins {
-    id("org.springframework.boot") version "3.2.4" apply false
-    id("io.spring.dependency-management") version "1.1.4" apply false
-    kotlin("jvm") version "1.9.24" apply false
-    kotlin("plugin.spring") version "1.9.24" apply false
-    kotlin("plugin.jpa") version "1.9.24" apply false
+    id("org.springframework.boot") version "3.1.5" apply false
+    id("io.spring.dependency-management") version "1.1.3" apply false
+    kotlin("jvm") version "1.8.22" apply false
+    kotlin("plugin.spring") version "1.8.22" apply false
+    kotlin("plugin.jpa") version "1.8.22" apply false
 }
 
 allprojects {
@@ -20,13 +20,13 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
     extensions.configure<JavaPluginExtension> {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(21))
+            languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
 
     dependencies {
-        "implementation"(platform("org.springframework.boot:spring-boot-dependencies:3.2.4"))
-        "testImplementation"(platform("org.springframework.boot:spring-boot-dependencies:3.2.4"))
+        "implementation"(platform("org.springframework.boot:spring-boot-dependencies:3.1.5"))
+        "testImplementation"(platform("org.springframework.boot:spring-boot-dependencies:3.1.5"))
         "compileOnly"("org.projectlombok:lombok")
         "annotationProcessor"("org.projectlombok:lombok")
         "testCompileOnly"("org.projectlombok:lombok")
@@ -39,7 +39,7 @@ subprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "21"
+            jvmTarget = "17"
         }
     }
 

@@ -47,25 +47,19 @@ class StatusPromotionServiceTest {
 
     private val testAnonId = "anon-uuid-1234-5678"
 
-    // Configuración de los mocks de sistema antes de cada test
     @BeforeEach
     fun setup() {
         val settings = mock(SystemSettings::class.java)
-        `when`(settings.mandatoryFenceDays).thenReturn(14)
-        `when`(systemSettingsRepository.getSettings()).thenReturn(Optional.of(settings))
-        `when`(redisTemplate.opsForValue()).thenReturn(valueOperations)
+        lenient().`when`(settings.mandatoryFenceDays).thenReturn(14)
+        lenient().`when`(systemSettingsRepository.getSettings()).thenReturn(Optional.of(settings))
+        lenient().`when`(redisTemplate.opsForValue()).thenReturn(valueOperations)
     }
 
-    /**
-     * Test 1: sospechoso con contacto confirmado debe ser promovido a PROBABLE
-     * Verifica que se publique un evento Kafka con el nuevo estado.
-     */
     @Test
     fun `sospechoso con contacto confirmado es promovido a PROBABLE`() {
         val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java, RETURNS_DEEP_STUBS)
         `when`(neo4jClient.query(anyString())).thenReturn(querySpec)
         
-        // Simular que el segundo query (update) retorna IDs liberados
         val resultMap = mapOf("releasedIds" to listOf(testAnonId))
         `when`(querySpec.bind(org.mockito.ArgumentMatchers.any(Any::class.java)).to(org.mockito.ArgumentMatchers.anyString()).fetch().one()).thenReturn(Optional.of(resultMap))
 
@@ -74,16 +68,11 @@ class StatusPromotionServiceTest {
         verify(neo4jClient, atLeast(1)).query(anyString())
     }
 
-    /**
-     * Test 2: usuario sin contactos confirmados NO debe cambiar de estado
-     * y NO debe publicar nada en Kafka.
-     */
     @Test
     fun `sin contactos confirmados el estado no cambia y no se publica en Kafka`() {
         val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java, RETURNS_DEEP_STUBS)
         `when`(neo4jClient.query(anyString())).thenReturn(querySpec)
         
-        // Simular resultado vacio
         `when`(querySpec.bind(org.mockito.ArgumentMatchers.any(Any::class.java)).to(org.mockito.ArgumentMatchers.anyString()).fetch().one()).thenReturn(Optional.empty())
 
         statusLifecycleService.processAutomaticTransitions()
@@ -91,78 +80,50 @@ class StatusPromotionServiceTest {
         verifyNoInteractions(kafkaTemplate)
     }
 
-    /**
-     * Test 3: probable con 2+ contactos confirmados debe ser promovido a CONFIRMED
-     * Este test valida que la ventana temporal de 14 días se calcula correctamente.
-     */
     @Test
     fun `ventana de 14 dias se calcula correctamente como milisegundos`() {
-        // Arrange
-        val expectedWindowMs = 14L * 24 * 60 * 60 * 1000  // 1,209,600,000 ms
-
-        val settings = mock(SystemSettings::class.java)
-        `when`(settings.mandatoryFenceDays).thenReturn(14)
-        `when`(systemSettingsRepository.getSettings()).thenReturn(Optional.of(settings))
+        val expectedWindowMs = 14L * 24 * 60 * 60 * 1000  
 
         val beforeCall = System.currentTimeMillis()
 
-        val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java)
-        `when`(neo4jClient.query(anyString())).thenReturn(querySpec as Neo4jClient.UnboundRunnableSpec)
+        val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java, RETURNS_DEEP_STUBS)
+        `when`(neo4jClient.query(anyString())).thenReturn(querySpec)
+        `when`(querySpec.bind(org.mockito.ArgumentMatchers.any(Any::class.java)).to(org.mockito.ArgumentMatchers.anyString()).fetch().one()).thenReturn(Optional.empty())
 
-        // Act
         statusLifecycleService.processAutomaticTransitions()
 
         val afterCall = System.currentTimeMillis()
 
-        // Assert: el threshold debe estar en el rango correcto
         val expectedMin = beforeCall - expectedWindowMs
         val expectedMax = afterCall - expectedWindowMs
-        // Verificamos que los argumentos pasados a Neo4j incluyen el threshold correcto
-        // (verificación indirecta a través del tiempo de ejecución)
         assertTrue(expectedMax >= expectedMin, "Ventana de 14 días debe ser positiva")
     }
 
-    /**
-     * Test 4: el cambio de estado debe invalidar la clave Redis "user:status:{anonId}"
-     * así garantizamos que el cache no quede desactualizado tras una transición.
-     */
     @Test
     fun `cambio de estado invalida clave Redis para el usuario`() {
-        // Arrange
-        `when`(redisTemplate.opsForValue()).thenReturn(valueOperations)
-
-        // Simular que hay usuarios liberados
         val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java, RETURNS_DEEP_STUBS)
         `when`(neo4jClient.query(anyString())).thenReturn(querySpec)
+        
+        val resultMap = mapOf("releasedIds" to listOf(testAnonId))
+        `when`(querySpec.bind(org.mockito.ArgumentMatchers.any(Any::class.java)).to(org.mockito.ArgumentMatchers.anyString()).fetch().one()).thenReturn(Optional.of(resultMap))
 
-        // Act
         statusLifecycleService.processAutomaticTransitions()
 
-        // Assert: si no hay usuarios liberados, no se actualiza Redis
-        // Si los hubiera, se llamaría a multiSet con "user:status:{id}" → "ACTIVE"
-        // El mock no retorna resultados, así que multiSet no se llama
-        verify(valueOperations, never()).multiSet(anyMap())
+        verify(valueOperations, atLeastOnce()).multiSet(org.mockito.ArgumentMatchers.anyMap())
     }
 
-    /**
-     * Test 5: contacto fuera de la ventana de 14 días no debe triggear transición
-     * El repositorio retorna lista vacía cuando todos los contactos son viejos.
-     */
     @Test
     fun `contacto fuera de ventana 14 dias no genera transicion de estado`() {
-        // Arrange: simular settings con ventana muy corta (0 días) para que
-        // todos los contactos queden fuera de la ventana
         val settings = mock(SystemSettings::class.java)
-        `when`(settings.mandatoryFenceDays).thenReturn(0)
-        `when`(systemSettingsRepository.getSettings()).thenReturn(Optional.of(settings))
+        lenient().`when`(settings.mandatoryFenceDays).thenReturn(0)
+        lenient().`when`(systemSettingsRepository.getSettings()).thenReturn(Optional.of(settings))
 
-        val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java)
-        `when`(neo4jClient.query(anyString())).thenReturn(querySpec as Neo4jClient.UnboundRunnableSpec)
+        val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java, RETURNS_DEEP_STUBS)
+        `when`(neo4jClient.query(anyString())).thenReturn(querySpec)
+        `when`(querySpec.bind(org.mockito.ArgumentMatchers.any(Any::class.java)).to(org.mockito.ArgumentMatchers.anyString()).fetch().one()).thenReturn(Optional.empty())
 
-        // Act
         statusLifecycleService.processAutomaticTransitions()
 
-        // Assert: Kafka no debe recibir ningún evento ya que no hay transiciones
         verifyNoInteractions(kafkaTemplate)
     }
 }

@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(HealthStatusController.class)
 @Import(SecurityConfig.class)
-class HealthStatusControllerTestFixed {
+class HealthStatusControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

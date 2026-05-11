@@ -22,10 +22,10 @@ PROMOTION_URL  = "http://localhost:8088"
 FORM_URL       = "http://localhost:8086"
 
 # Credenciales de prueba (existen gracias a V2__seed_test_users.sql + LDAP)
-TEST_USERNAME  = "estudiante01"
+TEST_USERNAME  = "health_user"
 TEST_PASSWORD  = "password123"
-ADMIN_USERNAME = "admin01"
-ADMIN_PASSWORD = "admin"
+ADMIN_USERNAME = "super_admin"
+ADMIN_PASSWORD = "password123"
 
 
 @pytest.fixture(scope="session")
@@ -36,7 +36,7 @@ def jwt_token() -> str:
     scope="session" significa que el login solo ocurre una vez por ejecución de pytest.
     """
     resp = requests.post(
-        f"{AUTH_URL}/api/auth/login",
+        f"{AUTH_URL}/api/v1/auth/login",
         json={"username": TEST_USERNAME, "password": TEST_PASSWORD, "type": "local"},
         timeout=10
     )

@@ -35,13 +35,13 @@ FORM_URL        = "http://localhost:8086"
 # ─────────────────────────────────────────────────────────────────────────────
 def test_login_and_access_protected_resource():
     """
-    Flujo: POST /api/auth/login → obtener JWT → GET gateway → 200 OK
+    Flujo: POST /api/v1/auth/login → obtener JWT → GET gateway → 200 OK
     El gateway valida el JWT (vía Redis) y permite el acceso al recurso.
     """
     # Step 1: Login para obtener JWT
     login_resp = requests.post(
-        f"{AUTH_URL}/api/auth/login",
-        json={"username": "estudiante01", "password": "password123", "type": "local"},
+        f"{AUTH_URL}/api/v1/auth/login",
+        json={"username": "health_user", "password": "password123", "type": "local"},
         timeout=10
     )
     assert login_resp.status_code == 200, \
