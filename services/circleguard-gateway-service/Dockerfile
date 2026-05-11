@@ -1,7 +1,7 @@
 # ============================================================
 # Stage 1: Builder — Monorepo Gradle, contexto = raíz del repo
 # ============================================================
-FROM eclipse-temurin:17-jdk-alpine AS builder
+FROM openjdk:17-jdk-alpine AS builder
 
 WORKDIR /workspace
 
@@ -17,7 +17,7 @@ RUN ./gradlew :services:circleguard-gateway-service:bootJar -x test --no-daemon
 # ============================================================
 # Stage 2: Runtime
 # ============================================================
-FROM eclipse-temurin:17-jre-alpine AS runtime
+FROM openjdk:17-jre-alpine AS runtime
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
