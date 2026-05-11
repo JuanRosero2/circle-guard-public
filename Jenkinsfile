@@ -18,7 +18,7 @@ pipeline {
         // Credencial de Docker configurada en Jenkins
         DOCKER_CREDS    = credentials('docker-hub-credentials')
         // Controlar si se hace Docker Push (true/false)
-        DOCKER_PUSH_ENABLED = "true"
+        DOCKER_PUSH_ENABLED = "false"  // Temporalmente deshabilitado por restricciones de cuenta Docker Hub
     }
 
     stages {
