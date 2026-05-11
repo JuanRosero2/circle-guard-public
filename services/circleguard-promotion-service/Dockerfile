@@ -2,7 +2,7 @@
 # Stage 1: Builder — Monorepo Gradle, contexto = raíz del repo
 # promotion-service es el más pesado: Neo4j client + Kafka + Redis
 # ============================================================
-FROM eclipse-temurin:17-jdk-alpine AS builder
+FROM openjdk:17-jdk-alpine AS builder
 
 WORKDIR /workspace
 

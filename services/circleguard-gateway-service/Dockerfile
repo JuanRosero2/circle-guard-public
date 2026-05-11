@@ -1,7 +1,7 @@
 # ============================================================
 # Stage 1: Builder — Monorepo Gradle, contexto = raíz del repo
 # ============================================================
-FROM eclipse-temurin:17-jdk-alpine AS builder
+FROM openjdk:17-jdk-alpine AS builder
 WORKDIR /workspace
 # Copiar wrapper de Gradle y archivos de configuración del monorepo
 COPY gradlew .

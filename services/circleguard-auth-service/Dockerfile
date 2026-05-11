@@ -3,7 +3,7 @@
 # El contexto de build SIEMPRE es la raíz del repositorio (.)
 # para que Gradle pueda resolver el proyecto multi-módulo.
 # ============================================================
-FROM eclipse-temurin:17-jdk-alpine AS builder
+FROM openjdk:17-jdk-alpine AS builder
 
 WORKDIR /workspace
 
