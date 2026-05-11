@@ -10,12 +10,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import com.circleguard.form.service.StorageService;
 
 @WebMvcTest(AttachmentController.class)
 class AttachmentControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private StorageService storageService;
 
     @Test
     void shouldUploadFile() throws Exception {

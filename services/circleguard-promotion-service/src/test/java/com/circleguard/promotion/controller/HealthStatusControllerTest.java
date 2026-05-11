@@ -25,6 +25,9 @@ class HealthStatusControllerTest {
     @MockBean
     private HealthStatusService statusService;
 
+    @MockBean
+    private com.circleguard.promotion.security.JwtAuthenticationFilter jwtAuthFilter;
+
     @Test
     @WithMockUser(authorities = "HEALTH_CENTER")
     void confirmPositive_WithPermission_CallsUpdateStatus() throws Exception {

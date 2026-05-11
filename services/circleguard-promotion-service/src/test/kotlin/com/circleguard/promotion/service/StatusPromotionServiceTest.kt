@@ -62,20 +62,15 @@ class StatusPromotionServiceTest {
      */
     @Test
     fun `sospechoso con contacto confirmado es promovido a PROBABLE`() {
-        // Arrange: mock del cliente Neo4j que simula un usuario SUSPECT
-        // con al menos un contacto CONFIRMED dentro de los últimos 14 días
-        val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java)
-        val bindSpec = mock(Neo4jClient.RunnableSpec::class.java)
-        val fetchSpec = mock(Neo4jClient.MappingSpec::class.java)
+        val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java, RETURNS_DEEP_STUBS)
+        `when`(neo4jClient.query(anyString())).thenReturn(querySpec)
+        
+        // Simular que el segundo query (update) retorna IDs liberados
+        val resultMap = mapOf("releasedIds" to listOf(testAnonId))
+        `when`(querySpec.bind(any()).to(anyString()).fetch().one()).thenReturn(Optional.of(resultMap))
 
-        `when`(neo4jClient.query(anyString())).thenReturn(querySpec as Neo4jClient.UnboundRunnableSpec)
-
-        // Act: ejecutar la transición automática
-        // dado que es un @Scheduled, lo llamamos directamente
         statusLifecycleService.processAutomaticTransitions()
 
-        // Assert: se debe llamar al query de Neo4j al menos 2 veces
-        // (una para diagnóstico, otra para update)
         verify(neo4jClient, atLeast(1)).query(anyString())
     }
 
@@ -85,20 +80,14 @@ class StatusPromotionServiceTest {
      */
     @Test
     fun `sin contactos confirmados el estado no cambia y no se publica en Kafka`() {
-        // Arrange: Neo4j retorna lista vacía de usuarios a transicionar
-        val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java)
-        val ongoingSpec = mock(Neo4jClient.RunnableSpec::class.java)
-        val fetchSpec = mock(Neo4jClient.MappingSpec::class.java)
-        val runnableSpec = mock(Neo4jClient.RunnableSpec::class.java)
+        val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java, RETURNS_DEEP_STUBS)
+        `when`(neo4jClient.query(anyString())).thenReturn(querySpec)
+        
+        // Simular resultado vacio
+        `when`(querySpec.bind(any()).to(anyString()).fetch().one()).thenReturn(Optional.empty())
 
-        `when`(neo4jClient.query(anyString())).thenReturn(querySpec as Neo4jClient.UnboundRunnableSpec)
-
-        // Act
         statusLifecycleService.processAutomaticTransitions()
 
-        // Assert: si no hay usuarios liberados, kafkaTemplate NO se llama
-        // El resultado vacío se simula via el mock de runnableSpec que retorna Optional.empty()
-        // La lógica real verifica if (releasedIds != null && !releasedIds.isEmpty())
         verifyNoInteractions(kafkaTemplate)
     }
 
@@ -143,8 +132,8 @@ class StatusPromotionServiceTest {
         `when`(redisTemplate.opsForValue()).thenReturn(valueOperations)
 
         // Simular que hay usuarios liberados
-        val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java)
-        `when`(neo4jClient.query(anyString())).thenReturn(querySpec as Neo4jClient.UnboundRunnableSpec)
+        val querySpec = mock(Neo4jClient.UnboundRunnableSpec::class.java, RETURNS_DEEP_STUBS)
+        `when`(neo4jClient.query(anyString())).thenReturn(querySpec)
 
         // Act
         statusLifecycleService.processAutomaticTransitions()
