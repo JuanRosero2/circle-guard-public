@@ -1,0 +1,1825 @@
+Started by user admin
+Obtained Jenkinsfile from git https://github.com/JuanRosero2/circle-guard-public.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/CircleGuard-Dev
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 8ea0133b-a528-42db-9bc3-d2502e5cc609
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/CircleGuard-Dev/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision b76b9a7de899d180e98586d98cc4aebc2fad925a (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b76b9a7de899d180e98586d98cc4aebc2fad925a # timeout=10
+Commit message: "jenkins17: switch to new Docker Hub account juan0073 to resolve Google OAuth issues"
+ > git rev-list --no-walk cd0fe3fd1795219313b8c2993bf63ebbb7ca6eab # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_CREDS or $DOCKER_CREDS_PSW
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 8ea0133b-a528-42db-9bc3-d2502e5cc609
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/CircleGuard-Dev/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision b76b9a7de899d180e98586d98cc4aebc2fad925a (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b76b9a7de899d180e98586d98cc4aebc2fad925a # timeout=10
+Commit message: "jenkins17: switch to new Docker Hub account juan0073 to resolve Google OAuth issues"
+[Pipeline] sh
++ chmod +x gradlew
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] parallel
+[Pipeline] { (Branch: Test: auth-service)
+[Pipeline] { (Branch: Test: gateway-service)
+[Pipeline] { (Branch: Test: identity-service)
+[Pipeline] { (Branch: Test: promotion-service)
+[Pipeline] { (Branch: Test: notification-service)
+[Pipeline] { (Branch: Test: form-service)
+[Pipeline] stage
+[Pipeline] { (Test: auth-service)
+[Pipeline] stage
+[Pipeline] { (Test: gateway-service)
+[Pipeline] stage
+[Pipeline] { (Test: identity-service)
+[Pipeline] stage
+[Pipeline] { (Test: promotion-service)
+[Pipeline] stage
+[Pipeline] { (Test: notification-service)
+[Pipeline] stage
+[Pipeline] { (Test: form-service)
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ ./gradlew :services:circleguard-auth-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-gateway-service:test --parallel --continue --tests *ServiceTest --tests *ControllerTest --tests *RepositoryTest
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-identity-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-promotion-service:test --parallel --continue --tests *ServiceTest --tests *ListenerTest
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-notification-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-form-service:test --parallel --continue
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+Starting a Gradle Daemon, 40 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 40 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 40 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 40 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 40 stopped Daemons could not be reused, use --status for details
+Starting a Gradle Daemon, 40 stopped Daemons could not be reused, use --status for details
+> Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-notification-service:compileJava UP-TO-DATE
+> Task :services:circleguard-notification-service:processResources UP-TO-DATE
+> Task :services:circleguard-notification-service:classes UP-TO-DATE
+> Task :services:circleguard-notification-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-notification-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-notification-service:processTestResources NO-SOURCE
+> Task :services:circleguard-notification-service:testClasses UP-TO-DATE
+> Task :services:circleguard-notification-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 17s
+5 actionable tasks: 5 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-identity-service:compileJava UP-TO-DATE
+> Task :services:circleguard-identity-service:processResources UP-TO-DATE
+> Task :services:circleguard-identity-service:classes UP-TO-DATE
+> Task :services:circleguard-identity-service:compileTestKotlin NO-SOURCE
+> Task :services:circleguard-identity-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-identity-service:processTestResources UP-TO-DATE
+> Task :services:circleguard-identity-service:testClasses UP-TO-DATE
+> Task :services:circleguard-identity-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 24s
+5 actionable tasks: 5 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-gateway-service:compileJava UP-TO-DATE
+> Task :services:circleguard-gateway-service:processResources UP-TO-DATE
+> Task :services:circleguard-gateway-service:classes UP-TO-DATE
+> Task :services:circleguard-gateway-service:compileTestKotlin NO-SOURCE
+> Task :services:circleguard-gateway-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-gateway-service:processTestResources NO-SOURCE
+> Task :services:circleguard-gateway-service:testClasses UP-TO-DATE
+> Task :services:circleguard-gateway-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 26s
+4 actionable tasks: 4 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileJava UP-TO-DATE
+> Task :services:circleguard-promotion-service:processResources UP-TO-DATE
+> Task :services:circleguard-promotion-service:classes UP-TO-DATE
+> Task :services:circleguard-promotion-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-promotion-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-promotion-service:processTestResources UP-TO-DATE
+> Task :services:circleguard-promotion-service:testClasses UP-TO-DATE
+> Task :services:circleguard-promotion-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 28s
+6 actionable tasks: 6 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-form-service:compileJava UP-TO-DATE
+> Task :services:circleguard-form-service:processResources UP-TO-DATE
+> Task :services:circleguard-form-service:classes UP-TO-DATE
+> Task :services:circleguard-form-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-form-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-form-service:processTestResources NO-SOURCE
+> Task :services:circleguard-form-service:testClasses UP-TO-DATE
+> Task :services:circleguard-form-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 31s
+5 actionable tasks: 5 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-auth-service:compileJava UP-TO-DATE
+> Task :services:circleguard-auth-service:processResources UP-TO-DATE
+> Task :services:circleguard-auth-service:classes UP-TO-DATE
+> Task :services:circleguard-auth-service:compileTestKotlin UP-TO-DATE
+> Task :services:circleguard-auth-service:compileTestJava UP-TO-DATE
+> Task :services:circleguard-auth-service:processTestResources UP-TO-DATE
+> Task :services:circleguard-auth-service:testClasses UP-TO-DATE
+> Task :services:circleguard-auth-service:test UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 30s
+6 actionable tasks: 6 up-to-date
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build JARs)
+[Pipeline] parallel
+[Pipeline] { (Branch: JAR: auth-service)
+[Pipeline] { (Branch: JAR: gateway-service)
+[Pipeline] { (Branch: JAR: identity-service)
+[Pipeline] { (Branch: JAR: promotion-service)
+[Pipeline] { (Branch: JAR: notification-service)
+[Pipeline] { (Branch: JAR: form-service)
+[Pipeline] stage
+[Pipeline] { (JAR: auth-service)
+[Pipeline] stage
+[Pipeline] { (JAR: gateway-service)
+[Pipeline] stage
+[Pipeline] { (JAR: identity-service)
+[Pipeline] stage
+[Pipeline] { (JAR: promotion-service)
+[Pipeline] stage
+[Pipeline] { (JAR: notification-service)
+[Pipeline] stage
+[Pipeline] { (JAR: form-service)
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ ./gradlew :services:circleguard-auth-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-gateway-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-identity-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-promotion-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-notification-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
++ ./gradlew :services:circleguard-form-service:bootJar --parallel -x test --no-daemon
+openjdk version "21.0.10" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+> Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-form-service:compileJava UP-TO-DATE
+> Task :services:circleguard-form-service:processResources UP-TO-DATE
+> Task :services:circleguard-form-service:classes UP-TO-DATE
+> Task :services:circleguard-form-service:resolveMainClassName UP-TO-DATE
+> Task :services:circleguard-form-service:bootJar UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 22s
+4 actionable tasks: 4 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-auth-service:compileJava UP-TO-DATE
+> Task :services:circleguard-auth-service:processResources UP-TO-DATE
+> Task :services:circleguard-auth-service:classes UP-TO-DATE
+> Task :services:circleguard-auth-service:resolveMainClassName UP-TO-DATE
+> Task :services:circleguard-auth-service:bootJar UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 24s
+4 actionable tasks: 4 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-gateway-service:compileJava UP-TO-DATE
+> Task :services:circleguard-gateway-service:processResources UP-TO-DATE
+> Task :services:circleguard-gateway-service:classes UP-TO-DATE
+> Task :services:circleguard-gateway-service:resolveMainClassName UP-TO-DATE
+> Task :services:circleguard-gateway-service:bootJar UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 26s
+4 actionable tasks: 4 up-to-date
+[Pipeline] }
+> Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-identity-service:compileJava UP-TO-DATE
+> Task :services:circleguard-identity-service:processResources UP-TO-DATE
+> Task :services:circleguard-identity-service:classes UP-TO-DATE
+> Task :services:circleguard-identity-service:resolveMainClassName UP-TO-DATE
+> Task :services:circleguard-identity-service:bootJar UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 27s
+4 actionable tasks: 4 up-to-date
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-notification-service:compileJava UP-TO-DATE
+> Task :services:circleguard-notification-service:processResources UP-TO-DATE
+> Task :services:circleguard-notification-service:classes UP-TO-DATE
+> Task :services:circleguard-notification-service:resolveMainClassName UP-TO-DATE
+> Task :services:circleguard-notification-service:bootJar UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 32s
+4 actionable tasks: 4 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+> Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+> Task :services:circleguard-promotion-service:compileJava UP-TO-DATE
+> Task :services:circleguard-promotion-service:processResources UP-TO-DATE
+> Task :services:circleguard-promotion-service:classes UP-TO-DATE
+> Task :services:circleguard-promotion-service:resolveMainClassName UP-TO-DATE
+> Task :services:circleguard-promotion-service:bootJar UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/CircleGuard-Dev/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 33s
+4 actionable tasks: 4 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker Build & Push)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PSW
+[Pipeline] {
+[Pipeline] sh
++ echo ****
++ docker login -u juan0073 --password-stdin
+WARNING! Your password will be stored unencrypted in /var/jenkins_home/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] sh
++ echo Building auth-service...
+Building auth-service...
++ docker build -f services/circleguard-auth-service/Dockerfile -t docker.io/juan0073/circleguard/auth-service:dev-b76b9a7d .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.09kB done
+#1 DONE 0.0s
+
+#2 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-alpine
+#3 DONE 0.9s
+
+#4 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
+#4 DONE 0.9s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 DONE 0.0s
+
+#7 [builder 1/9] FROM docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246
+#7 resolve docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246 0.1s done
+#7 DONE 0.1s
+
+#8 [runtime 1/5] FROM docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571
+#8 resolve docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571 0.1s done
+#8 DONE 0.1s
+
+#6 [internal] load build context
+#6 transferring context: 55.07MB 0.2s done
+#6 DONE 0.2s
+
+#9 [builder 5/9] COPY build.gradle.kts .
+#9 CACHED
+
+#10 [runtime 3/5] WORKDIR /app
+#10 CACHED
+
+#11 [builder 2/9] WORKDIR /workspace
+#11 CACHED
+
+#12 [builder 3/9] COPY gradlew .
+#12 CACHED
+
+#13 [builder 9/9] RUN ./gradlew :services:circleguard-auth-service:bootJar -x test --no-daemon
+#13 CACHED
+
+#14 [builder 4/9] COPY gradle/ gradle/
+#14 CACHED
+
+#15 [builder 7/9] COPY services/circleguard-auth-service/ services/circleguard-auth-service/
+#15 CACHED
+
+#16 [builder 6/9] COPY settings.gradle.kts .
+#16 CACHED
+
+#17 [runtime 4/5] COPY --from=builder /workspace/services/circleguard-auth-service/build/libs/*.jar app.jar
+#17 CACHED
+
+#18 [builder 8/9] RUN chmod +x gradlew
+#18 CACHED
+
+#19 [runtime 2/5] RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+#19 CACHED
+
+#20 [runtime 5/5] RUN chown -R appuser:appgroup /app
+#20 CACHED
+
+#21 exporting to image
+#21 exporting layers done
+#21 exporting manifest sha256:13a2ea5726fedcc75fd2d59df73466492088358d80afcbb100c8c063746bb8b4 done
+#21 exporting config sha256:aac001158b6570ceab6cd817c71be76e1a4f36341d058cf8e722b52219a6f103 done
+#21 exporting attestation manifest sha256:16484f40ae2d43cd354fd53b84bb541ae83e71dbc096bdfe8cd2e3a7ec46eb7e 0.1s done
+#21 exporting manifest list sha256:0e85c22011e86f3335578abe7c82107e9e3da8d21968106cc13704ed974b92c5
+#21 exporting manifest list sha256:0e85c22011e86f3335578abe7c82107e9e3da8d21968106cc13704ed974b92c5 0.0s done
+#21 naming to docker.io/juan0073/circleguard/auth-service:dev-b76b9a7d done
+#21 unpacking to docker.io/juan0073/circleguard/auth-service:dev-b76b9a7d 0.0s done
+#21 DONE 0.2s
++ echo Successfully built auth-service
+Successfully built auth-service
++ [ true = true ]
++ echo Attempting Docker push for auth-service...
+Attempting Docker push for auth-service...
++ docker push docker.io/juan0073/circleguard/auth-service:dev-b76b9a7d
+The push refers to repository [docker.io/juan0073/circleguard/auth-service]
+62425ad408e6: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+75b4dddd44ab: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+24b80328e843: Waiting
+1ce1bb548e16: Waiting
+c9352f4130d7: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+push access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
++ echo Docker push failed for auth-service - continuing with pipeline...
+Docker push failed for auth-service - continuing with pipeline...
+[Pipeline] sh
++ echo Building gateway-service...
+Building gateway-service...
++ docker build -f services/circleguard-gateway-service/Dockerfile -t docker.io/juan0073/circleguard/gateway-service:dev-b76b9a7d .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.24kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
+#2 DONE 0.3s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-alpine
+#3 DONE 0.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [runtime 1/5] FROM docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571
+#6 resolve docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571 0.1s done
+#6 DONE 0.1s
+
+#7 [builder 1/9] FROM docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246
+#7 resolve docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246 0.1s done
+#7 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 34.84MB 0.1s done
+#5 DONE 0.1s
+
+#8 [builder 5/9] COPY build.gradle.kts .
+#8 CACHED
+
+#9 [builder 4/9] COPY gradle/ gradle/
+#9 CACHED
+
+#10 [builder 8/9] RUN chmod +x gradlew
+#10 CACHED
+
+#11 [runtime 4/5] COPY --from=builder /workspace/services/circleguard-gateway-service/build/libs/*.jar app.jar
+#11 CACHED
+
+#12 [runtime 2/5] RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+#12 CACHED
+
+#13 [builder 6/9] COPY settings.gradle.kts .
+#13 CACHED
+
+#14 [builder 3/9] COPY gradlew .
+#14 CACHED
+
+#15 [builder 7/9] COPY services/circleguard-gateway-service/ services/circleguard-gateway-service/
+#15 CACHED
+
+#16 [runtime 3/5] WORKDIR /app
+#16 CACHED
+
+#17 [builder 2/9] WORKDIR /workspace
+#17 CACHED
+
+#18 [builder 9/9] RUN ./gradlew :services:circleguard-gateway-service:bootJar -x test --no-daemon
+#18 CACHED
+
+#19 [runtime 5/5] RUN chown -R appuser:appgroup /app
+#19 CACHED
+
+#20 exporting to image
+#20 exporting layers done
+#20 exporting manifest sha256:9570275b47939d1b641fb90799716858ff3b3252c7e5dd9de6fafc59acddead3 done
+#20 exporting config sha256:c1b8164e1e2df95a16c7ea5c30d1f77ded58a909acfc39a81f1de94fbdaf22f9 done
+#20 exporting attestation manifest sha256:a2bf7a6c3423dc37a2060e389b36c6e071c6e17b56c7095c495cfb085106909c 0.1s done
+#20 exporting manifest list sha256:bd1644c8c24bbe08d3a8e7b0e5046df85eb3cf49d2da67eb5ec932e52b65b8ba 0.0s done
+#20 naming to docker.io/juan0073/circleguard/gateway-service:dev-b76b9a7d done
+#20 unpacking to docker.io/juan0073/circleguard/gateway-service:dev-b76b9a7d 0.0s done
+#20 DONE 0.2s
++ echo Successfully built gateway-service
+Successfully built gateway-service
++ [ true = true ]
++ echo Attempting Docker push for gateway-service...
+Attempting Docker push for gateway-service...
++ docker push docker.io/juan0073/circleguard/gateway-service:dev-b76b9a7d
+The push refers to repository [docker.io/juan0073/circleguard/gateway-service]
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+0ad041a2a337: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+2a919a6fb510: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+31bbaa9dd224: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+0ad041a2a337: Waiting
+2a919a6fb510: Waiting
+push access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
++ echo Docker push failed for gateway-service - continuing with pipeline...
+Docker push failed for gateway-service - continuing with pipeline...
+[Pipeline] sh
++ echo Building identity-service...
+Building identity-service...
++ docker build -f services/circleguard-identity-service/Dockerfile -t docker.io/juan0073/circleguard/identity-service:dev-b76b9a7d .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.25kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-alpine
+#2 ...
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
+#3 DONE 0.3s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-alpine
+#2 DONE 0.3s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [runtime 1/5] FROM docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571
+#6 resolve docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571 0.1s done
+#6 DONE 0.1s
+
+#7 [builder 1/9] FROM docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246
+#7 resolve docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246
+#7 resolve docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246 0.1s done
+#7 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 69.20MB 0.2s done
+#5 DONE 0.3s
+
+#8 [builder 6/9] COPY settings.gradle.kts .
+#8 CACHED
+
+#9 [builder 5/9] COPY build.gradle.kts .
+#9 CACHED
+
+#10 [builder 7/9] COPY services/circleguard-identity-service/ services/circleguard-identity-service/
+#10 CACHED
+
+#11 [builder 2/9] WORKDIR /workspace
+#11 CACHED
+
+#12 [builder 8/9] RUN chmod +x gradlew
+#12 CACHED
+
+#13 [builder 4/9] COPY gradle/ gradle/
+#13 CACHED
+
+#14 [runtime 2/5] RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+#14 CACHED
+
+#15 [runtime 3/5] WORKDIR /app
+#15 CACHED
+
+#16 [runtime 4/5] COPY --from=builder /workspace/services/circleguard-identity-service/build/libs/*.jar app.jar
+#16 CACHED
+
+#17 [builder 3/9] COPY gradlew .
+#17 CACHED
+
+#18 [builder 9/9] RUN ./gradlew :services:circleguard-identity-service:bootJar -x test --no-daemon
+#18 CACHED
+
+#19 [runtime 5/5] RUN chown -R appuser:appgroup /app
+#19 CACHED
+
+#20 exporting to image
+#20 exporting layers done
+#20 exporting manifest sha256:714b5f43348cf0718d965e19de9ab38d58c81975f4534e12fb0f81b303950fcf done
+#20 exporting config sha256:88891b452abed370b9c8b63d2b6d4598c4f7a299e55e3f1dfa4a8d355f5f290b done
+#20 exporting attestation manifest sha256:87b635eadda92625c136af380c87ba505da4d99e5393fba10cc055fcab22f935 0.1s done
+#20 exporting manifest list sha256:00a32ba07d036b36dd7cf25d86685f6b6dbf0479b0cac36af64f0f12803c0d13
+#20 exporting manifest list sha256:00a32ba07d036b36dd7cf25d86685f6b6dbf0479b0cac36af64f0f12803c0d13 0.0s done
+#20 naming to docker.io/juan0073/circleguard/identity-service:dev-b76b9a7d done
+#20 unpacking to docker.io/juan0073/circleguard/identity-service:dev-b76b9a7d 0.0s done
+#20 DONE 0.2s
++ echo Successfully built identity-service
+Successfully built identity-service
++ [ true = true ]
++ echo Attempting Docker push for identity-service...
+Attempting Docker push for identity-service...
++ docker push docker.io/juan0073/circleguard/identity-service:dev-b76b9a7d
+The push refers to repository [docker.io/juan0073/circleguard/identity-service]
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+6a0ac1617861: Waiting
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+f713f2389285: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+dfda5c876a8f: Waiting
+29c7d73e7060: Waiting
+34f6e2ed8ed8: Waiting
+62425ad408e6: Waiting
+c9352f4130d7: Waiting
+e44076fe4137: Waiting
+1404f74f9fc0: Waiting
+failed to authorize: failed to fetch oauth token: Post "https://auth.docker.io/token": context canceled
++ echo Docker push failed for identity-service - continuing with pipeline...
+Docker push failed for identity-service - continuing with pipeline...
+[Pipeline] sh
++ echo Building promotion-service...
+Building promotion-service...
++ docker build -f services/circleguard-promotion-service/Dockerfile -t docker.io/juan0073/circleguard/promotion-service:dev-b76b9a7d .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.32kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
+#2 DONE 0.3s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-alpine
+#3 DONE 0.3s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [builder 1/9] FROM docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246
+#6 resolve docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246 0.1s done
+#6 DONE 0.1s
+
+#7 [runtime 1/5] FROM docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571
+#7 resolve docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571 0.1s done
+#7 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 83.59MB 0.3s done
+#5 DONE 0.3s
+
+#8 [builder 3/9] COPY gradlew .
+#8 CACHED
+
+#9 [builder 4/9] COPY gradle/ gradle/
+#9 CACHED
+
+#10 [builder 6/9] COPY settings.gradle.kts .
+#10 CACHED
+
+#11 [builder 8/9] RUN chmod +x gradlew
+#11 CACHED
+
+#12 [runtime 3/5] WORKDIR /app
+#12 CACHED
+
+#13 [builder 2/9] WORKDIR /workspace
+#13 CACHED
+
+#14 [runtime 2/5] RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+#14 CACHED
+
+#15 [builder 5/9] COPY build.gradle.kts .
+#15 CACHED
+
+#16 [runtime 4/5] COPY --from=builder /workspace/services/circleguard-promotion-service/build/libs/*.jar app.jar
+#16 CACHED
+
+#17 [builder 7/9] COPY services/circleguard-promotion-service/ services/circleguard-promotion-service/
+#17 CACHED
+
+#18 [builder 9/9] RUN ./gradlew :services:circleguard-promotion-service:bootJar -x test --no-daemon
+#18 CACHED
+
+#19 [runtime 5/5] RUN chown -R appuser:appgroup /app
+#19 CACHED
+
+#20 exporting to image
+#20 exporting layers done
+#20 exporting manifest sha256:762f249c1fcb3ae0b3e5fb117418778b80420794e949915789a83ccb8323d8f2 done
+#20 exporting config sha256:2eb1650dd09b34c3c011edec27b3459f9283161a45b5f726f4bedd5d9228cbe9 done
+#20 exporting attestation manifest sha256:1d60a1e51b05e8388589eedf0fa962fd6486d6b8cb8d80e057b8d13b8c248f30 0.1s done
+#20 exporting manifest list sha256:59f626b2f40e28f345408898d7e698c6ebe92d342e7a73a8a73296d067ae3edc
+#20 exporting manifest list sha256:59f626b2f40e28f345408898d7e698c6ebe92d342e7a73a8a73296d067ae3edc 0.0s done
+#20 naming to docker.io/juan0073/circleguard/promotion-service:dev-b76b9a7d done
+#20 unpacking to docker.io/juan0073/circleguard/promotion-service:dev-b76b9a7d 0.0s done
+#20 DONE 0.2s
++ echo Successfully built promotion-service
+Successfully built promotion-service
++ [ true = true ]
++ echo Attempting Docker push for promotion-service...
+Attempting Docker push for promotion-service...
++ docker push docker.io/juan0073/circleguard/promotion-service:dev-b76b9a7d
+The push refers to repository [docker.io/juan0073/circleguard/promotion-service]
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+df96cabf8962: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+6a0ac1617861: Waiting
+fe5178e2700b: Waiting
+c9352f4130d7: Waiting
+d8f4426fd9c7: Waiting
+982cdd985fb0: Waiting
+34f6e2ed8ed8: Waiting
+1404f74f9fc0: Waiting
+push access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
++ echo Docker push failed for promotion-service - continuing with pipeline...
+Docker push failed for promotion-service - continuing with pipeline...
+[Pipeline] sh
++ echo Building notification-service...
+Building notification-service...
++ docker build -f services/circleguard-notification-service/Dockerfile -t docker.io/juan0073/circleguard/notification-service:dev-b76b9a7d .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.32kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
+#2 DONE 0.3s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-alpine
+#3 DONE 16.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [builder 1/9] FROM docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246
+#6 resolve docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246 0.1s done
+#6 DONE 0.1s
+
+#7 [runtime 1/5] FROM docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571
+#7 resolve docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571 0.1s done
+#7 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 62.60MB 0.2s done
+#5 DONE 0.2s
+
+#8 [builder 8/9] RUN chmod +x gradlew
+#8 CACHED
+
+#9 [runtime 2/5] RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+#9 CACHED
+
+#10 [builder 2/9] WORKDIR /workspace
+#10 CACHED
+
+#11 [builder 5/9] COPY build.gradle.kts .
+#11 CACHED
+
+#12 [builder 9/9] RUN ./gradlew :services:circleguard-notification-service:bootJar -x test --no-daemon
+#12 CACHED
+
+#13 [builder 6/9] COPY settings.gradle.kts .
+#13 CACHED
+
+#14 [runtime 4/5] COPY --from=builder /workspace/services/circleguard-notification-service/build/libs/*.jar app.jar
+#14 CACHED
+
+#15 [runtime 3/5] WORKDIR /app
+#15 CACHED
+
+#16 [builder 3/9] COPY gradlew .
+#16 CACHED
+
+#17 [builder 4/9] COPY gradle/ gradle/
+#17 CACHED
+
+#18 [builder 7/9] COPY services/circleguard-notification-service/ services/circleguard-notification-service/
+#18 CACHED
+
+#19 [runtime 5/5] RUN chown -R appuser:appgroup /app
+#19 CACHED
+
+#20 exporting to image
+#20 exporting layers done
+#20 exporting manifest sha256:dbad447599f56debb337aa7b2f048ca13b11d7ff8a1a6078819fc425ae506b18 done
+#20 exporting config sha256:0dec8531c5c66ad41126ad8a64a50fccc6c193a6b6769bbb32c24780c2f33ed3 done
+#20 exporting attestation manifest sha256:419b82aef9a24c9d472f7287ce70bb1f21647e14bc3f1b1b9fa2b938ef1845c7 0.1s done
+#20 exporting manifest list sha256:1bf37fcb0f3fff585c85d87e8e0c0c153fc8ef496f4da7fae36e9c528e185d85 0.0s done
+#20 naming to docker.io/juan0073/circleguard/notification-service:dev-b76b9a7d done
+#20 unpacking to docker.io/juan0073/circleguard/notification-service:dev-b76b9a7d 0.0s done
+#20 DONE 0.2s
++ echo Successfully built notification-service
+Successfully built notification-service
++ [ true = true ]
++ echo Attempting Docker push for notification-service...
+Attempting Docker push for notification-service...
++ docker push docker.io/juan0073/circleguard/notification-service:dev-b76b9a7d
+The push refers to repository [docker.io/juan0073/circleguard/notification-service]
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+76870498fb94: Waiting
+9cb26e478c17: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+1404f74f9fc0: Waiting
+6a0ac1617861: Waiting
+982cdd985fb0: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+55aafb523df7: Waiting
+push access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
++ echo Docker push failed for notification-service - continuing with pipeline...
+Docker push failed for notification-service - continuing with pipeline...
+[Pipeline] sh
++ echo Building form-service...
+Building form-service...
++ docker build -f services/circleguard-form-service/Dockerfile -t docker.io/juan0073/circleguard/form-service:dev-b76b9a7d .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.23kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-alpine
+#2 ...
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
+#3 DONE 0.3s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-alpine
+#2 DONE 0.3s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [builder 1/9] FROM docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246
+#6 resolve docker.io/library/eclipse-temurin:17-jdk-alpine@sha256:5d14725f0e49e19df217f6ce179039f01ca25f5f9aa958573b467312599ca246 0.1s done
+#6 DONE 0.1s
+
+#7 [runtime 1/5] FROM docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571
+#7 resolve docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571
+#7 resolve docker.io/library/eclipse-temurin:17-jre-alpine@sha256:b0ae54a36f82e04dc6c45e40ca5c55762e20b9a0858ee457faf557d440a9b571 0.1s done
+#7 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 66.47MB 0.2s done
+#5 DONE 0.2s
+
+#8 [builder 8/9] RUN chmod +x gradlew
+#8 CACHED
+
+#9 [runtime 2/5] RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+#9 CACHED
+
+#10 [runtime 4/5] COPY --from=builder /workspace/services/circleguard-form-service/build/libs/*.jar app.jar
+#10 CACHED
+
+#11 [builder 2/9] WORKDIR /workspace
+#11 CACHED
+
+#12 [builder 6/9] COPY settings.gradle.kts .
+#12 CACHED
+
+#13 [builder 3/9] COPY gradlew .
+#13 CACHED
+
+#14 [builder 5/9] COPY build.gradle.kts .
+#14 CACHED
+
+#15 [builder 7/9] COPY services/circleguard-form-service/ services/circleguard-form-service/
+#15 CACHED
+
+#16 [builder 9/9] RUN ./gradlew :services:circleguard-form-service:bootJar -x test --no-daemon
+#16 CACHED
+
+#17 [runtime 3/5] WORKDIR /app
+#17 CACHED
+
+#18 [builder 4/9] COPY gradle/ gradle/
+#18 CACHED
+
+#19 [runtime 5/5] RUN chown -R appuser:appgroup /app
+#19 CACHED
+
+#20 exporting to image
+#20 exporting layers done
+#20 exporting manifest sha256:52f3e34c4f3ecd114e917b1245690eb044fdc94b9b55f44e31ee4c26ce4aa349 done
+#20 exporting config sha256:1acaa16f4ec801e14214a3055c10b540ae3968c39767329065917d446d04ce88 done
+#20 exporting attestation manifest sha256:621f910b057418f5b46603c5766142f3f0f81b6f20ffb7bd25cf3b840f028687
+#20 exporting attestation manifest sha256:621f910b057418f5b46603c5766142f3f0f81b6f20ffb7bd25cf3b840f028687 0.1s done
+#20 exporting manifest list sha256:383b42cb6515106cd0f08ae323b6f31497a44067dd66259cefcafa8a77fb9c9c 0.0s done
+#20 naming to docker.io/juan0073/circleguard/form-service:dev-b76b9a7d
+#20 naming to docker.io/juan0073/circleguard/form-service:dev-b76b9a7d done
+#20 unpacking to docker.io/juan0073/circleguard/form-service:dev-b76b9a7d 0.0s done
+#20 DONE 0.2s
++ echo Successfully built form-service
+Successfully built form-service
++ [ true = true ]
++ echo Attempting Docker push for form-service...
+Attempting Docker push for form-service...
++ docker push docker.io/juan0073/circleguard/form-service:dev-b76b9a7d
+The push refers to repository [docker.io/juan0073/circleguard/form-service]
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+6a0ac1617861: Waiting
+900bf424bd6a: Waiting
+6a0ac1617861: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+6a0ac1617861: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+6a0ac1617861: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+6a0ac1617861: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+6a0ac1617861: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+6a0ac1617861: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+c9352f4130d7: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+6a0ac1617861: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+841964a776e9: Waiting
+6a0ac1617861: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+6a0ac1617861: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+6a0ac1617861: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+62425ad408e6: Waiting
+34f6e2ed8ed8: Waiting
+e9ebab6aaf72: Waiting
+982cdd985fb0: Waiting
+900bf424bd6a: Waiting
+6a0ac1617861: Waiting
+1404f74f9fc0: Waiting
+29c7d73e7060: Waiting
+841964a776e9: Waiting
+c9352f4130d7: Waiting
+push access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
++ echo Docker push failed for form-service - continuing with pipeline...
+Docker push failed for form-service - continuing with pipeline...
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy to cg-dev)
+[Pipeline] withKubeConfig
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ kubectl apply -f k8s/infra/ -n cg-dev
+/var/jenkins_home/workspace/CircleGuard-Dev@tmp/durable-26ad5c61/script.sh.copy: 1: kubectl: not found
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[kubernetes-cli] kubectl configuration cleaned up
+[Pipeline] // withKubeConfig
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Rollout Status)
+Stage "Rollout Status" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Smoke Test)
+Stage "Smoke Test" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] publishHTML
+[htmlpublisher] Archiving HTML reports...
+[htmlpublisher] Archiving at PROJECT level /var/jenkins_home/workspace/CircleGuard-Dev/build/reports to Test_20Report
+[htmlpublisher] Copying recursive using current thread
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 127
+Finished: FAILURE
