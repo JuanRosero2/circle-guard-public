@@ -10,7 +10,7 @@ pipeline {
 
     environment {
         // Registry donde se publican las imágenes Docker
-        DOCKER_REGISTRY = "ghcr.io/JuanRosero2"  // GitHub Container Registry - cuenta del proyecto
+        DOCKER_REGISTRY = "ghcr.io/juanrosero2"  // GitHub Container Registry - cuenta del proyecto
         // Tag de imagen basado en el short commit SHA para trazabilidad
         IMAGE_TAG       = "dev-${env.GIT_COMMIT?.take(8) ?: 'latest'}"
         // Namespace de Kubernetes para dev
