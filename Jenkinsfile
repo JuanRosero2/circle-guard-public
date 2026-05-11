@@ -253,7 +253,7 @@ pipeline {
         }
     }
 
-    post {
+post {
         always {
         // Solo intenta publicar si la carpeta de reportes existe
         script {
