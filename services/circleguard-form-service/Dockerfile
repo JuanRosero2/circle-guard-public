@@ -20,7 +20,7 @@ RUN ./gradlew :services:circleguard-form-service:bootJar -x test --no-daemon
 # ============================================================
 # Stage 2: Runtime
 # ============================================================
-FROM ghcr.io/juanrosero2/openjdk:17-jre-alpine AS runtime
+FROM ghcr.io/juanrosero2/openjdk:17-jdk-alpine AS runtime
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 

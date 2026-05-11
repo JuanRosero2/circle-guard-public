@@ -21,7 +21,7 @@ RUN ./gradlew :services:circleguard-promotion-service:bootJar -x test --no-daemo
 # ============================================================
 # Stage 2: Runtime
 # ============================================================
-FROM ghcr.io/juanrosero2/openjdk:17-jre-alpine AS runtime
+FROM ghcr.io/juanrosero2/openjdk:17-jdk-alpine AS runtime
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
