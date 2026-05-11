@@ -10,15 +10,15 @@ pipeline {
 
     environment {
         // Registry donde se publican las imágenes Docker
-        DOCKER_REGISTRY = "docker.io/juan0073"  // Nueva cuenta sin problemas de Google OAuth
+        DOCKER_REGISTRY = "ghcr.io/juan0073"  // GitHub Container Registry - sin restricciones
         // Tag de imagen basado en el short commit SHA para trazabilidad
         IMAGE_TAG       = "dev-${env.GIT_COMMIT?.take(8) ?: 'latest'}"
         // Namespace de Kubernetes para dev
         K8S_NAMESPACE   = "cg-dev"
-        // Credencial de Docker configurada en Jenkins
-        DOCKER_CREDS    = credentials('docker-hub-credentials')
+        // Credencial de GitHub Container Registry configurada en Jenkins
+        DOCKER_CREDS    = credentials('ghcr-credentials')
         // Controlar si se hace Docker Push (true/false)
-        DOCKER_PUSH_ENABLED = "false"  // Temporalmente deshabilitado por restricciones de cuenta Docker Hub
+        DOCKER_PUSH_ENABLED = "true"  // Habilitado para GitHub Container Registry
     }
 
     stages {
