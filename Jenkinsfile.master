@@ -128,23 +128,27 @@ pipeline {
 
         stage('Deploy to cg-master') {
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh '''
-                        export KUBECONFIG=$KUBECONFIG
-                        kubectl apply -f k8s/namespaces.yml
-                        kubectl apply -f k8s/infra/ -n cg-master
-                    '''
-                    script {
-                        SERVICES.each { svc ->
-                            def shortName = svc.replace('circleguard-', '').replace('-service', '')
-                            sh """
+                script {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint=""') {
+                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                            sh '''
                                 export KUBECONFIG=$KUBECONFIG
-                                kubectl apply -f k8s/services/${shortName}-deployment.yml -n cg-master
-                                kubectl set image deployment/${shortName}-service \
-                                    ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
-                                    -n cg-master
-                                kubectl rollout status deployment/${shortName}-service -n cg-master --timeout=300s
-                            """
+                                kubectl apply -f k8s/namespaces.yml
+                                kubectl apply -f k8s/infra/ -n cg-master
+                            '''
+                            script {
+                                SERVICES.each { svc ->
+                                    def shortName = svc.replace('circleguard-', '').replace('-service', '')
+                                    sh """
+                                        export KUBECONFIG=$KUBECONFIG
+                                        kubectl apply -f k8s/services/${shortName}-deployment.yml -n cg-master
+                                        kubectl set image deployment/${shortName}-service \
+                                            ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
+                                            -n cg-master
+                                        kubectl rollout status deployment/${shortName}-service -n cg-master --timeout=300s
+                                    """
+                                }
+                            }
                         }
                     }
                 }
@@ -232,13 +236,17 @@ All 6 microservices successfully deployed to Kubernetes namespace `cg-master`.
 
         stage('Production Health Check') {
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh '''
-                        export KUBECONFIG=$KUBECONFIG
-                        kubectl get pods -n cg-master
-                        kubectl get services -n cg-master
-                        echo "✅ Production deployment complete and healthy"
-                    '''
+                script {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint=""') {
+                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                            sh '''
+                                export KUBECONFIG=$KUBECONFIG
+                                kubectl get pods -n cg-master
+                                kubectl get services -n cg-master
+                                echo "✅ Production deployment complete and healthy"
+                            '''
+                        }
+                    }
                 }
             }
         }

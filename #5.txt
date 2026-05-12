@@ -1,0 +1,1847 @@
+Started by user admin
+Obtained Jenkinsfile.dev from git https://github.com/JuanRosero2/circle-guard-public.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/circleguard-dev-planB
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-credentials
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/circleguard-dev-planB/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials planB
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 9539d7a1677b69f2daf761dfc238e569ad76d6a7 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 9539d7a1677b69f2daf761dfc238e569ad76d6a7 # timeout=10
+Commit message: "jenkins3"
+ > git rev-list --no-walk 9539d7a1677b69f2daf761dfc238e569ad76d6a7 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+[2026-05-12T01:44:52.454Z] Selected Git installation does not exist. Using Default
+[2026-05-12T01:44:52.454Z] The recommended git tool is: NONE
+[2026-05-12T01:44:52.454Z] using credential github-credentials
+[2026-05-12T01:44:52.468Z]  > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/circleguard-dev-planB/.git # timeout=10
+[2026-05-12T01:44:52.471Z] Fetching changes from the remote Git repository
+[2026-05-12T01:44:52.472Z]  > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+[2026-05-12T01:44:52.475Z] Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+[2026-05-12T01:44:52.475Z]  > git --version # timeout=10
+[2026-05-12T01:44:52.479Z]  > git --version # 'git version 2.47.3'
+[2026-05-12T01:44:52.479Z] using GIT_ASKPASS to set credentials planB
+[2026-05-12T01:44:52.482Z]  > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-05-12T01:44:52.992Z]  > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+[2026-05-12T01:44:52.997Z] Checking out Revision 9539d7a1677b69f2daf761dfc238e569ad76d6a7 (refs/remotes/origin/master)
+[2026-05-12T01:44:52.997Z]  > git config core.sparsecheckout # timeout=10
+[2026-05-12T01:44:53.001Z]  > git checkout -f 9539d7a1677b69f2daf761dfc238e569ad76d6a7 # timeout=10
+[2026-05-12T01:44:53.012Z] Commit message: "jenkins3"
+[Pipeline] sh
+[2026-05-12T01:44:53.313Z] + git log --oneline -5
+[2026-05-12T01:44:53.313Z] 9539d7a jenkins3
+[2026-05-12T01:44:53.313Z] 10172a0 jenkins2
+[2026-05-12T01:44:53.313Z] e22821a jenkins
+[2026-05-12T01:44:53.313Z] c2cbe8a jenkins28: update credentials to use ghcr-credentials for JuanRosero2
+[2026-05-12T01:44:53.313Z] 0bf97c0 jenkins27: fix GitHub Container Registry - use lowercase username juanrosero2
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] sh
+[2026-05-12T01:44:53.746Z] + chmod +x gradlew
+[2026-05-12T01:44:53.746Z] + ./gradlew :services:circleguard-auth-service:test :services:circleguard-identity-service:test :services:circleguard-gateway-service:test :services:circleguard-form-service:test :services:circleguard-promotion-service:test :services:circleguard-notification-service:test --no-daemon --continue
+[2026-05-12T01:44:53.746Z] openjdk version "21.0.10" 2026-01-20 LTS
+[2026-05-12T01:44:53.746Z] OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+[2026-05-12T01:44:53.746Z] OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+[2026-05-12T01:44:54.657Z] To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[2026-05-12T01:44:56.000Z] Daemon will be stopped at the end of the build 
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-auth-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-auth-service:compileJava UP-TO-DATE
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-auth-service:processResources UP-TO-DATE
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-auth-service:classes UP-TO-DATE
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-auth-service:compileTestKotlin NO-SOURCE
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-auth-service:compileTestJava UP-TO-DATE
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-auth-service:processTestResources UP-TO-DATE
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-auth-service:testClasses UP-TO-DATE
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-auth-service:test UP-TO-DATE
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-identity-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T01:45:05.875Z] > Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+[2026-05-12T01:45:06.425Z] > Task :services:circleguard-identity-service:compileJava UP-TO-DATE
+[2026-05-12T01:45:06.425Z] > Task :services:circleguard-identity-service:processResources UP-TO-DATE
+[2026-05-12T01:45:06.425Z] > Task :services:circleguard-identity-service:classes UP-TO-DATE
+[2026-05-12T01:45:06.425Z] > Task :services:circleguard-identity-service:compileTestKotlin NO-SOURCE
+[2026-05-12T01:45:06.676Z] > Task :services:circleguard-identity-service:compileTestJava UP-TO-DATE
+[2026-05-12T01:45:06.676Z] > Task :services:circleguard-identity-service:processTestResources UP-TO-DATE
+[2026-05-12T01:45:06.676Z] > Task :services:circleguard-identity-service:testClasses UP-TO-DATE
+[2026-05-12T01:45:06.676Z] > Task :services:circleguard-identity-service:test UP-TO-DATE
+[2026-05-12T01:45:06.676Z] > Task :services:circleguard-gateway-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T01:45:06.676Z] > Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+[2026-05-12T01:45:06.926Z] > Task :services:circleguard-gateway-service:compileJava UP-TO-DATE
+[2026-05-12T01:45:06.926Z] > Task :services:circleguard-gateway-service:processResources UP-TO-DATE
+[2026-05-12T01:45:06.926Z] > Task :services:circleguard-gateway-service:classes UP-TO-DATE
+[2026-05-12T01:45:06.926Z] > Task :services:circleguard-gateway-service:compileTestKotlin NO-SOURCE
+[2026-05-12T01:45:06.926Z] > Task :services:circleguard-gateway-service:compileTestJava UP-TO-DATE
+[2026-05-12T01:45:06.926Z] > Task :services:circleguard-gateway-service:processTestResources NO-SOURCE
+[2026-05-12T01:45:06.926Z] > Task :services:circleguard-gateway-service:testClasses UP-TO-DATE
+[2026-05-12T01:45:06.926Z] > Task :services:circleguard-gateway-service:test UP-TO-DATE
+[2026-05-12T01:45:06.926Z] > Task :services:circleguard-form-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T01:45:07.176Z] > Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+[2026-05-12T01:45:07.176Z] > Task :services:circleguard-form-service:compileJava UP-TO-DATE
+[2026-05-12T01:45:07.176Z] > Task :services:circleguard-form-service:processResources UP-TO-DATE
+[2026-05-12T01:45:07.176Z] > Task :services:circleguard-form-service:classes UP-TO-DATE
+[2026-05-12T01:45:07.176Z] > Task :services:circleguard-form-service:compileTestKotlin NO-SOURCE
+[2026-05-12T01:45:07.426Z] > Task :services:circleguard-form-service:compileTestJava UP-TO-DATE
+[2026-05-12T01:45:07.426Z] > Task :services:circleguard-form-service:processTestResources NO-SOURCE
+[2026-05-12T01:45:07.426Z] > Task :services:circleguard-form-service:testClasses UP-TO-DATE
+[2026-05-12T01:45:07.426Z] > Task :services:circleguard-form-service:test UP-TO-DATE
+[2026-05-12T01:45:07.426Z] > Task :services:circleguard-promotion-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T01:45:07.426Z] > Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+[2026-05-12T01:45:07.677Z] > Task :services:circleguard-promotion-service:compileJava UP-TO-DATE
+[2026-05-12T01:45:07.677Z] > Task :services:circleguard-promotion-service:processResources UP-TO-DATE
+[2026-05-12T01:45:07.677Z] > Task :services:circleguard-promotion-service:classes UP-TO-DATE
+[2026-05-12T01:45:07.677Z] > Task :services:circleguard-promotion-service:compileTestKotlin NO-SOURCE
+[2026-05-12T01:45:07.927Z] > Task :services:circleguard-promotion-service:compileTestJava UP-TO-DATE
+[2026-05-12T01:45:07.927Z] > Task :services:circleguard-promotion-service:processTestResources UP-TO-DATE
+[2026-05-12T01:45:07.927Z] > Task :services:circleguard-promotion-service:testClasses UP-TO-DATE
+[2026-05-12T01:45:07.927Z] > Task :services:circleguard-promotion-service:test UP-TO-DATE
+[2026-05-12T01:45:07.927Z] > Task :services:circleguard-notification-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T01:45:07.927Z] > Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+[2026-05-12T01:45:08.177Z] > Task :services:circleguard-notification-service:compileJava UP-TO-DATE
+[2026-05-12T01:45:08.177Z] > Task :services:circleguard-notification-service:processResources UP-TO-DATE
+[2026-05-12T01:45:08.177Z] > Task :services:circleguard-notification-service:classes UP-TO-DATE
+[2026-05-12T01:45:08.177Z] > Task :services:circleguard-notification-service:compileTestKotlin NO-SOURCE
+[2026-05-12T01:45:08.177Z] > Task :services:circleguard-notification-service:compileTestJava UP-TO-DATE
+[2026-05-12T01:45:08.177Z] > Task :services:circleguard-notification-service:processTestResources NO-SOURCE
+[2026-05-12T01:45:08.177Z] > Task :services:circleguard-notification-service:testClasses UP-TO-DATE
+[2026-05-12T01:45:08.428Z] > Task :services:circleguard-notification-service:test UP-TO-DATE
+[2026-05-12T01:45:08.428Z] 
+[2026-05-12T01:45:08.428Z] [Incubating] Problems report is available at: file:///var/jenkins_home/workspace/circleguard-dev-planB/build/reports/problems/problems-report.html
+[2026-05-12T01:45:08.428Z] 
+[2026-05-12T01:45:08.428Z] Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+[2026-05-12T01:45:08.428Z] 
+[2026-05-12T01:45:08.428Z] You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+[2026-05-12T01:45:08.428Z] 
+[2026-05-12T01:45:08.428Z] For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+[2026-05-12T01:45:08.428Z] 
+[2026-05-12T01:45:08.428Z] BUILD SUCCESSFUL in 14s
+[2026-05-12T01:45:08.428Z] 33 actionable tasks: 6 executed, 27 up-to-date
+Post stage
+[Pipeline] junit
+[2026-05-12T01:45:08.471Z] Recording test results
+[2026-05-12T01:45:08.516Z] [Checks API] No suitable checks publisher found.
+[Pipeline] publishHTML
+[2026-05-12T01:45:08.546Z] [htmlpublisher] Archiving HTML reports...
+[2026-05-12T01:45:08.548Z] [htmlpublisher] Archiving at BUILD level /var/jenkins_home/workspace/circleguard-dev-planB/services/circleguard-auth-service/build/reports/tests/test to Unit_20Test_20Report_20-_20Auth_20Service
+[2026-05-12T01:45:08.548Z] [htmlpublisher] Copying recursive using current thread
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Containerization)
+[Pipeline] withCredentials
+[2026-05-12T01:45:08.757Z] Masking supported pattern matches of $DOCKER_PASS
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T01:45:09.090Z] + echo ****
+[2026-05-12T01:45:09.090Z] + docker login -u juan0073 --password-stdin
+[2026-05-12T01:45:10.000Z] WARNING! Your password will be stored unencrypted in /var/jenkins_home/.docker/config.json.
+[2026-05-12T01:45:10.000Z] Configure a credential helper to remove this warning. See
+[2026-05-12T01:45:10.000Z] https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+[2026-05-12T01:45:10.000Z] 
+[2026-05-12T01:45:10.000Z] Login Succeeded
+[Pipeline] script
+[Pipeline] {
+[Pipeline] parallel
+[Pipeline] { (Branch: circleguard-auth-service)
+[Pipeline] { (Branch: circleguard-identity-service)
+[Pipeline] { (Branch: circleguard-gateway-service)
+[Pipeline] { (Branch: circleguard-form-service)
+[Pipeline] { (Branch: circleguard-promotion-service)
+[Pipeline] { (Branch: circleguard-notification-service)
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[2026-05-12T01:45:10.574Z] + docker build -t juan0073/circleguard-auth-service:dev-5 -t juan0073/circleguard-auth-service:dev-latest -f services/circleguard-auth-service/Dockerfile .
+[Pipeline] sh
+[2026-05-12T01:45:10.615Z] + docker build -t juan0073/circleguard-identity-service:dev-5 -t juan0073/circleguard-identity-service:dev-latest -f services/circleguard-identity-service/Dockerfile .
+[2026-05-12T01:45:10.657Z] + docker build -t juan0073/circleguard-gateway-service:dev-5 -t juan0073/circleguard-gateway-service:dev-latest -f services/circleguard-gateway-service/Dockerfile .
+[2026-05-12T01:45:10.729Z] + docker build -t juan0073/circleguard-form-service:dev-5 -t juan0073/circleguard-form-service:dev-latest -f services/circleguard-form-service/Dockerfile .
+[2026-05-12T01:45:10.796Z] + docker build -t juan0073/circleguard-promotion-service:dev-5 -t juan0073/circleguard-promotion-service:dev-latest -f services/circleguard-promotion-service/Dockerfile .
+[2026-05-12T01:45:10.825Z] #0 building with "default" instance using docker driver
+[2026-05-12T01:45:10.825Z] 
+[2026-05-12T01:45:10.825Z] #1 [internal] load build definition from Dockerfile
+[2026-05-12T01:45:10.825Z] #1 DONE 0.0s
+[2026-05-12T01:45:10.825Z] 
+[2026-05-12T01:45:10.825Z] #1 [internal] load build definition from Dockerfile
+[2026-05-12T01:45:10.825Z] #1 transferring dockerfile: 937B done
+[2026-05-12T01:45:10.825Z] #1 DONE 0.1s
+[2026-05-12T01:45:10.866Z] #0 building with "default" instance using docker driver
+[2026-05-12T01:45:10.866Z] 
+[2026-05-12T01:45:10.866Z] #1 [internal] load build definition from Dockerfile
+[2026-05-12T01:45:10.866Z] #1 transferring dockerfile: 846B done
+[2026-05-12T01:45:10.866Z] #1 DONE 0.2s
+[2026-05-12T01:45:10.880Z] + docker build -t juan0073/circleguard-notification-service:dev-5 -t juan0073/circleguard-notification-service:dev-latest -f services/circleguard-notification-service/Dockerfile .
+[2026-05-12T01:45:10.908Z] #0 building with "default" instance using docker driver
+[2026-05-12T01:45:10.908Z] 
+[2026-05-12T01:45:10.908Z] #1 [internal] load build definition from Dockerfile
+[2026-05-12T01:45:10.908Z] #1 transferring dockerfile:
+[2026-05-12T01:45:10.979Z] #0 building with "default" instance using docker driver
+[2026-05-12T01:45:10.980Z] 
+[2026-05-12T01:45:10.980Z] #1 [internal] load build definition from Dockerfile
+[2026-05-12T01:45:10.980Z] #1 transferring dockerfile: 822B done
+[2026-05-12T01:45:10.980Z] #1 DONE 0.1s
+[2026-05-12T01:45:11.046Z] #0 building with "default" instance using docker driver
+[2026-05-12T01:45:11.046Z] 
+[2026-05-12T01:45:11.046Z] #1 [internal] load build definition from Dockerfile
+[2026-05-12T01:45:11.046Z] #1 transferring dockerfile: 852B done
+[2026-05-12T01:45:11.046Z] #1 DONE 0.1s
+[2026-05-12T01:45:11.075Z] 
+[2026-05-12T01:45:11.075Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T01:45:11.116Z] 
+[2026-05-12T01:45:11.116Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T01:45:11.158Z] #1 transferring dockerfile: 840B done
+[2026-05-12T01:45:11.158Z] #1 DONE 0.2s
+[2026-05-12T01:45:11.158Z] 
+[2026-05-12T01:45:11.158Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine
+[2026-05-12T01:45:11.230Z] 
+[2026-05-12T01:45:11.230Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T01:45:11.296Z] 
+[2026-05-12T01:45:11.296Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T01:45:11.666Z] #2 ...
+[2026-05-12T01:45:11.666Z] 
+[2026-05-12T01:45:11.666Z] #3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine
+[2026-05-12T01:45:11.666Z] #3 DONE 0.8s
+[2026-05-12T01:45:11.709Z] #2 DONE 0.7s
+[2026-05-12T01:45:11.709Z] 
+[2026-05-12T01:45:11.709Z] #3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T01:45:11.781Z] #2 ...
+[2026-05-12T01:45:11.781Z] 
+[2026-05-12T01:45:11.781Z] #3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine
+[2026-05-12T01:45:11.781Z] #3 DONE 0.7s
+[2026-05-12T01:45:11.791Z] #0 building with "default" instance using docker driver
+[2026-05-12T01:45:11.791Z] 
+[2026-05-12T01:45:11.791Z] #1 [internal] load build definition from Dockerfile
+[2026-05-12T01:45:11.791Z] #1 transferring dockerfile: 870B done
+[2026-05-12T01:45:11.791Z] #1 DONE 0.1s
+[2026-05-12T01:45:11.847Z] #2 ...
+[2026-05-12T01:45:11.847Z] 
+[2026-05-12T01:45:11.847Z] #3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine
+[2026-05-12T01:45:11.847Z] #3 DONE 0.6s
+[2026-05-12T01:45:11.847Z] 
+[2026-05-12T01:45:11.847Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T01:45:11.847Z] #2 DONE 0.6s
+[2026-05-12T01:45:11.847Z] 
+[2026-05-12T01:45:11.847Z] #4 [internal] load .dockerignore
+[2026-05-12T01:45:11.847Z] #4 transferring context:
+[2026-05-12T01:45:11.917Z] 
+[2026-05-12T01:45:11.917Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T01:45:11.917Z] #2 DONE 0.8s
+[2026-05-12T01:45:11.917Z] 
+[2026-05-12T01:45:11.917Z] #4 [internal] load .dockerignore
+[2026-05-12T01:45:11.959Z] #3 DONE 0.7s
+[2026-05-12T01:45:11.959Z] 
+[2026-05-12T01:45:11.959Z] #4 [internal] load .dockerignore
+[2026-05-12T01:45:11.959Z] #4 transferring context: 2B done
+[2026-05-12T01:45:11.959Z] #4 DONE 0.1s
+[2026-05-12T01:45:11.986Z] #2 ...
+[2026-05-12T01:45:11.986Z] 
+[2026-05-12T01:45:11.986Z] #3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine
+[2026-05-12T01:45:11.986Z] #3 DONE 0.9s
+[2026-05-12T01:45:11.986Z] 
+[2026-05-12T01:45:11.986Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T01:45:11.986Z] #2 DONE 0.9s
+[2026-05-12T01:45:11.986Z] 
+[2026-05-12T01:45:11.986Z] #4 [internal] load .dockerignore
+[2026-05-12T01:45:11.986Z] #4 transferring context: 2B done
+[2026-05-12T01:45:11.986Z] #4 DONE 0.3s
+[2026-05-12T01:45:12.032Z] 
+[2026-05-12T01:45:12.032Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T01:45:12.032Z] #2 DONE 0.7s
+[2026-05-12T01:45:12.032Z] 
+[2026-05-12T01:45:12.032Z] #4 [internal] load .dockerignore
+[2026-05-12T01:45:12.032Z] #4 transferring context: 2B done
+[2026-05-12T01:45:12.032Z] #4 DONE 0.2s
+[2026-05-12T01:45:12.041Z] 
+[2026-05-12T01:45:12.041Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine
+[2026-05-12T01:45:12.041Z] #2 DONE 0.0s
+[2026-05-12T01:45:12.041Z] 
+[2026-05-12T01:45:12.041Z] #3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T01:45:12.041Z] #3 DONE 0.0s
+[2026-05-12T01:45:12.041Z] 
+[2026-05-12T01:45:12.041Z] #4 [internal] load .dockerignore
+[2026-05-12T01:45:12.097Z] #4 transferring context: 2B done
+[2026-05-12T01:45:12.097Z] #4 DONE 0.4s
+[2026-05-12T01:45:12.167Z] #4 transferring context:
+[2026-05-12T01:45:12.209Z] 
+[2026-05-12T01:45:12.209Z] #5 [internal] load build context
+[2026-05-12T01:45:12.209Z] #5 DONE 0.0s
+[2026-05-12T01:45:12.209Z] 
+[2026-05-12T01:45:12.209Z] #6 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T01:45:12.209Z] #6 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T01:45:12.209Z] #6 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b 0.3s done
+[2026-05-12T01:45:12.236Z] 
+[2026-05-12T01:45:12.236Z] #5 [internal] load build context
+[2026-05-12T01:45:12.236Z] #5 DONE 0.0s
+[2026-05-12T01:45:12.236Z] 
+[2026-05-12T01:45:12.236Z] #6 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T01:45:12.236Z] #6 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T01:45:12.236Z] #6 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b 0.3s done
+[2026-05-12T01:45:12.282Z] 
+[2026-05-12T01:45:12.282Z] #5 [internal] load build context
+[2026-05-12T01:45:12.282Z] #5 DONE 0.0s
+[2026-05-12T01:45:12.282Z] 
+[2026-05-12T01:45:12.282Z] #6 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T01:45:12.282Z] #6 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T01:45:12.282Z] #6 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b 0.3s done
+[2026-05-12T01:45:12.282Z] #6 DONE 0.4s
+[2026-05-12T01:45:12.282Z] 
+[2026-05-12T01:45:12.282Z] #7 [builder  1/10] FROM docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986
+[2026-05-12T01:45:12.282Z] #7 resolve docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986 0.3s done
+[2026-05-12T01:45:12.282Z] #7 DONE 0.4s
+[2026-05-12T01:45:12.282Z] 
+[2026-05-12T01:45:12.282Z] #5 [internal] load build context
+[2026-05-12T01:45:12.291Z] #4 transferring context:
+[2026-05-12T01:45:12.292Z] #4 transferring context: 2B done
+[2026-05-12T01:45:12.292Z] #4 DONE 0.6s
+[2026-05-12T01:45:12.348Z] 
+[2026-05-12T01:45:12.348Z] #5 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T01:45:12.348Z] #5 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T01:45:12.348Z] #5 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b 0.3s done
+[2026-05-12T01:45:12.348Z] #5 DONE 0.4s
+[2026-05-12T01:45:12.348Z] 
+[2026-05-12T01:45:12.348Z] #6 [builder  1/10] FROM docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986
+[2026-05-12T01:45:12.348Z] #6 resolve docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986 0.3s done
+[2026-05-12T01:45:12.348Z] #6 DONE 0.4s
+[2026-05-12T01:45:12.348Z] 
+[2026-05-12T01:45:12.348Z] #7 [internal] load build context
+[2026-05-12T01:45:12.417Z] #4 transferring context: 2B done
+[2026-05-12T01:45:12.417Z] #4 DONE 0.5s
+[2026-05-12T01:45:12.460Z] #6 DONE 0.4s
+[2026-05-12T01:45:12.460Z] 
+[2026-05-12T01:45:12.460Z] #7 [builder  1/10] FROM docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986
+[2026-05-12T01:45:12.460Z] #7 resolve docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986 0.3s done
+[2026-05-12T01:45:12.460Z] #7 DONE 0.4s
+[2026-05-12T01:45:12.460Z] 
+[2026-05-12T01:45:12.460Z] #5 [internal] load build context
+[2026-05-12T01:45:12.460Z] #5 transferring context: 23.36kB done
+[2026-05-12T01:45:12.460Z] #5 DONE 0.1s
+[2026-05-12T01:45:12.486Z] #6 DONE 0.4s
+[2026-05-12T01:45:12.487Z] 
+[2026-05-12T01:45:12.487Z] #7 [builder  1/10] FROM docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986
+[2026-05-12T01:45:12.487Z] #7 resolve docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986 0.3s done
+[2026-05-12T01:45:12.487Z] #7 DONE 0.4s
+[2026-05-12T01:45:12.487Z] 
+[2026-05-12T01:45:12.487Z] #5 [internal] load build context
+[2026-05-12T01:45:12.487Z] #5 transferring context: 56.20kB done
+[2026-05-12T01:45:12.487Z] #5 DONE 0.2s
+[2026-05-12T01:45:12.533Z] #5 transferring context: 49.89kB 0.0s done
+[2026-05-12T01:45:12.533Z] #5 DONE 0.1s
+[2026-05-12T01:45:12.542Z] 
+[2026-05-12T01:45:12.542Z] #5 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T01:45:12.542Z] #5 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b 0.3s done
+[2026-05-12T01:45:12.542Z] #5 DONE 0.4s
+[2026-05-12T01:45:12.542Z] 
+[2026-05-12T01:45:12.542Z] #6 [builder  1/10] FROM docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986
+[2026-05-12T01:45:12.542Z] #6 resolve docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986 0.3s done
+[2026-05-12T01:45:12.542Z] #6 DONE 0.4s
+[2026-05-12T01:45:12.542Z] 
+[2026-05-12T01:45:12.542Z] #7 [internal] load build context
+[2026-05-12T01:45:12.598Z] #7 transferring context: 161.70kB 0.0s done
+[2026-05-12T01:45:12.598Z] #7 DONE 0.2s
+[2026-05-12T01:45:12.668Z] 
+[2026-05-12T01:45:12.668Z] #5 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T01:45:12.668Z] #5 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b 0.3s done
+[2026-05-12T01:45:12.668Z] #5 DONE 0.4s
+[2026-05-12T01:45:12.668Z] 
+[2026-05-12T01:45:12.668Z] #6 [builder  1/10] FROM docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986
+[2026-05-12T01:45:12.668Z] #6 resolve docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986 0.3s done
+[2026-05-12T01:45:12.668Z] #6 DONE 0.4s
+[2026-05-12T01:45:12.668Z] 
+[2026-05-12T01:45:12.668Z] #7 [internal] load build context
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #8 [builder  9/10] COPY services/circleguard-gateway-service/src services/circleguard-gateway-service/src
+[2026-05-12T01:45:12.710Z] #8 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #9 [stage-1 3/5] RUN addgroup -S circleguard && adduser -S circleguard -G circleguard
+[2026-05-12T01:45:12.710Z] #9 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #10 [builder  2/10] WORKDIR /workspace
+[2026-05-12T01:45:12.710Z] #10 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #11 [builder  7/10] COPY services/circleguard-gateway-service/build.gradle.kts services/circleguard-gateway-service/
+[2026-05-12T01:45:12.710Z] #11 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #12 [builder  4/10] COPY gradle gradle/
+[2026-05-12T01:45:12.710Z] #12 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #13 [builder 10/10] RUN ./gradlew :services:circleguard-gateway-service:bootJar --no-daemon -x test
+[2026-05-12T01:45:12.710Z] #13 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #14 [builder  3/10] COPY gradlew .
+[2026-05-12T01:45:12.710Z] #14 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #15 [builder  5/10] COPY build.gradle.kts .
+[2026-05-12T01:45:12.710Z] #15 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #16 [builder  8/10] RUN chmod +x gradlew
+[2026-05-12T01:45:12.710Z] #16 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #17 [stage-1 4/5] COPY --from=builder /workspace/services/circleguard-gateway-service/build/libs/*.jar app.jar
+[2026-05-12T01:45:12.710Z] #17 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #18 [stage-1 2/5] WORKDIR /app
+[2026-05-12T01:45:12.710Z] #18 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.710Z] #19 [builder  6/10] COPY settings.gradle.kts .
+[2026-05-12T01:45:12.710Z] #19 CACHED
+[2026-05-12T01:45:12.710Z] 
+[2026-05-12T01:45:12.711Z] #20 [stage-1 5/5] RUN chown circleguard:circleguard app.jar
+[2026-05-12T01:45:12.711Z] #20 CACHED
+[2026-05-12T01:45:12.711Z] 
+[2026-05-12T01:45:12.711Z] #21 exporting to image
+[2026-05-12T01:45:12.711Z] #21 exporting layers done
+[2026-05-12T01:45:12.711Z] #21 exporting manifest sha256:ed6d69e42d9751abb4bdc93462a141e30217a5cdcb9c1af786b02e26fd24c446
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #8 [builder  4/10] COPY gradle gradle/
+[2026-05-12T01:45:12.783Z] #8 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #9 [builder  6/10] COPY settings.gradle.kts .
+[2026-05-12T01:45:12.783Z] #9 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #10 [builder  7/10] COPY services/circleguard-form-service/build.gradle.kts services/circleguard-form-service/
+[2026-05-12T01:45:12.783Z] #10 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #11 [builder  9/10] COPY services/circleguard-form-service/src services/circleguard-form-service/src
+[2026-05-12T01:45:12.783Z] #11 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #12 [stage-1 3/5] RUN addgroup -S circleguard && adduser -S circleguard -G circleguard
+[2026-05-12T01:45:12.783Z] #12 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #13 [builder  2/10] WORKDIR /workspace
+[2026-05-12T01:45:12.783Z] #13 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #14 [builder  3/10] COPY gradlew .
+[2026-05-12T01:45:12.783Z] #14 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #15 [builder 10/10] RUN ./gradlew :services:circleguard-form-service:bootJar --no-daemon -x test
+[2026-05-12T01:45:12.783Z] #15 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #16 [stage-1 4/5] COPY --from=builder /workspace/services/circleguard-form-service/build/libs/*.jar app.jar
+[2026-05-12T01:45:12.783Z] #16 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #17 [stage-1 2/5] WORKDIR /app
+[2026-05-12T01:45:12.783Z] #17 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #18 [builder  5/10] COPY build.gradle.kts .
+[2026-05-12T01:45:12.783Z] #18 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #19 [builder  8/10] RUN chmod +x gradlew
+[2026-05-12T01:45:12.783Z] #19 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #20 [stage-1 5/5] RUN chown circleguard:circleguard app.jar
+[2026-05-12T01:45:12.783Z] #20 CACHED
+[2026-05-12T01:45:12.783Z] 
+[2026-05-12T01:45:12.783Z] #21 exporting to image
+[2026-05-12T01:45:12.783Z] #21 exporting layers done
+[2026-05-12T01:45:12.783Z] #21 exporting manifest sha256:793fe0150445d4f67b3ac64f7c17246b75db1d6bdbb6479ceba8f1d401daf6cc 0.0s done
+[2026-05-12T01:45:12.783Z] #21 exporting config sha256:07debaab812e40c2ae8ae578bfd609f7ae0548ee3ec2c311018aa2ed7e659b15 0.0s done
+[2026-05-12T01:45:12.783Z] #21 exporting attestation manifest sha256:31d5e8e3549c8408c8490acdfc6dc4aff0104d29137c3c043bcfb1be9ffa2f85
+[2026-05-12T01:45:12.793Z] #7 transferring context: 53.64kB 0.0s done
+[2026-05-12T01:45:12.793Z] #7 DONE 0.4s
+[2026-05-12T01:45:12.918Z] #7 transferring context: 34.39kB done
+[2026-05-12T01:45:12.918Z] #7 DONE 0.5s
+[2026-05-12T01:45:12.962Z] #21 exporting manifest sha256:ed6d69e42d9751abb4bdc93462a141e30217a5cdcb9c1af786b02e26fd24c446 0.0s done
+[2026-05-12T01:45:12.962Z] #21 exporting config sha256:44d366d950751b0013bf6c896d15b80196b13fcc9a39fc5fd69e6d82e8fcee84 0.1s done
+[2026-05-12T01:45:12.962Z] #21 exporting attestation manifest sha256:13f2dbb57b5e88bf9db041efc92573b4d53c26747cc88a4f12d58101aea5f3c9
+[2026-05-12T01:45:13.034Z] #21 exporting attestation manifest sha256:31d5e8e3549c8408c8490acdfc6dc4aff0104d29137c3c043bcfb1be9ffa2f85 0.3s done
+[2026-05-12T01:45:13.034Z] #21 exporting manifest list sha256:527f40051100670ffd0d656dc8cd592c5398938719a2e8629d86d93b1e25d9a7
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #8 [builder  2/10] WORKDIR /workspace
+[2026-05-12T01:45:13.038Z] #8 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #9 [builder  5/10] COPY build.gradle.kts .
+[2026-05-12T01:45:13.038Z] #9 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #10 [builder  8/10] RUN chmod +x gradlew
+[2026-05-12T01:45:13.038Z] #10 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #11 [builder 10/10] RUN ./gradlew :services:circleguard-auth-service:bootJar --no-daemon -x test
+[2026-05-12T01:45:13.038Z] #11 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #12 [stage-1 4/5] COPY --from=builder /workspace/services/circleguard-auth-service/build/libs/*.jar app.jar
+[2026-05-12T01:45:13.038Z] #12 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #13 [builder  7/10] COPY services/circleguard-auth-service/build.gradle.kts services/circleguard-auth-service/
+[2026-05-12T01:45:13.038Z] #13 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #14 [stage-1 2/5] WORKDIR /app
+[2026-05-12T01:45:13.038Z] #14 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #15 [stage-1 3/5] RUN addgroup -S circleguard && adduser -S circleguard -G circleguard
+[2026-05-12T01:45:13.038Z] #15 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #16 [builder  3/10] COPY gradlew .
+[2026-05-12T01:45:13.038Z] #16 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #17 [builder  4/10] COPY gradle gradle/
+[2026-05-12T01:45:13.038Z] #17 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #18 [builder  6/10] COPY settings.gradle.kts .
+[2026-05-12T01:45:13.038Z] #18 CACHED
+[2026-05-12T01:45:13.038Z] 
+[2026-05-12T01:45:13.038Z] #19 [builder  9/10] COPY services/circleguard-auth-service/src services/circleguard-auth-service/src
+[2026-05-12T01:45:13.039Z] #19 CACHED
+[2026-05-12T01:45:13.039Z] 
+[2026-05-12T01:45:13.039Z] #20 [stage-1 5/5] RUN chown circleguard:circleguard app.jar
+[2026-05-12T01:45:13.039Z] #20 CACHED
+[2026-05-12T01:45:13.039Z] 
+[2026-05-12T01:45:13.039Z] #21 exporting to image
+[2026-05-12T01:45:13.039Z] #21 exporting layers done
+[2026-05-12T01:45:13.039Z] #21 exporting manifest sha256:51810f12002b5442acf95a1bda930ccabd0d1ed0eba4cab55a1d6a3c771bad96 0.1s done
+[2026-05-12T01:45:13.039Z] #21 exporting config sha256:ba7c07e8d83c2c5452f15624255acd9a55d3c9411d539dd1fffae83ff2dead69 0.1s done
+[2026-05-12T01:45:13.043Z] 
+[2026-05-12T01:45:13.043Z] #8 [builder  9/10] COPY services/circleguard-notification-service/src services/circleguard-notification-service/src
+[2026-05-12T01:45:13.043Z] #8 CACHED
+[2026-05-12T01:45:13.043Z] 
+[2026-05-12T01:45:13.043Z] #9 [builder 10/10] RUN ./gradlew :services:circleguard-notification-service:bootJar --no-daemon -x test
+[2026-05-12T01:45:13.043Z] #9 CACHED
+[2026-05-12T01:45:13.043Z] 
+[2026-05-12T01:45:13.043Z] #10 [builder  2/10] WORKDIR /workspace
+[2026-05-12T01:45:13.043Z] #10 CACHED
+[2026-05-12T01:45:13.043Z] 
+[2026-05-12T01:45:13.044Z] #11 [builder  3/10] COPY gradlew .
+[2026-05-12T01:45:13.044Z] #11 CACHED
+[2026-05-12T01:45:13.044Z] 
+[2026-05-12T01:45:13.044Z] #12 [builder  8/10] RUN chmod +x gradlew
+[2026-05-12T01:45:13.044Z] #12 CACHED
+[2026-05-12T01:45:13.044Z] 
+[2026-05-12T01:45:13.044Z] #13 [stage-1 4/5] COPY --from=builder /workspace/services/circleguard-notification-service/build/libs/*.jar app.jar
+[2026-05-12T01:45:13.044Z] #13 CACHED
+[2026-05-12T01:45:13.044Z] 
+[2026-05-12T01:45:13.044Z] #14 [stage-1 3/5] RUN addgroup -S circleguard && adduser -S circleguard -G circleguard
+[2026-05-12T01:45:13.044Z] #14 CACHED
+[2026-05-12T01:45:13.044Z] 
+[2026-05-12T01:45:13.044Z] #15 [stage-1 2/5] WORKDIR /app
+[2026-05-12T01:45:13.044Z] #15 CACHED
+[2026-05-12T01:45:13.044Z] 
+[2026-05-12T01:45:13.044Z] #16 [builder  5/10] COPY build.gradle.kts .
+[2026-05-12T01:45:13.044Z] #16 CACHED
+[2026-05-12T01:45:13.044Z] 
+[2026-05-12T01:45:13.044Z] #17 [builder  4/10] COPY gradle gradle/
+[2026-05-12T01:45:13.044Z] #17 CACHED
+[2026-05-12T01:45:13.044Z] 
+[2026-05-12T01:45:13.044Z] #18 [builder  6/10] COPY settings.gradle.kts .
+[2026-05-12T01:45:13.044Z] #18 CACHED
+[2026-05-12T01:45:13.044Z] 
+[2026-05-12T01:45:13.044Z] #19 [builder  7/10] COPY services/circleguard-notification-service/build.gradle.kts services/circleguard-notification-service/
+[2026-05-12T01:45:13.044Z] #19 CACHED
+[2026-05-12T01:45:13.044Z] 
+[2026-05-12T01:45:13.044Z] #20 [stage-1 5/5] RUN chown circleguard:circleguard app.jar
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #8 [builder  9/10] COPY services/circleguard-promotion-service/src services/circleguard-promotion-service/src
+[2026-05-12T01:45:13.149Z] #8 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #9 [stage-1 2/5] WORKDIR /app
+[2026-05-12T01:45:13.149Z] #9 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #10 [builder  7/10] COPY services/circleguard-promotion-service/build.gradle.kts services/circleguard-promotion-service/
+[2026-05-12T01:45:13.149Z] #10 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #11 [builder  8/10] RUN chmod +x gradlew
+[2026-05-12T01:45:13.149Z] #11 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #12 [builder 10/10] RUN ./gradlew :services:circleguard-promotion-service:bootJar --no-daemon -x test
+[2026-05-12T01:45:13.149Z] #12 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #13 [stage-1 4/5] COPY --from=builder /workspace/services/circleguard-promotion-service/build/libs/*.jar app.jar
+[2026-05-12T01:45:13.149Z] #13 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #14 [stage-1 3/5] RUN addgroup -S circleguard && adduser -S circleguard -G circleguard
+[2026-05-12T01:45:13.149Z] #14 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #15 [builder  4/10] COPY gradle gradle/
+[2026-05-12T01:45:13.149Z] #15 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #16 [builder  2/10] WORKDIR /workspace
+[2026-05-12T01:45:13.149Z] #16 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #17 [builder  3/10] COPY gradlew .
+[2026-05-12T01:45:13.149Z] #17 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #18 [builder  5/10] COPY build.gradle.kts .
+[2026-05-12T01:45:13.149Z] #18 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #19 [builder  6/10] COPY settings.gradle.kts .
+[2026-05-12T01:45:13.149Z] #19 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #20 [stage-1 5/5] RUN chown circleguard:circleguard app.jar
+[2026-05-12T01:45:13.149Z] #20 CACHED
+[2026-05-12T01:45:13.149Z] 
+[2026-05-12T01:45:13.149Z] #21 exporting to image
+[2026-05-12T01:45:13.149Z] #21 exporting layers done
+[2026-05-12T01:45:13.149Z] #21 exporting manifest sha256:1de0741438f87e47440751c80797ca06b7d264c4a4f65dd097d85ce456bf2e08
+[2026-05-12T01:45:13.149Z] #21 exporting manifest sha256:1de0741438f87e47440751c80797ca06b7d264c4a4f65dd097d85ce456bf2e08 0.1s done
+[2026-05-12T01:45:13.149Z] #21 exporting config sha256:404debe2ac834c6daa2583ea99b1efb33019f913ebf504fc826c7329b3d95844
+[2026-05-12T01:45:13.168Z] 
+[2026-05-12T01:45:13.168Z] #8 [stage-1 3/5] RUN addgroup -S circleguard && adduser -S circleguard -G circleguard
+[2026-05-12T01:45:13.169Z] #8 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #9 [builder  6/10] COPY settings.gradle.kts .
+[2026-05-12T01:45:13.169Z] #9 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #10 [builder  9/10] COPY services/circleguard-identity-service/src services/circleguard-identity-service/src
+[2026-05-12T01:45:13.169Z] #10 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #11 [builder  5/10] COPY build.gradle.kts .
+[2026-05-12T01:45:13.169Z] #11 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #12 [builder 10/10] RUN ./gradlew :services:circleguard-identity-service:bootJar --no-daemon -x test
+[2026-05-12T01:45:13.169Z] #12 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #13 [stage-1 4/5] COPY --from=builder /workspace/services/circleguard-identity-service/build/libs/*.jar app.jar
+[2026-05-12T01:45:13.169Z] #13 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #14 [builder  2/10] WORKDIR /workspace
+[2026-05-12T01:45:13.169Z] #14 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #15 [builder  3/10] COPY gradlew .
+[2026-05-12T01:45:13.169Z] #15 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #16 [builder  4/10] COPY gradle gradle/
+[2026-05-12T01:45:13.169Z] #16 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #17 [builder  7/10] COPY services/circleguard-identity-service/build.gradle.kts services/circleguard-identity-service/
+[2026-05-12T01:45:13.169Z] #17 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #18 [builder  8/10] RUN chmod +x gradlew
+[2026-05-12T01:45:13.169Z] #18 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #19 [stage-1 2/5] WORKDIR /app
+[2026-05-12T01:45:13.169Z] #19 CACHED
+[2026-05-12T01:45:13.169Z] 
+[2026-05-12T01:45:13.169Z] #20 [stage-1 5/5] RUN chown circleguard:circleguard app.jar
+[2026-05-12T01:45:13.284Z] #21 exporting manifest list sha256:527f40051100670ffd0d656dc8cd592c5398938719a2e8629d86d93b1e25d9a7 0.2s done
+[2026-05-12T01:45:13.284Z] #21 naming to docker.io/juan0073/circleguard-form-service:dev-5
+[2026-05-12T01:45:13.289Z] #21 exporting attestation manifest sha256:84fe13398cdc7a631bb783907ab84c47fc29973f16cbe223394df905cbca395d
+[2026-05-12T01:45:13.294Z] #20 CACHED
+[2026-05-12T01:45:13.294Z] 
+[2026-05-12T01:45:13.294Z] #21 exporting to image
+[2026-05-12T01:45:13.294Z] #21 exporting layers done
+[2026-05-12T01:45:13.294Z] #21 exporting manifest sha256:c568d3efefc8bf82e58ce92d6634bf45f5a805d85fd50e94f0485ae887530d75 0.1s done
+[2026-05-12T01:45:13.294Z] #21 exporting config sha256:d9df64b72e949b6d12e710d2ab20ff1de67ebde212620fb2abdc977edccc49ad
+[2026-05-12T01:45:13.399Z] #21 exporting config sha256:404debe2ac834c6daa2583ea99b1efb33019f913ebf504fc826c7329b3d95844 0.1s done
+[2026-05-12T01:45:13.419Z] #20 CACHED
+[2026-05-12T01:45:13.419Z] 
+[2026-05-12T01:45:13.419Z] #21 exporting to image
+[2026-05-12T01:45:13.419Z] #21 exporting layers done
+[2026-05-12T01:45:13.419Z] #21 exporting manifest sha256:539814ce2d4a8c8ff902868ddf2d632db636c2e3bda556277f396701da4b4931 0.1s done
+[2026-05-12T01:45:13.419Z] #21 exporting config sha256:36441ca24d67849b046d3d757a0b113592c781bf3860a0802abbb5c542decede
+[2026-05-12T01:45:13.419Z] #21 exporting config sha256:36441ca24d67849b046d3d757a0b113592c781bf3860a0802abbb5c542decede 0.1s done
+[2026-05-12T01:45:13.512Z] #21 exporting attestation manifest sha256:13f2dbb57b5e88bf9db041efc92573b4d53c26747cc88a4f12d58101aea5f3c9 0.4s done
+[2026-05-12T01:45:13.512Z] #21 exporting manifest list sha256:684ba56c5b5f401980b176f303fe73e1f32976c289f7f130941e1944c0b006bc
+[2026-05-12T01:45:13.534Z] #21 naming to docker.io/juan0073/circleguard-form-service:dev-5 0.2s done
+[2026-05-12T01:45:13.534Z] #21 unpacking to docker.io/juan0073/circleguard-form-service:dev-5
+[2026-05-12T01:45:13.545Z] #21 exporting config sha256:d9df64b72e949b6d12e710d2ab20ff1de67ebde212620fb2abdc977edccc49ad 0.1s done
+[2026-05-12T01:45:13.649Z] #21 exporting attestation manifest sha256:c7f18d347b243e1c6b23a436fd8a2eb7cbe7d23fc055891819312da81c7020bb
+[2026-05-12T01:45:13.670Z] #21 exporting attestation manifest sha256:d5852c1accebe8a53c5ef75789893c66ade07f18c4ca51d762f72ce07ea12dc6
+[2026-05-12T01:45:13.763Z] #21 exporting manifest list sha256:684ba56c5b5f401980b176f303fe73e1f32976c289f7f130941e1944c0b006bc 0.3s done
+[2026-05-12T01:45:13.763Z] #21 naming to docker.io/juan0073/circleguard-gateway-service:dev-5
+[2026-05-12T01:45:13.763Z] #21 naming to docker.io/juan0073/circleguard-gateway-service:dev-5 0.2s done
+[2026-05-12T01:45:13.763Z] #21 unpacking to docker.io/juan0073/circleguard-gateway-service:dev-5
+[2026-05-12T01:45:13.784Z] #21 unpacking to docker.io/juan0073/circleguard-form-service:dev-5 0.2s done
+[2026-05-12T01:45:13.785Z] #21 naming to docker.io/juan0073/circleguard-form-service:dev-latest 0.1s done
+[2026-05-12T01:45:13.785Z] #21 unpacking to docker.io/juan0073/circleguard-form-service:dev-latest
+[2026-05-12T01:45:13.795Z] #21 exporting attestation manifest sha256:1fb8e1657db9d3bdc7c135762bf96c4185a600cf3efbee78aedac78d54ad51d4
+[2026-05-12T01:45:13.840Z] #21 exporting attestation manifest sha256:84fe13398cdc7a631bb783907ab84c47fc29973f16cbe223394df905cbca395d 0.4s done
+[2026-05-12T01:45:13.840Z] #21 exporting manifest list sha256:a9776894ccf2b77c2c2c530d2ab25298f916a9cb9b266cac310ee6ef93706a6a
+[2026-05-12T01:45:13.900Z] #21 exporting attestation manifest sha256:c7f18d347b243e1c6b23a436fd8a2eb7cbe7d23fc055891819312da81c7020bb 0.4s done
+[2026-05-12T01:45:14.013Z] #21 unpacking to docker.io/juan0073/circleguard-gateway-service:dev-5 0.2s done
+[2026-05-12T01:45:14.035Z] #21 unpacking to docker.io/juan0073/circleguard-form-service:dev-latest 0.2s done
+[2026-05-12T01:45:14.045Z] #21 exporting attestation manifest sha256:1fb8e1657db9d3bdc7c135762bf96c4185a600cf3efbee78aedac78d54ad51d4 0.4s done
+[2026-05-12T01:45:14.045Z] #21 exporting manifest list sha256:01365c818b2cd06b4e88fa608f3eb8e18f7e01d6a4a3facbc93fa06d055fb809
+[2026-05-12T01:45:14.090Z] #21 exporting manifest list sha256:a9776894ccf2b77c2c2c530d2ab25298f916a9cb9b266cac310ee6ef93706a6a 0.2s done
+[2026-05-12T01:45:14.090Z] #21 naming to docker.io/juan0073/circleguard-auth-service:dev-5
+[2026-05-12T01:45:14.090Z] #21 naming to docker.io/juan0073/circleguard-auth-service:dev-5 0.2s done
+[2026-05-12T01:45:14.090Z] #21 unpacking to docker.io/juan0073/circleguard-auth-service:dev-5
+[2026-05-12T01:45:14.150Z] #21 exporting manifest list sha256:01383c5651d93cfa5684bb3b50d7785ce09d1061197f003882dc52d0b5bc0c33
+[2026-05-12T01:45:14.150Z] #21 exporting manifest list sha256:01383c5651d93cfa5684bb3b50d7785ce09d1061197f003882dc52d0b5bc0c33 0.2s done
+[2026-05-12T01:45:14.150Z] #21 naming to docker.io/juan0073/circleguard-promotion-service:dev-5
+[2026-05-12T01:45:14.220Z] #21 exporting attestation manifest sha256:d5852c1accebe8a53c5ef75789893c66ade07f18c4ca51d762f72ce07ea12dc6 0.4s done
+[2026-05-12T01:45:14.220Z] #21 exporting manifest list sha256:4e22954cb4704129a2df47f669ec855fcf3ac2b14fe08987606ce0762cbed8a1
+[2026-05-12T01:45:14.220Z] #21 exporting manifest list sha256:4e22954cb4704129a2df47f669ec855fcf3ac2b14fe08987606ce0762cbed8a1 0.1s done
+[2026-05-12T01:45:14.220Z] #21 naming to docker.io/juan0073/circleguard-identity-service:dev-5
+[2026-05-12T01:45:14.263Z] #21 naming to docker.io/juan0073/circleguard-gateway-service:dev-latest 0.1s done
+[2026-05-12T01:45:14.263Z] #21 unpacking to docker.io/juan0073/circleguard-gateway-service:dev-latest
+[2026-05-12T01:45:14.263Z] #21 unpacking to docker.io/juan0073/circleguard-gateway-service:dev-latest 0.1s done
+[2026-05-12T01:45:14.285Z] #21 DONE 1.5s
+[2026-05-12T01:45:14.296Z] #21 exporting manifest list sha256:01365c818b2cd06b4e88fa608f3eb8e18f7e01d6a4a3facbc93fa06d055fb809 0.1s done
+[2026-05-12T01:45:14.296Z] #21 naming to docker.io/juan0073/circleguard-notification-service:dev-5
+[2026-05-12T01:45:14.296Z] #21 naming to docker.io/juan0073/circleguard-notification-service:dev-5 0.2s done
+[2026-05-12T01:45:14.296Z] #21 unpacking to docker.io/juan0073/circleguard-notification-service:dev-5
+[2026-05-12T01:45:14.341Z] #21 unpacking to docker.io/juan0073/circleguard-auth-service:dev-5 0.1s done
+[2026-05-12T01:45:14.341Z] #21 naming to docker.io/juan0073/circleguard-auth-service:dev-latest 0.1s done
+[2026-05-12T01:45:14.341Z] #21 unpacking to docker.io/juan0073/circleguard-auth-service:dev-latest
+[2026-05-12T01:45:14.400Z] #21 naming to docker.io/juan0073/circleguard-promotion-service:dev-5 0.1s done
+[2026-05-12T01:45:14.400Z] #21 unpacking to docker.io/juan0073/circleguard-promotion-service:dev-5
+[2026-05-12T01:45:14.471Z] #21 naming to docker.io/juan0073/circleguard-identity-service:dev-5 0.2s done
+[2026-05-12T01:45:14.471Z] #21 unpacking to docker.io/juan0073/circleguard-identity-service:dev-5
+[2026-05-12T01:45:14.514Z] #21 DONE 1.7s
+[2026-05-12T01:45:14.546Z] #21 unpacking to docker.io/juan0073/circleguard-notification-service:dev-5 0.2s done
+[2026-05-12T01:45:14.591Z] #21 unpacking to docker.io/juan0073/circleguard-auth-service:dev-latest 0.2s done
+[2026-05-12T01:45:14.651Z] #21 unpacking to docker.io/juan0073/circleguard-promotion-service:dev-5 0.2s done
+[2026-05-12T01:45:14.651Z] #21 naming to docker.io/juan0073/circleguard-promotion-service:dev-latest 0.1s done
+[2026-05-12T01:45:14.651Z] #21 unpacking to docker.io/juan0073/circleguard-promotion-service:dev-latest 0.1s done
+[2026-05-12T01:45:14.721Z] #21 unpacking to docker.io/juan0073/circleguard-identity-service:dev-5 0.2s done
+[2026-05-12T01:45:14.796Z] #21 naming to docker.io/juan0073/circleguard-notification-service:dev-latest 0.1s done
+[2026-05-12T01:45:14.796Z] #21 unpacking to docker.io/juan0073/circleguard-notification-service:dev-latest
+[2026-05-12T01:45:14.796Z] #21 unpacking to docker.io/juan0073/circleguard-notification-service:dev-latest 0.1s done
+[2026-05-12T01:45:14.841Z] #21 DONE 1.7s
+[2026-05-12T01:45:14.901Z] #21 DONE 1.8s
+[2026-05-12T01:45:14.971Z] #21 naming to docker.io/juan0073/circleguard-identity-service:dev-latest 0.1s done
+[2026-05-12T01:45:14.971Z] #21 unpacking to docker.io/juan0073/circleguard-identity-service:dev-latest
+[2026-05-12T01:45:14.971Z] #21 unpacking to docker.io/juan0073/circleguard-identity-service:dev-latest 0.2s done
+[2026-05-12T01:45:14.971Z] #21 DONE 1.7s
+[2026-05-12T01:45:15.047Z] #21 DONE 1.7s
+[2026-05-12T01:45:15.628Z] + docker push juan0073/circleguard-form-service:dev-5
+[2026-05-12T01:45:15.628Z] The push refers to repository [docker.io/juan0073/circleguard-form-service]
+[2026-05-12T01:45:15.628Z] 77a66a314605: Waiting
+[2026-05-12T01:45:15.628Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:15.628Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:15.628Z] b721ab6da137: Waiting
+[2026-05-12T01:45:15.628Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:15.628Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:15.628Z] 42516208460b: Waiting
+[2026-05-12T01:45:15.628Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:15.628Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:15.628Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:15.857Z] + docker push juan0073/circleguard-gateway-service:dev-5
+[2026-05-12T01:45:15.857Z] The push refers to repository [docker.io/juan0073/circleguard-gateway-service]
+[2026-05-12T01:45:15.857Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:15.857Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:15.857Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:15.857Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:15.857Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:15.857Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:15.857Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:15.857Z] 77a66a314605: Waiting
+[2026-05-12T01:45:15.857Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:15.857Z] 42516208460b: Waiting
+[2026-05-12T01:45:15.878Z] 42516208460b: Waiting
+[2026-05-12T01:45:15.879Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:15.879Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:15.879Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:15.879Z] 77a66a314605: Waiting
+[2026-05-12T01:45:15.879Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:15.879Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:15.879Z] b721ab6da137: Waiting
+[2026-05-12T01:45:15.879Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:15.879Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:15.879Z] 42516208460b: Waiting
+[2026-05-12T01:45:15.879Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:15.879Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:15.879Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:15.879Z] 77a66a314605: Waiting
+[2026-05-12T01:45:15.879Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:15.879Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:15.879Z] b721ab6da137: Waiting
+[2026-05-12T01:45:15.879Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:15.879Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.107Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:16.107Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.107Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.107Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:16.107Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:16.107Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.107Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.107Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.107Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.107Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.107Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:16.107Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.107Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.107Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.107Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.107Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.107Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:16.107Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.107Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.107Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:16.129Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.129Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.129Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.129Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:16.129Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.129Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:16.129Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.129Z] b721ab6da137: Waiting
+[2026-05-12T01:45:16.129Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.129Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.129Z] b721ab6da137: Waiting
+[2026-05-12T01:45:16.129Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.129Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.129Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.129Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.129Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.129Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:16.129Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.129Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:16.129Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.129Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:16.129Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.129Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:16.129Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.129Z] b721ab6da137: Waiting
+[2026-05-12T01:45:16.129Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.129Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:16.129Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.129Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.129Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.314Z] + docker push juan0073/circleguard-identity-service:dev-5
+[2026-05-12T01:45:16.314Z] The push refers to repository [docker.io/juan0073/circleguard-identity-service]
+[2026-05-12T01:45:16.314Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.314Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.314Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.314Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.314Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.314Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.314Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:16.314Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.314Z] df1563eb911b: Waiting
+[2026-05-12T01:45:16.314Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:16.314Z] df1563eb911b: Waiting
+[2026-05-12T01:45:16.314Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:16.314Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.314Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.314Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.314Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.314Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.314Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.314Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:16.314Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.357Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:16.357Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.357Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.357Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:16.357Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:16.357Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.357Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.357Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.357Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.357Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.357Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:16.357Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.357Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.357Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:16.357Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:16.358Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.358Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.358Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.358Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.358Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.358Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.358Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:16.358Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:16.358Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.358Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.358Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:16.358Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:16.358Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.358Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.358Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:16.379Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.379Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.379Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.379Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:16.379Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.379Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:16.379Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.379Z] b721ab6da137: Waiting
+[2026-05-12T01:45:16.379Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.379Z] b721ab6da137: Waiting
+[2026-05-12T01:45:16.379Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:16.379Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.379Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.379Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.379Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:16.379Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.379Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:16.379Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.565Z] df1563eb911b: Waiting
+[2026-05-12T01:45:16.565Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:16.565Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.565Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.565Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.565Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.565Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.565Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.565Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:16.565Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.565Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.565Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.565Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.565Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.565Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:16.565Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.565Z] df1563eb911b: Waiting
+[2026-05-12T01:45:16.565Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:16.565Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.565Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.565Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.565Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.565Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:16.565Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.565Z] df1563eb911b: Waiting
+[2026-05-12T01:45:16.565Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:16.565Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.565Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.565Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.565Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.608Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:16.608Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.608Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.608Z] 7dcb4916caaf: Layer already exists
+[2026-05-12T01:45:16.608Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:16.608Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.608Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.608Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.608Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.608Z] d2372d7fd244: Layer already exists
+[2026-05-12T01:45:16.608Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.608Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.608Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:16.608Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.608Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.629Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:16.629Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.629Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:16.629Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:16.629Z] b721ab6da137: Waiting
+[2026-05-12T01:45:16.629Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:16.629Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.629Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.629Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:16.629Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.629Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:16.629Z] b721ab6da137: Waiting
+[2026-05-12T01:45:16.629Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.629Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:16.629Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.629Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:16.629Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:16.629Z] 40ba9d1dd1f9: Layer already exists
+[2026-05-12T01:45:16.703Z] + docker push juan0073/circleguard-auth-service:dev-5
+[2026-05-12T01:45:16.703Z] The push refers to repository [docker.io/juan0073/circleguard-auth-service]
+[2026-05-12T01:45:16.762Z] + docker push juan0073/circleguard-promotion-service:dev-5
+[2026-05-12T01:45:16.762Z] The push refers to repository [docker.io/juan0073/circleguard-promotion-service]
+[2026-05-12T01:45:16.762Z] ad4883973c71: Waiting
+[2026-05-12T01:45:16.762Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.762Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:16.762Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.762Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.762Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:16.762Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.762Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.762Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.762Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.762Z] ad4883973c71: Waiting
+[2026-05-12T01:45:16.762Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.762Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:16.762Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.762Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.762Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:16.762Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.762Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.762Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.762Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.762Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.762Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.762Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.762Z] ad4883973c71: Waiting
+[2026-05-12T01:45:16.762Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.762Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:16.762Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.762Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.762Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:16.762Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.815Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:16.815Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.815Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:16.815Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.815Z] df1563eb911b: Waiting
+[2026-05-12T01:45:16.815Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:16.815Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.815Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.815Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.815Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.815Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:16.815Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.815Z] df1563eb911b: Waiting
+[2026-05-12T01:45:16.815Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:16.815Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:16.815Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.815Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.815Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.815Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.858Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.858Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.858Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.858Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.858Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:16.858Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.858Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:16.858Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.858Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.858Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.858Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.858Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.858Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:16.858Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:16.858Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:16.858Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:16.858Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:16.858Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.880Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:16.880Z] 2867142c36bd: Layer already exists
+[2026-05-12T01:45:16.953Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.953Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.953Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:16.953Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.953Z] a68ec85de812: Waiting
+[2026-05-12T01:45:16.953Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.953Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.953Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.953Z] d228b2d70377: Waiting
+[2026-05-12T01:45:16.953Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.953Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:16.953Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:16.953Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:16.953Z] d228b2d70377: Waiting
+[2026-05-12T01:45:16.953Z] 42516208460b: Waiting
+[2026-05-12T01:45:16.953Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:16.953Z] 77a66a314605: Waiting
+[2026-05-12T01:45:16.953Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:16.953Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:16.953Z] a68ec85de812: Waiting
+[2026-05-12T01:45:17.013Z] ad4883973c71: Waiting
+[2026-05-12T01:45:17.013Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.013Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:17.013Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.013Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.013Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:17.013Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.013Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.013Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.013Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.013Z] ad4883973c71: Waiting
+[2026-05-12T01:45:17.013Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.013Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:17.013Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.013Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.013Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:17.013Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.013Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.013Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.013Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.013Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.013Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.013Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.013Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.013Z] ad4883973c71: Waiting
+[2026-05-12T01:45:17.013Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.013Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:17.013Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.013Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.013Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:17.065Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:17.065Z] 031d8f538b76: Layer already exists
+[2026-05-12T01:45:17.065Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:17.065Z] df1563eb911b: Waiting
+[2026-05-12T01:45:17.065Z] d94dff39c60e: Layer already exists
+[2026-05-12T01:45:17.065Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:17.065Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:17.065Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.065Z] df1563eb911b: Waiting
+[2026-05-12T01:45:17.065Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:17.108Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:17.108Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:17.203Z] d228b2d70377: Waiting
+[2026-05-12T01:45:17.203Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.203Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.203Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.203Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:17.203Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.203Z] a68ec85de812: Waiting
+[2026-05-12T01:45:17.203Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.203Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.203Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.203Z] d228b2d70377: Waiting
+[2026-05-12T01:45:17.203Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.203Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.203Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.203Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:17.203Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.203Z] a68ec85de812: Waiting
+[2026-05-12T01:45:17.203Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.203Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.203Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.263Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.263Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:17.263Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.263Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.263Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.263Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.263Z] ad4883973c71: Waiting
+[2026-05-12T01:45:17.263Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.263Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:17.263Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.263Z] d445d5aa24cc: Layer already exists
+[2026-05-12T01:45:17.263Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:17.263Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:17.263Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:17.263Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:17.263Z] ad4883973c71: Waiting
+[2026-05-12T01:45:17.263Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:17.263Z] 1ffdf8d4e7eb: Layer already exists
+[2026-05-12T01:45:17.263Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:17.263Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:17.430Z] b721ab6da137: Pushed
+[2026-05-12T01:45:17.454Z] d228b2d70377: Waiting
+[2026-05-12T01:45:17.454Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.454Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.454Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.454Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:17.454Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.454Z] a68ec85de812: Waiting
+[2026-05-12T01:45:17.454Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.454Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.454Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.454Z] d228b2d70377: Waiting
+[2026-05-12T01:45:17.454Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.454Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.454Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:17.454Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:17.454Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.454Z] a68ec85de812: Waiting
+[2026-05-12T01:45:17.454Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.454Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.454Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.454Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:17.454Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.454Z] a68ec85de812: Waiting
+[2026-05-12T01:45:17.454Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.454Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.454Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.454Z] d228b2d70377: Waiting
+[2026-05-12T01:45:17.454Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:17.454Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.513Z] ad4883973c71: Waiting
+[2026-05-12T01:45:17.529Z] + docker push juan0073/circleguard-notification-service:dev-5
+[2026-05-12T01:45:17.529Z] The push refers to repository [docker.io/juan0073/circleguard-notification-service]
+[2026-05-12T01:45:17.529Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.529Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:17.529Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.529Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:17.529Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.529Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.529Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.529Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:17.529Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.529Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.529Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.529Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.529Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.529Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:17.529Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.529Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.529Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.529Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:17.529Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.529Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:17.529Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.529Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:17.529Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.529Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.529Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.529Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:17.529Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.529Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.529Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.529Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:17.529Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:17.529Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.529Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.529Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.529Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:17.529Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.529Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:17.529Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.529Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.529Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.529Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.529Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.529Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.529Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:17.529Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.529Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:17.529Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.529Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.529Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.529Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:17.704Z] d228b2d70377: Layer already exists
+[2026-05-12T01:45:17.704Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:17.704Z] e7a9a03ffc72: Layer already exists
+[2026-05-12T01:45:17.704Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:17.704Z] a68ec85de812: Waiting
+[2026-05-12T01:45:17.704Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:17.704Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:17.704Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.704Z] a68ec85de812: Waiting
+[2026-05-12T01:45:17.704Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:17.780Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.780Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:17.780Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.780Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.780Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.780Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:17.780Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.780Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.780Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.780Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:17.780Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:17.780Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:17.780Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:17.780Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:17.780Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:17.780Z] 42516208460b: Waiting
+[2026-05-12T01:45:17.780Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:17.780Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:17.780Z] 77a66a314605: Waiting
+[2026-05-12T01:45:17.780Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:17.976Z] df1563eb911b: Pushed
+[2026-05-12T01:45:18.019Z] 0d3f40b847cc: Pushed
+[2026-05-12T01:45:18.030Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:18.030Z] 2c49cb22bb88: Layer already exists
+[2026-05-12T01:45:18.030Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:18.030Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:18.030Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:18.030Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:18.030Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:18.030Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:18.030Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:18.030Z] d9e8d69ba4c1: Layer already exists
+[2026-05-12T01:45:18.030Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:18.030Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:18.030Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:18.030Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:18.424Z] ad4883973c71: Pushed
+[2026-05-12T01:45:18.615Z] a68ec85de812: Pushed
+[2026-05-12T01:45:18.941Z] aac85ff4193b: Pushed
+[2026-05-12T01:45:20.658Z] dev-5: digest: sha256:527f40051100670ffd0d656dc8cd592c5398938719a2e8629d86d93b1e25d9a7 size: 856
+[2026-05-12T01:45:20.658Z] + docker push juan0073/circleguard-form-service:dev-latest
+[2026-05-12T01:45:20.658Z] The push refers to repository [docker.io/juan0073/circleguard-form-service]
+[2026-05-12T01:45:20.658Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:20.658Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:20.658Z] 77a66a314605: Waiting
+[2026-05-12T01:45:20.658Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:20.658Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:20.658Z] 42516208460b: Waiting
+[2026-05-12T01:45:20.658Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:20.658Z] b721ab6da137: Waiting
+[2026-05-12T01:45:20.658Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:20.658Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:20.658Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:20.658Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:20.658Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:20.658Z] 77a66a314605: Waiting
+[2026-05-12T01:45:20.658Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:20.658Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:20.658Z] 42516208460b: Waiting
+[2026-05-12T01:45:20.658Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:20.658Z] b721ab6da137: Waiting
+[2026-05-12T01:45:20.658Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:20.658Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:20.658Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:20.658Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:20.658Z] 77a66a314605: Waiting
+[2026-05-12T01:45:20.658Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:20.658Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:20.658Z] 42516208460b: Waiting
+[2026-05-12T01:45:20.658Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:20.658Z] b721ab6da137: Waiting
+[2026-05-12T01:45:20.658Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:20.658Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:20.658Z] 42516208460b: Waiting
+[2026-05-12T01:45:20.658Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:20.658Z] b721ab6da137: Waiting
+[2026-05-12T01:45:20.658Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:20.658Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:20.658Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:20.658Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:20.658Z] 77a66a314605: Waiting
+[2026-05-12T01:45:20.658Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:20.909Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:20.909Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:20.909Z] 42516208460b: Waiting
+[2026-05-12T01:45:20.909Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:20.909Z] b721ab6da137: Waiting
+[2026-05-12T01:45:20.909Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:20.909Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:20.909Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:20.909Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:20.909Z] 77a66a314605: Waiting
+[2026-05-12T01:45:20.909Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:20.909Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:20.909Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:20.909Z] 77a66a314605: Waiting
+[2026-05-12T01:45:20.909Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:20.909Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:20.909Z] 42516208460b: Waiting
+[2026-05-12T01:45:20.909Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:20.909Z] b721ab6da137: Waiting
+[2026-05-12T01:45:20.909Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:20.909Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:20.909Z] 2867142c36bd: Waiting
+[2026-05-12T01:45:20.909Z] 77a66a314605: Waiting
+[2026-05-12T01:45:20.909Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:20.909Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:20.909Z] 42516208460b: Waiting
+[2026-05-12T01:45:20.909Z] b721ab6da137: Waiting
+[2026-05-12T01:45:20.909Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.159Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:21.159Z] 2867142c36bd: Layer already exists
+[2026-05-12T01:45:21.159Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:21.159Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:21.159Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:21.159Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.159Z] b721ab6da137: Already exists
+[2026-05-12T01:45:21.159Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:21.159Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:21.159Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.204Z] dev-5: digest: sha256:4e22954cb4704129a2df47f669ec855fcf3ac2b14fe08987606ce0762cbed8a1 size: 856
+[2026-05-12T01:45:21.204Z] + docker push juan0073/circleguard-identity-service:dev-latest
+[2026-05-12T01:45:21.204Z] The push refers to repository [docker.io/juan0073/circleguard-identity-service]
+[2026-05-12T01:45:21.204Z] df1563eb911b: Waiting
+[2026-05-12T01:45:21.204Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.204Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.204Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.204Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.204Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:21.204Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.204Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:21.204Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.204Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.204Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.204Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.204Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.204Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.204Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:21.204Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.204Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:21.204Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.204Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.204Z] df1563eb911b: Waiting
+[2026-05-12T01:45:21.204Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:21.204Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.204Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.204Z] df1563eb911b: Waiting
+[2026-05-12T01:45:21.204Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.204Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.204Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.204Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.204Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:21.204Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.204Z] df1563eb911b: Waiting
+[2026-05-12T01:45:21.204Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.204Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.204Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.204Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.204Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:21.204Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.204Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:21.204Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.204Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.247Z] dev-5: digest: sha256:684ba56c5b5f401980b176f303fe73e1f32976c289f7f130941e1944c0b006bc size: 856
+[2026-05-12T01:45:21.247Z] + docker push juan0073/circleguard-gateway-service:dev-latest
+[2026-05-12T01:45:21.247Z] The push refers to repository [docker.io/juan0073/circleguard-gateway-service]
+[2026-05-12T01:45:21.247Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:21.247Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.247Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.247Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.247Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.247Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:21.247Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.247Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.247Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.247Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:21.247Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.247Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.247Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.247Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:21.247Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.247Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.247Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.247Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:21.247Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:21.247Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.247Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:21.247Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.247Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.247Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.247Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:21.247Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:21.247Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.247Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.247Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.247Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.247Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.247Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.247Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.247Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.247Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:21.247Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.247Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.247Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.247Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:21.247Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:21.409Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.410Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:21.410Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:21.410Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:21.410Z] 40ba9d1dd1f9: Waiting
+[2026-05-12T01:45:21.454Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.454Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.454Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.454Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.454Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:21.454Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.454Z] d94dff39c60e: Waiting
+[2026-05-12T01:45:21.454Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.454Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.454Z] df1563eb911b: Waiting
+[2026-05-12T01:45:21.454Z] df1563eb911b: Waiting
+[2026-05-12T01:45:21.454Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:21.454Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.454Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.454Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.454Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:21.454Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.454Z] d94dff39c60e: Layer already exists
+[2026-05-12T01:45:21.454Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.454Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.497Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:21.497Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:21.497Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.497Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.497Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.497Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.497Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:21.497Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.497Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.497Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.497Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.497Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:21.497Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:21.497Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.497Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.497Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.497Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.497Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:21.497Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:21.497Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.652Z] dev-5: digest: sha256:01383c5651d93cfa5684bb3b50d7785ce09d1061197f003882dc52d0b5bc0c33 size: 856
+[2026-05-12T01:45:21.652Z] + docker push juan0073/circleguard-promotion-service:dev-latest
+[2026-05-12T01:45:21.652Z] The push refers to repository [docker.io/juan0073/circleguard-promotion-service]
+[2026-05-12T01:45:21.652Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.652Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.652Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:21.652Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.652Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.652Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.652Z] ad4883973c71: Waiting
+[2026-05-12T01:45:21.652Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.652Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.652Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:21.652Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.652Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.652Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.652Z] ad4883973c71: Waiting
+[2026-05-12T01:45:21.652Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.652Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.652Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:21.652Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.652Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.652Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:21.652Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.652Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.652Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:21.652Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.652Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.652Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.652Z] ad4883973c71: Waiting
+[2026-05-12T01:45:21.652Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.652Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.652Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:21.652Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.652Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.652Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.652Z] ad4883973c71: Waiting
+[2026-05-12T01:45:21.652Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.652Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.652Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:21.652Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.652Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.652Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:21.652Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:21.652Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.652Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.652Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.652Z] ad4883973c71: Waiting
+[2026-05-12T01:45:21.652Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.652Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.652Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:21.652Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.652Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.660Z] 40ba9d1dd1f9: Layer already exists
+[2026-05-12T01:45:21.705Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.705Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.705Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.705Z] 031d8f538b76: Waiting
+[2026-05-12T01:45:21.705Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.705Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.705Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.705Z] df1563eb911b: Waiting
+[2026-05-12T01:45:21.705Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:21.705Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:21.705Z] df1563eb911b: Already exists
+[2026-05-12T01:45:21.705Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.705Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.705Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.705Z] 031d8f538b76: Layer already exists
+[2026-05-12T01:45:21.705Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:21.705Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:21.705Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.705Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:21.748Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:21.748Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:21.748Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.748Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.748Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:21.748Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:21.748Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.748Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.748Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.748Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:21.748Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:21.748Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.748Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.748Z] d2372d7fd244: Waiting
+[2026-05-12T01:45:21.748Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:21.748Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:21.748Z] 7dcb4916caaf: Waiting
+[2026-05-12T01:45:21.748Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:21.748Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.748Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:21.748Z] d2372d7fd244: Layer already exists
+[2026-05-12T01:45:21.748Z] 7dcb4916caaf: Layer already exists
+[2026-05-12T01:45:21.843Z] dev-5: digest: sha256:a9776894ccf2b77c2c2c530d2ab25298f916a9cb9b266cac310ee6ef93706a6a size: 856
+[2026-05-12T01:45:21.843Z] + docker push juan0073/circleguard-auth-service:dev-latest
+[2026-05-12T01:45:21.843Z] The push refers to repository [docker.io/juan0073/circleguard-auth-service]
+[2026-05-12T01:45:21.843Z] a68ec85de812: Waiting
+[2026-05-12T01:45:21.843Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.843Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.843Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.843Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.843Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:21.843Z] d228b2d70377: Waiting
+[2026-05-12T01:45:21.843Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.843Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.843Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.843Z] d228b2d70377: Waiting
+[2026-05-12T01:45:21.843Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.843Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.843Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.843Z] a68ec85de812: Waiting
+[2026-05-12T01:45:21.843Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.843Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.843Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.843Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.843Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:21.843Z] a68ec85de812: Waiting
+[2026-05-12T01:45:21.843Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.843Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.843Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.843Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.843Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:21.843Z] d228b2d70377: Waiting
+[2026-05-12T01:45:21.843Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.843Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.843Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.902Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.902Z] ad4883973c71: Already exists
+[2026-05-12T01:45:21.902Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.902Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:21.902Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:21.902Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:21.902Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.902Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:21.902Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.902Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.902Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:21.902Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.902Z] 1ffdf8d4e7eb: Waiting
+[2026-05-12T01:45:21.902Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.902Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.902Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.902Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.902Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:21.902Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.902Z] 1ffdf8d4e7eb: Layer already exists
+[2026-05-12T01:45:21.902Z] 42516208460b: Waiting
+[2026-05-12T01:45:21.902Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:21.902Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:21.902Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:21.902Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:21.955Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:21.955Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:21.998Z] 0d3f40b847cc: Waiting
+[2026-05-12T01:45:21.998Z] 77a66a314605: Waiting
+[2026-05-12T01:45:21.998Z] 0d3f40b847cc: Already exists
+[2026-05-12T01:45:21.998Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.093Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.093Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.093Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.093Z] a68ec85de812: Waiting
+[2026-05-12T01:45:22.093Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.093Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.093Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.093Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:22.093Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:22.093Z] d228b2d70377: Waiting
+[2026-05-12T01:45:22.093Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.093Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.093Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:22.093Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:22.093Z] d228b2d70377: Waiting
+[2026-05-12T01:45:22.093Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.093Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.093Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.093Z] a68ec85de812: Waiting
+[2026-05-12T01:45:22.093Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.153Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.153Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:22.153Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.153Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.153Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.153Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.153Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:22.153Z] d445d5aa24cc: Waiting
+[2026-05-12T01:45:22.153Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.153Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:22.153Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:22.153Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.168Z] dev-5: digest: sha256:01365c818b2cd06b4e88fa608f3eb8e18f7e01d6a4a3facbc93fa06d055fb809 size: 856
+[2026-05-12T01:45:22.168Z] + docker push juan0073/circleguard-notification-service:dev-latest
+[2026-05-12T01:45:22.168Z] The push refers to repository [docker.io/juan0073/circleguard-notification-service]
+[2026-05-12T01:45:22.168Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.168Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.168Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.168Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:22.168Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:22.168Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:22.168Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.168Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.168Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:22.168Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.168Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.168Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.168Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.168Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.168Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:22.168Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:22.168Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:22.168Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.168Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.168Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:22.168Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.168Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:22.168Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:22.168Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:22.168Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.168Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.168Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:22.168Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.168Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.168Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.168Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.168Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:22.168Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:22.168Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:22.168Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.168Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.168Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:22.168Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.168Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.168Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.168Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:22.168Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.168Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.168Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.168Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.168Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:22.168Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:22.168Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:22.168Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.168Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.168Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.168Z] 2c49cb22bb88: Waiting
+[2026-05-12T01:45:22.168Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:22.168Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:22.168Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.168Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.168Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:22.168Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.168Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.168Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.248Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.248Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.248Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:22.343Z] d228b2d70377: Layer already exists
+[2026-05-12T01:45:22.343Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.343Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.343Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.343Z] a68ec85de812: Waiting
+[2026-05-12T01:45:22.343Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.343Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.343Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.343Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:22.343Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:22.343Z] a68ec85de812: Already exists
+[2026-05-12T01:45:22.343Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.343Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:22.343Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:22.343Z] e7a9a03ffc72: Waiting
+[2026-05-12T01:45:22.343Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:22.343Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.343Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.343Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.343Z] e7a9a03ffc72: Layer already exists
+[2026-05-12T01:45:22.343Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.343Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.403Z] d445d5aa24cc: Layer already exists
+[2026-05-12T01:45:22.403Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.403Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.403Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:22.403Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:22.419Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.419Z] 2c49cb22bb88: Layer already exists
+[2026-05-12T01:45:22.419Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:22.419Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:22.419Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:22.419Z] 41dc83a5a825: Waiting
+[2026-05-12T01:45:22.419Z] aac85ff4193b: Waiting
+[2026-05-12T01:45:22.419Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.419Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.419Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.419Z] 2d1a277377d1: Waiting
+[2026-05-12T01:45:22.419Z] d9e8d69ba4c1: Waiting
+[2026-05-12T01:45:22.419Z] 41dc83a5a825: Layer already exists
+[2026-05-12T01:45:22.419Z] aac85ff4193b: Already exists
+[2026-05-12T01:45:22.419Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.419Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.419Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.419Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.594Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:22.594Z] 6e338134b21e: Waiting
+[2026-05-12T01:45:22.594Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.594Z] 6a0ac1617861: Waiting
+[2026-05-12T01:45:22.594Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:22.669Z] 5ef4bf1bda35: Waiting
+[2026-05-12T01:45:22.669Z] 2d1a277377d1: Layer already exists
+[2026-05-12T01:45:22.669Z] d9e8d69ba4c1: Layer already exists
+[2026-05-12T01:45:22.669Z] 77a66a314605: Waiting
+[2026-05-12T01:45:22.669Z] 6e338134b21e: Layer already exists
+[2026-05-12T01:45:22.669Z] 42516208460b: Waiting
+[2026-05-12T01:45:22.669Z] 77a66a314605: Layer already exists
+[2026-05-12T01:45:22.669Z] 42516208460b: Layer already exists
+[2026-05-12T01:45:22.669Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T01:45:22.844Z] 6a0ac1617861: Layer already exists
+[2026-05-12T01:45:23.816Z] dev-latest: digest: sha256:4e22954cb4704129a2df47f669ec855fcf3ac2b14fe08987606ce0762cbed8a1 size: 856
+[Pipeline] }
+[2026-05-12T01:45:24.142Z] dev-latest: digest: sha256:527f40051100670ffd0d656dc8cd592c5398938719a2e8629d86d93b1e25d9a7 size: 856
+[Pipeline] }
+[2026-05-12T01:45:24.731Z] dev-latest: digest: sha256:684ba56c5b5f401980b176f303fe73e1f32976c289f7f130941e1944c0b006bc size: 856
+[Pipeline] }
+[2026-05-12T01:45:24.886Z] dev-latest: digest: sha256:01383c5651d93cfa5684bb3b50d7785ce09d1061197f003882dc52d0b5bc0c33 size: 856
+[Pipeline] }
+[2026-05-12T01:45:25.152Z] dev-latest: digest: sha256:01365c818b2cd06b4e88fa608f3eb8e18f7e01d6a4a3facbc93fa06d055fb809 size: 856
+[Pipeline] }
+[2026-05-12T01:45:25.326Z] dev-latest: digest: sha256:a9776894ccf2b77c2c2c530d2ab25298f916a9cb9b266cac310ee6ef93706a6a size: 856
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy to cg-dev)
+[Pipeline] withCredentials
+[2026-05-12T01:45:25.891Z] Masking supported pattern matches of $KUBECONFIG
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T01:45:26.215Z] + export KUBECONFIG=****
+[2026-05-12T01:45:26.215Z] + kubectl apply -f k8s/namespaces.yml
+[2026-05-12T01:45:26.215Z] /var/jenkins_home/workspace/circleguard-dev-planB@tmp/durable-80e9b3df/script.sh.copy: 3: kubectl: not found
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Smoke Test (Dev))
+Stage "Smoke Test (Dev)" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
+[2026-05-12T01:45:27.015Z] + docker image prune -f --filter dangling=true
+[2026-05-12T01:45:27.015Z] Total reclaimed space: 0B
+[Pipeline] echo
+[2026-05-12T01:45:27.068Z] ❌ DEV PIPELINE FAILED — Check the logs for details
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 127
+Finished: FAILURE

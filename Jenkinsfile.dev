@@ -100,23 +100,25 @@ pipeline {
 
         stage('Deploy to cg-dev') {
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh '''
-                        export KUBECONFIG=$KUBECONFIG
-                        kubectl apply -f k8s/namespaces.yml
-                        kubectl apply -f k8s/infra/ -n cg-dev
-                    '''
-                    script {
-                        SERVICES.each { svc ->
-                            def shortName = svc.replace('circleguard-', '').replace('-service', '')
-                            sh """
+                script {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint=""') {
+                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                            sh '''
                                 export KUBECONFIG=$KUBECONFIG
-                                kubectl apply -f k8s/services/${shortName}-deployment.yml -n cg-dev
-                                kubectl set image deployment/${shortName}-service \
-                                    ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
-                                    -n cg-dev
-                                kubectl rollout status deployment/${shortName}-service -n cg-dev --timeout=120s
-                            """
+                                kubectl apply -f k8s/namespaces.yml
+                                kubectl apply -f k8s/infra/ -n cg-dev
+                            '''
+                            SERVICES.each { svc ->
+                                def shortName = svc.replace('circleguard-', '').replace('-service', '')
+                                sh """
+                                    export KUBECONFIG=$KUBECONFIG
+                                    kubectl apply -f k8s/services/${shortName}-deployment.yml -n cg-dev
+                                    kubectl set image deployment/${shortName}-service \
+                                        ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
+                                        -n cg-dev
+                                    kubectl rollout status deployment/${shortName}-service -n cg-dev --timeout=120s
+                                """
+                            }
                         }
                     }
                 }
@@ -125,12 +127,16 @@ pipeline {
 
         stage('Smoke Test (Dev)') {
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh '''
-                        export KUBECONFIG=$KUBECONFIG
-                        kubectl get pods -n cg-dev
-                        echo "✅ Dev deployment complete — pods are running"
-                    '''
+                script {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint=""') {
+                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                            sh '''
+                                export KUBECONFIG=$KUBECONFIG
+                                kubectl get pods -n cg-dev
+                                echo "✅ Dev deployment complete — pods are running"
+                            '''
+                        }
+                    }
                 }
             }
         }
