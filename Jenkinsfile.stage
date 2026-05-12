@@ -132,7 +132,7 @@ pipeline {
         stage('Deploy to cg-stage') {
             steps {
                 script {
-                    docker.image('bitnami/kubectl:latest').inside('--entrypoint=""') {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
                         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                             sh '''
                                 export KUBECONFIG=$KUBECONFIG
@@ -161,7 +161,7 @@ pipeline {
         stage('Stage Health Check') {
             steps {
                 script {
-                    docker.image('bitnami/kubectl:latest').inside('--entrypoint=""') {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
                         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                             sh '''
                                 export KUBECONFIG=$KUBECONFIG

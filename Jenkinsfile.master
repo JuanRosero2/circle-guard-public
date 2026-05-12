@@ -129,7 +129,7 @@ pipeline {
         stage('Deploy to cg-master') {
             steps {
                 script {
-                    docker.image('bitnami/kubectl:latest').inside('--entrypoint=""') {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
                         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                             sh '''
                                 export KUBECONFIG=$KUBECONFIG
@@ -237,7 +237,7 @@ All 6 microservices successfully deployed to Kubernetes namespace `cg-master`.
         stage('Production Health Check') {
             steps {
                 script {
-                    docker.image('bitnami/kubectl:latest').inside('--entrypoint=""') {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
                         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                             sh '''
                                 export KUBECONFIG=$KUBECONFIG
