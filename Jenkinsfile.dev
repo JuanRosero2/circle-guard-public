@@ -1,6 +1,6 @@
 // Jenkinsfile.dev — CircleGuard Dev Pipeline
 // Triggered on: feature/* and develop branches
-// Purpose: Build, unit test, containerize, and deploy to circleguard-dev namespace
+// Purpose: Build, unit test, containerize, and deploy to cg-dev namespace
 
 def SERVICES = [
     'circleguard-auth-service',
@@ -16,16 +16,14 @@ pipeline {
 
     environment {
         DOCKER_REGISTRY = 'juan0073'
-        K8S_NAMESPACE   = 'circleguard-dev'
+        K8S_NAMESPACE   = 'cg-dev'
         IMAGE_TAG       = "dev-${BUILD_NUMBER}"
-        GRADLE_OPTS = '-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dorg.gradle.caching=true'
-        KUBECONFIG_CREDENTIALS_ID = 'kubeconfig'
     }
 
     options {
-        timestamps()
-        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
         timeout(time: 60, unit: 'MINUTES')
+        timestamps()
     }
 
     triggers {
@@ -43,19 +41,23 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
-                sh '''#!/usr/bin/env bash
-                    set -euo pipefail
-                    export SPRING_PROFILES_ACTIVE=test
-                    export JWT_SECRET="my-super-secret-test-key-32-chars-long-012345"
+                sh '''
                     chmod +x gradlew
-                    ./gradlew clean test -x :services:circleguard-promotion-service:test --no-daemon --continue
+                    ./gradlew \
+                        :services:circleguard-auth-service:test \
+                        :services:circleguard-identity-service:test \
+                        :services:circleguard-gateway-service:test \
+                        :services:circleguard-form-service:test \
+                        :services:circleguard-promotion-service:test \
+                        :services:circleguard-notification-service:test \
+                        --no-daemon --continue
                 '''
             }
             post {
                 always {
                     junit(
                         testResults: 'services/*/build/test-results/test/*.xml',
-                        allowEmptyResults: true
+                        allowEmptyResults: false
                     )
                     publishHTML(target: [
                         allowMissing: false,
@@ -69,129 +71,84 @@ pipeline {
             }
         }
 
-        stage('Build Docker images') {
+        stage('Containerization') {
             steps {
-                script {
-                    if (sh(script: 'command -v docker >/dev/null 2>&1', returnStatus: true) != 0) {
-                        echo 'docker is not available on this Jenkins agent, skipping Docker image build stage'
-                        return
-                    }
-                    def services = SERVICES
-                    for (String serviceName : services) {
-                        sh """#!/usr/bin/env bash
-                            set -euo pipefail
-                            docker build \
-                              -f services/${serviceName}/Dockerfile \
-                              -t ${DOCKER_REGISTRY}/${serviceName}:${IMAGE_TAG} \
-                              -t ${DOCKER_REGISTRY}/${serviceName}:dev-latest \
-                              services/${serviceName}
-                        """
-                    }
-                }
-            }
-        }
-
-        stage('Push Docker images') {
-            steps {
-                script {
-                    if (sh(script: 'command -v docker >/dev/null 2>&1', returnStatus: true) != 0) {
-                        echo 'docker is not available on this Jenkins agent, skipping Docker push stage'
-                        return
-                    }
-                    try {
-                        withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                            sh """#!/usr/bin/env bash
-                                set -euo pipefail
-                                echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                            """
-
-                            def services = SERVICES
-                            for (String serviceName : services) {
-                                sh """#!/usr/bin/env bash
-                                    set -euo pipefail
-                                    docker push ${DOCKER_REGISTRY}/${serviceName}:${IMAGE_TAG}
-                                    docker push ${DOCKER_REGISTRY}/${serviceName}:dev-latest
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-credentials',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    script {
+                        parallel(SERVICES.collectEntries { svc ->
+                            [svc, {
+                                sh """
+                                    docker build \
+                                        -t ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
+                                        -t ${DOCKER_REGISTRY}/${svc}:dev-latest \
+                                        -f services/${svc}/Dockerfile \
+                                        .
+                                    docker push ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG}
+                                    docker push ${DOCKER_REGISTRY}/${svc}:dev-latest
                                 """
-                            }
-                        }
-                    } catch (Exception ex) {
-                        echo "Skipping Docker push stage due to missing/invalid registry credentials or agent config: ${ex.message}"
+                            }]
+                        })
                     }
                 }
             }
         }
 
-        stage('Deploy to dev') {
-            when {
-                expression {
-                    fileExists('k8s/namespaces.yml')
-                }
-            }
+        stage('Deploy to cg-dev') {
             steps {
                 script {
-                    if (sh(script: 'command -v kubectl >/dev/null 2>&1', returnStatus: true) != 0) {
-                        echo 'kubectl is not available on this Jenkins agent, skipping deploy to dev'
-                        return
-                    }
-                    try {
-                        withCredentials([file(credentialsId: env.KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG_FILE')]) {
-                            sh '''#!/usr/bin/env bash
-                                set -euo pipefail
-                                export KUBECONFIG="$KUBECONFIG_FILE"
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
+                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                            sh '''
+                                export KUBECONFIG=$KUBECONFIG
                                 kubectl apply -f k8s/namespaces.yml
-                                kubectl apply -f k8s/infra/ -n circleguard-dev
+                                kubectl apply -f k8s/infra/ -n cg-dev
                             '''
-                            
-                            SERVICES.each { svc ->
-                                def shortName = svc.replace('circleguard-', '').replace('-service', '')
-                                sh """#!/usr/bin/env bash
-                                    set -euo pipefail
-                                    export KUBECONFIG="$KUBECONFIG_FILE"
-                                    kubectl apply -f k8s/services/${shortName}-deployment.yml -n circleguard-dev
-                                    kubectl set image deployment/${shortName}-service \\
-                                        ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \\
-                                        -n circleguard-dev
-                                    kubectl rollout status deployment/${shortName}-service -n circleguard-dev --timeout=600s
+                            try {
+                                SERVICES.each { svc ->
+                                    def shortName = svc.replace('circleguard-', '').replace('-service', '')
+                                    sh """
+                                        export KUBECONFIG=$KUBECONFIG
+                                        kubectl apply -f k8s/services/${shortName}-deployment.yml -n cg-dev
+                                        kubectl set image deployment/${shortName}-service \
+                                            ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
+                                            -n cg-dev
+                                        kubectl rollout status deployment/${shortName}-service -n cg-dev --timeout=300s
+                                    """
+                                }
+                            } catch (Exception e) {
+                                sh """
+                                    export KUBECONFIG=$KUBECONFIG
+                                    echo "--- DEBUG: POD STATUS ---"
+                                    kubectl get pods -n cg-dev
+                                    echo "--- DEBUG: EVENTS ---"
+                                    kubectl get events -n cg-dev --sort-by='.lastTimestamp' | tail -n 20
+                                    echo "--- DEBUG: AUTH SERVICE LOGS ---"
+                                    kubectl logs -l app=auth-service -n cg-dev --tail=50
+                                    error "Deployment failed: \${e.getMessage()}"
                                 """
                             }
-                            
-                            sh '''#!/usr/bin/env bash
-                                set -euo pipefail
-                                export KUBECONFIG="$KUBECONFIG_FILE"
-                                kubectl get pods -n circleguard-dev
-                                kubectl get svc -n circleguard-dev
-                            '''
                         }
-                    } catch (Exception ex) {
-                        echo "Skipping deploy to dev due to missing/invalid kubeconfig credentials or agent config: ${ex.message}"
                     }
                 }
             }
         }
 
-        stage('Smoke tests') {
-            when {
-                expression {
-                    fileExists('k8s/namespaces.yml')
-                }
-            }
+        stage('Smoke Test (Dev)') {
             steps {
                 script {
-                    if (sh(script: 'command -v kubectl >/dev/null 2>&1', returnStatus: true) != 0) {
-                        echo 'kubectl is not available on this Jenkins agent, skipping smoke tests'
-                        return
-                    }
-                    try {
-                        withCredentials([file(credentialsId: env.KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG_FILE')]) {
-                            sh '''#!/usr/bin/env bash
-                                set -euo pipefail
-                                export KUBECONFIG="$KUBECONFIG_FILE"
-                                kubectl get pods -n circleguard-dev
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint=""') {
+                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                            sh '''
+                                export KUBECONFIG=$KUBECONFIG
+                                kubectl get pods -n cg-dev
                                 echo "✅ Dev deployment complete — pods are running"
                             '''
                         }
-                    } catch (Exception ex) {
-                        echo "Skipping smoke tests due to missing/invalid kubeconfig credentials or agent config: ${ex.message}"
                     }
                 }
             }
@@ -199,25 +156,14 @@ pipeline {
     }
 
     post {
-        always {
-            archiveArtifacts artifacts: 'services/**/build/libs/*.jar', fingerprint: true, allowEmptyArchive: true
-            sh '''#!/usr/bin/env bash
-                    set -euo pipefail
-                    if [ -f docker-compose.dev.yml ]; then
-                        if command -v docker-compose >/dev/null 2>&1; then
-                            docker-compose -f docker-compose.dev.yml down || true
-                        elif docker compose version >/dev/null 2>&1; then
-                            docker compose -f docker-compose.dev.yml down || true
-                        fi
-                    fi
-            '''
-            sh 'docker image prune -f --filter "dangling=true" || true'
-        }
         success {
             echo "✅ DEV PIPELINE SUCCEEDED — Build: ${BUILD_NUMBER}, Tag: ${IMAGE_TAG}"
         }
         failure {
             echo "❌ DEV PIPELINE FAILED — Check the logs for details"
+        }
+        always {
+            sh 'docker image prune -f --filter "dangling=true" || true'
         }
     }
 }
