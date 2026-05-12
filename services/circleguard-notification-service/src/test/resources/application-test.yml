@@ -1,0 +1,27 @@
+spring:
+  kafka:
+    enabled: false
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+  mail:
+    host: localhost
+    port: 25
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+auth:
+  api:
+    url: http://localhost:8180
+
+jwt:
+  secret: "my-super-secret-dev-key-32-chars-long-12345678"
+  expiration: 3600000
+
+qr:
+  secret: "my-qr-secret-key-for-dev-1234567890"
+  expiration: 300

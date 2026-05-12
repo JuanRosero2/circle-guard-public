@@ -8,6 +8,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.ActiveProfiles;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import freemarker.template.Configuration;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -29,6 +31,21 @@ public class NotificationRetryTest {
 
     @MockBean
     private KafkaTemplate<String, Object> kafkaTemplate;
+
+    @MockBean
+    private Configuration freemarkerConfig;
+
+    @MockBean
+    private ObjectMapper objectMapper;
+
+    @MockBean
+    private TemplateService templateService;
+
+    @MockBean
+    private LmsService lmsService;
+
+    @MockBean
+    private NotificationDispatcher notificationDispatcher;
 
     @Test
     void testEmailRetryLogic() throws Exception {
