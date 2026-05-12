@@ -20,24 +20,43 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Testcontainers
+@org.springframework.test.context.TestPropertySource(properties = "jwt.secret=my-super-secret-dev-key-with-more-than-sixty-four-characters-for-safety-1234567890")
 public class AdministrativeCorrectionTest {
 
-    @Container
-    static Neo4jContainer<?> neo4j = new Neo4jContainer<>("neo4j:5.12.0")
-            .withAdminPassword("password");
+    static Neo4jContainer<?> neo4j;
+    static GenericContainer<?> redis;
 
-    @Container
-    static GenericContainer<?> redis = new GenericContainer<>("redis:7.2.1")
-            .withExposedPorts(6379);
+    @org.junit.jupiter.api.BeforeAll
+    static void setupContainers() {
+        org.junit.jupiter.api.Assumptions.assumeTrue(
+            org.testcontainers.DockerClientFactory.instance().isDockerAvailable(),
+            "Docker not available, skipping Testcontainers test"
+        );
+        
+        neo4j = new Neo4jContainer<>("neo4j:5.12.0").withAdminPassword("password");
+        redis = new GenericContainer<>("redis:7.2.1").withExposedPorts(6379);
+        
+        neo4j.start();
+        redis.start();
+    }
+
+    @org.junit.jupiter.api.AfterAll
+    static void stopContainers() {
+        if (neo4j != null) neo4j.stop();
+        if (redis != null) redis.stop();
+    }
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.neo4j.uri", neo4j::getBoltUrl);
-        registry.add("spring.neo4j.authentication.username", () -> "neo4j");
-        registry.add("spring.neo4j.authentication.password", () -> "password");
-        registry.add("spring.data.redis.host", redis::getHost);
-        registry.add("spring.data.redis.port", redis::getFirstMappedPort);
+        if (neo4j != null && neo4j.isRunning()) {
+            registry.add("spring.neo4j.uri", neo4j::getBoltUrl);
+            registry.add("spring.neo4j.authentication.username", () -> "neo4j");
+            registry.add("spring.neo4j.authentication.password", () -> "password");
+        }
+        if (redis != null && redis.isRunning()) {
+            registry.add("spring.data.redis.host", redis::getHost);
+            registry.add("spring.data.redis.port", redis::getFirstMappedPort);
+        }
     }
 
     @Autowired

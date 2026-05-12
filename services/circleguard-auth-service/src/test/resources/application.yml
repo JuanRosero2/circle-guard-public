@@ -1,5 +1,5 @@
 jwt:
-  secret: "my-super-secret-test-key-32-chars-long"
+  secret: "my-super-secret-dev-key-with-more-than-sixty-four-characters-for-safety-1234567890"
   expiration: 3600000
 
 spring:

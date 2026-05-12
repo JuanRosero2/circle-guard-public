@@ -24,7 +24,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final Key key;
 
-    public JwtAuthenticationFilter(@Value("${jwt.secret}") String secret) {
+    public JwtAuthenticationFilter(@Value("${jwt.secret:my-super-secret-dev-key-with-more-than-sixty-four-characters-for-safety-1234567890}") String secret) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 

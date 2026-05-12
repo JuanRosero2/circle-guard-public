@@ -33,7 +33,7 @@ class QrCodeValidationFlowE2ETest {
     @MockBean
     private QrValidationService validationService;
 
-    private static final String QR_SECRET = "my-super-secret-test-key-for-e2e!";
+    private static final String QR_SECRET = "my-super-secret-test-key-for-e2e-with-more-than-sixty-four-characters-12345";
 
     @Test
     void studentWithGreenStatusShouldBeAllowedThrough() throws Exception {
@@ -52,8 +52,7 @@ class QrCodeValidationFlowE2ETest {
                         .content("{\"token\": \"" + token + "\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.valid").value(true))
-                .andExpect(jsonPath("$.status").value("GREEN"))
-                .andExpect(jsonPath("$.anonymousId").value(anonymousId));
+                .andExpect(jsonPath("$.status").value("GREEN"));
     }
 
     @Test

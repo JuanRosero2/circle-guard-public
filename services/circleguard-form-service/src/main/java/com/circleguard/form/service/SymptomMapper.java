@@ -27,7 +27,8 @@ public class SymptomMapper {
                     String text = q.getText().toLowerCase();
                     
                     if ("YES".equalsIgnoreCase(answer)) {
-                        return text.contains("fever") || text.contains("cough") || text.contains("breathing");
+                        return text.contains("fever") || text.contains("cough") || text.contains("breathing") ||
+                               text.contains("fiebre") || text.contains("tos") || text.contains("respirar");
                     }
                     
                     // For multi-choice, if anything is selected (assuming selecting anything indicates symptoms)

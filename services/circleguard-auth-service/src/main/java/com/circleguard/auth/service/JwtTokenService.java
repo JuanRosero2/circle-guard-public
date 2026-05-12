@@ -17,8 +17,8 @@ public class JwtTokenService {
     private final Key key;
     private final long expiration;
 
-    public JwtTokenService(@Value("${jwt.secret}") String secret, 
-                         @Value("${jwt.expiration}") long expiration) {
+    public JwtTokenService(@Value("${jwt.secret:my-super-secret-dev-key-with-more-than-sixty-four-characters-for-safety-1234567890}") String secret, 
+                         @Value("${jwt.expiration:3600000}") long expiration) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
         this.expiration = expiration;
     }

@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @WebMvcTest(HealthStatusController.class)
 @Import(SecurityConfig.class)
+@org.springframework.test.context.TestPropertySource(properties = "jwt.secret=my-super-secret-dev-key-with-more-than-sixty-four-characters-for-safety-1234567890")
 class HealthStatusIntegrationTest {
 
     @Autowired

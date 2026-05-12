@@ -19,6 +19,7 @@ import com.circleguard.identity.config.SecurityConfig;
 
 @WebMvcTest(IdentityVaultController.class)
 @Import(SecurityConfig.class)
+@org.springframework.test.context.TestPropertySource(properties = "jwt.secret=my-super-secret-dev-key-with-more-than-sixty-four-characters-for-safety-1234567890")
 class IdentityVaultControllerTest {
 
     @Autowired

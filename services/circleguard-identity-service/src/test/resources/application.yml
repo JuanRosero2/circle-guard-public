@@ -15,6 +15,12 @@ spring:
       ddl-auto: create-drop
 
 vault:
-  secret: "746573742d7365637265742d33322d63686172732d6c6f6e672d313233343536" # hex for "test-secret-..."
-  salt: "deadbeef"      # hex for encryption
-  hash-salt: "12345678" # hex for hashing
+  secret: "746573742d7365637265742d33322d63686172732d6c6f6e672d313233343536"
+  salt: "deadbeef"
+  hash-salt: "12345678"
+
+jwt:
+  secret: "my-super-secret-dev-key-with-more-than-sixty-four-characters-for-safety-1234567890"
+
+server:
+  port: 8083
