@@ -1,9 +1,12 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   kafka:
     enabled: false
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   mail:
     host: localhost
     port: 25
@@ -13,6 +16,14 @@ spring:
           auth: false
           starttls:
             enable: false
+  freemarker:
+    check-template-location: false
+  mustache:
+    check-template-location: false
+
+management:
+  endpoints:
+    enabled-by-default: false
 
 auth:
   api:

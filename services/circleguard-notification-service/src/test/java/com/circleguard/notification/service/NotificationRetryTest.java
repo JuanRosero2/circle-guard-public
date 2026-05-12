@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.ActiveProfiles;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -46,6 +47,15 @@ public class NotificationRetryTest {
 
     @MockBean
     private NotificationDispatcher notificationDispatcher;
+
+    @MockBean
+    private WebClient.Builder webClientBuilder;
+
+    @MockBean
+    private SmsService smsService;
+
+    @MockBean
+    private PushService pushService;
 
     @Test
     void testEmailRetryLogic() throws Exception {

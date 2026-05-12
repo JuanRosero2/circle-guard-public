@@ -5,10 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.concurrent.CompletableFuture;
 
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -29,6 +30,12 @@ class NotificationDispatcherTest {
 
     @MockBean
     private PushService pushService;
+
+    @MockBean
+    private WebClient.Builder webClientBuilder;
+
+    @MockBean
+    private freemarker.template.Configuration freemarkerConfig;
 
     @Test
     void shouldDispatchToAllChannelsConcurrently() throws Exception {

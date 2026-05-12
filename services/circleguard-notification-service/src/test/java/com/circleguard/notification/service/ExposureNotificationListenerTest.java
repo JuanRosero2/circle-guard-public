@@ -8,6 +8,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -34,7 +35,7 @@ class ExposureNotificationListenerTest {
     private org.springframework.mail.javamail.JavaMailSender mailSender;
 
     @MockBean
-    private org.springframework.web.reactive.function.client.WebClient.Builder webClientBuilder;
+    private WebClient.Builder webClientBuilder;
 
     @MockBean
     private LmsService lmsService;
