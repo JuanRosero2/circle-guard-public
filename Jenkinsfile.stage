@@ -42,6 +42,22 @@ pipeline {
             }
         }
 
+        stage('Prepare Infrastructure') {
+            steps {
+                script {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
+                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                            sh """
+                                export KUBECONFIG=$KUBECONFIG
+                                kubectl apply -f k8s/namespaces.yml
+                                kubectl apply -f k8s/infra/ -n ${K8S_NAMESPACE}
+                            """
+                        }
+                    }
+                }
+            }
+        }
+
         stage('Containerization & Deploy') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'U', passwordVariable: 'P')]) {
@@ -59,16 +75,16 @@ pipeline {
                                     sh "docker push ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG}"
                                 }
 
-                                docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
-                                    withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                                        sh """
-                                            export KUBECONFIG=$KUBECONFIG
-                                            kubectl apply -f k8s/namespaces.yml
-                                            kubectl apply -f k8s/infra/ -n ${K8S_NAMESPACE}
-                                            kubectl apply -f k8s/services/${shortName}-deployment.yml -n ${K8S_NAMESPACE}
-                                            kubectl set image deployment/${shortName}-service ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} -n ${K8S_NAMESPACE}
-                                            kubectl rollout status deployment/${shortName}-service -n ${K8S_NAMESPACE} --timeout=120s || echo 'Lento...'
-                                        """
+                                script {
+                                    docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
+                                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                                            sh """
+                                                export KUBECONFIG=$KUBECONFIG
+                                                kubectl apply -f k8s/services/${shortName}-deployment.yml -n ${K8S_NAMESPACE}
+                                                kubectl set image deployment/${shortName}-service ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} -n ${K8S_NAMESPACE}
+                                                kubectl rollout status deployment/${shortName}-service -n ${K8S_NAMESPACE} --timeout=120s || echo 'Lento...'
+                                            """
+                                        }
                                     }
                                 }
                             }
@@ -82,6 +98,13 @@ pipeline {
     post {
         always {
             sh 'docker image prune -f --filter "dangling=true" || true'
+            script {
+                docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
+                    withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                        sh "export KUBECONFIG=$KUBECONFIG && kubectl get pods -n ${K8S_NAMESPACE}"
+                    }
+                }
+            }
         }
     }
 }
