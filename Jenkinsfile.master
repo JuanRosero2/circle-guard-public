@@ -63,6 +63,22 @@ pipeline {
             }
         }
 
+        stage('Release Notes (Change Management)') {
+            steps {
+                script {
+                    sh '''
+                        echo "Generating Release Notes for ${IMAGE_TAG}..."
+                        echo "# Release Notes for ${IMAGE_TAG}" > RELEASE_NOTES.md
+                        echo "Date: $(date)" >> RELEASE_NOTES.md
+                        echo "## Commits in this Release:" >> RELEASE_NOTES.md
+                        git log $(git describe --tags --abbrev=0 2>/dev/null || git rev-list --max-parents=0 HEAD)..HEAD --oneline >> RELEASE_NOTES.md || git log -n 10 --oneline >> RELEASE_NOTES.md
+                        cat RELEASE_NOTES.md
+                    '''
+                    archiveArtifacts artifacts: 'RELEASE_NOTES.md', fingerprint: true
+                }
+            }
+        }
+
         stage('Containerization & Deploy') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'U', passwordVariable: 'P')]) {
