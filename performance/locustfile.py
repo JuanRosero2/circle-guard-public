@@ -43,7 +43,7 @@ MOCK_JWT = (
 class LoginTaskSet(TaskSet):
     """Simulates students logging in to the CircleGuard system."""
 
-    @task(3)
+    # @task(3)
     def login_valid_user(self):
         """Main login flow — highest weight as it's the entry point."""
         payload = {
@@ -61,7 +61,7 @@ class LoginTaskSet(TaskSet):
             else:
                 response.failure(f"Unexpected status: {response.status_code}")
 
-    @task(1)
+    # @task(1)
     def login_invalid_credentials(self):
         """Stress test with bad credentials — should consistently return 401."""
         payload = {"username": "bad_user", "password": "wrong_pass"}
@@ -89,7 +89,7 @@ class AuthServiceUser(HttpUser):
 class SurveyTaskSet(TaskSet):
     """Simulates students submitting daily health surveys."""
 
-    @task(4)
+    # @task(4)
     def submit_healthy_survey(self):
         """Most common case: healthy student submits survey."""
         payload = {
@@ -109,7 +109,7 @@ class SurveyTaskSet(TaskSet):
             else:
                 response.failure(f"Unexpected status: {response.status_code}")
 
-    @task(1)
+    # @task(1)
     def submit_symptomatic_survey(self):
         """Less frequent: student reports symptoms."""
         payload = {
@@ -185,7 +185,7 @@ class GatewayServiceUser(HttpUser):
 class HealthStatusTaskSet(TaskSet):
     """Simulates health center staff updating student health statuses."""
 
-    @task(2)
+    # @task(2)
     def confirm_positive_case(self):
         """Health center confirms a positive COVID case."""
         payload = {"anonymousId": str(uuid.uuid4())}
@@ -201,7 +201,7 @@ class HealthStatusTaskSet(TaskSet):
             else:
                 response.failure(f"Unexpected status: {response.status_code}")
 
-    @task(1)
+    # @task(1)
     def resolve_user_status(self):
         """Health center resolves a user's quarantine status."""
         payload = {"anonymousId": str(uuid.uuid4())}

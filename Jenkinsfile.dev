@@ -1,6 +1,3 @@
-// Jenkinsfile.dev — CircleGuard Emergency Pipeline Optimized
-// Estabilizado para evitar redundancia y colapsos de memoria
-
 def SERVICES = [
     'circleguard-auth-service',
     'circleguard-identity-service',
