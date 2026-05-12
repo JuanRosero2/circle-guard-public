@@ -108,15 +108,28 @@ pipeline {
                                 kubectl apply -f k8s/namespaces.yml
                                 kubectl apply -f k8s/infra/ -n cg-dev
                             '''
-                            SERVICES.each { svc ->
-                                def shortName = svc.replace('circleguard-', '').replace('-service', '')
+                            try {
+                                SERVICES.each { svc ->
+                                    def shortName = svc.replace('circleguard-', '').replace('-service', '')
+                                    sh """
+                                        export KUBECONFIG=$KUBECONFIG
+                                        kubectl apply -f k8s/services/${shortName}-deployment.yml -n cg-dev
+                                        kubectl set image deployment/${shortName}-service \
+                                            ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
+                                            -n cg-dev
+                                        kubectl rollout status deployment/${shortName}-service -n cg-dev --timeout=300s
+                                    """
+                                }
+                            } catch (Exception e) {
                                 sh """
                                     export KUBECONFIG=$KUBECONFIG
-                                    kubectl apply -f k8s/services/${shortName}-deployment.yml -n cg-dev
-                                    kubectl set image deployment/${shortName}-service \
-                                        ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
-                                        -n cg-dev
-                                    kubectl rollout status deployment/${shortName}-service -n cg-dev --timeout=300s
+                                    echo "--- DEBUG: POD STATUS ---"
+                                    kubectl get pods -n cg-dev
+                                    echo "--- DEBUG: EVENTS ---"
+                                    kubectl get events -n cg-dev --sort-by='.lastTimestamp' | tail -n 20
+                                    echo "--- DEBUG: AUTH SERVICE LOGS ---"
+                                    kubectl logs -l app=auth-service -n cg-dev --tail=50
+                                    error "Deployment failed: \${e.getMessage()}"
                                 """
                             }
                         }
