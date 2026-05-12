@@ -148,7 +148,7 @@ pipeline {
                                         kubectl set image deployment/${shortName}-service \
                                             ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
                                             -n cg-stage
-                                        kubectl rollout status deployment/${shortName}-service -n cg-stage --timeout=180s
+                                        kubectl rollout status deployment/${shortName}-service -n cg-stage --timeout=300s
                                     """
                                 }
                             }

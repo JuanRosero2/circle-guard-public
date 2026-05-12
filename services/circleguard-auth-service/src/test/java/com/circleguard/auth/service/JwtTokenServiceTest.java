@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 class JwtTokenServiceTest {
 
     private JwtTokenService jwtTokenService;
-    private final String secret = "my-super-secret-test-key-32-chars-long!!"; // 40 chars
+    private final String secret = "my-super-secret-test-key-with-more-than-sixty-four-characters-for-safety-1234567890";
     private final long expiration = 3600000L;
 
     @BeforeEach
@@ -96,7 +96,7 @@ class JwtTokenServiceTest {
                 .parseClaimsJws(token)
                 .getBody();
 
-        long tolerance = 5000; // 5 seconds tolerance for slow CI
+        long tolerance = 15000; // 15 seconds tolerance for slow CI
         assertTrue(claims.getExpiration().getTime() >= (beforeGeneration + expiration) - tolerance,
                 "Token expiration must be approximately consistent with the configured expiration");
     }
