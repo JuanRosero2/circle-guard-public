@@ -99,25 +99,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Images') {
-            steps {
-                script {
-                    parallel(SERVICES.collectEntries { svc ->
-                        [svc, {
-                            sh """
-                                docker build \
-                                    -t ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
-                                    -t ${DOCKER_REGISTRY}/${svc}:latest \
-                                    -f services/${svc}/Dockerfile \
-                                    .
-                            """
-                        }]
-                    })
-                }
-            }
-        }
-
-        stage('Push Docker Images') {
+        stage('Containerization') {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-credentials',
@@ -126,10 +108,19 @@ pipeline {
                 )]) {
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                     script {
-                        SERVICES.each { svc ->
-                            sh "docker push ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG}"
-                            sh "docker push ${DOCKER_REGISTRY}/${svc}:latest"
-                        }
+                        parallel(SERVICES.collectEntries { svc ->
+                            [svc, {
+                                sh """
+                                    docker build \
+                                        -t ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
+                                        -t ${DOCKER_REGISTRY}/${svc}:latest \
+                                        -f services/${svc}/Dockerfile \
+                                        .
+                                    docker push ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG}
+                                    docker push ${DOCKER_REGISTRY}/${svc}:latest
+                                """
+                            }]
+                        })
                     }
                 }
             }
