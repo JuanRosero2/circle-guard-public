@@ -29,6 +29,9 @@ class ExposureNotificationListenerTest {
     private org.springframework.web.reactive.function.client.WebClient.Builder webClientBuilder;
 
     @MockBean
+    private LmsService lmsService;
+
+    @MockBean
     private EmailService emailService;
 
     @MockBean

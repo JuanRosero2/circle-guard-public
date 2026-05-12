@@ -25,6 +25,9 @@ public class NotificationRetryTest {
     private JavaMailSender mailSender;
 
     @MockBean
+    private AuditLogService auditLogService;
+
+    @MockBean
     private KafkaTemplate<String, Object> kafkaTemplate;
 
     @Test
