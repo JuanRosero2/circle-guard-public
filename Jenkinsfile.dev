@@ -32,13 +32,18 @@ pipeline {
             }
         }
 
-        stage('Unit Tests') {
+        stage('Tests') {
             steps {
                 script {
                     // catchError asegura que los fallos en tests no detengan el despliegue
                     catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
                         sh './gradlew test --no-daemon --continue'
                     }
+                }
+            }
+            post {
+                always {
+                    junit 'services/*/build/test-results/test/*.xml'
                 }
             }
         }

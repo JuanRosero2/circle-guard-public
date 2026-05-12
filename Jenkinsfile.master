@@ -32,7 +32,7 @@ pipeline {
             }
         }
 
-        stage('Tests (Unit & Integration & E2E)') {
+        stage('Tests') {
             steps {
                 script {
                     catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
@@ -92,6 +92,7 @@ pipeline {
                             
                             stage("Svc: ${shortName}") {
                                 retry(2) {
+                                    echo "Construyendo y Pusheando ${svc}..."
                                     sh "docker build -t ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} -t ${DOCKER_REGISTRY}/${svc}:latest -f services/${svc}/Dockerfile ."
                                     sh "docker push ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG}"
                                 }
@@ -103,7 +104,8 @@ pipeline {
                                                 export KUBECONFIG=$KUBECONFIG
                                                 kubectl apply -f k8s/services/${shortName}-deployment.yml -n ${K8S_NAMESPACE}
                                                 kubectl set image deployment/${shortName}-service ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} -n ${K8S_NAMESPACE}
-                                                kubectl rollout status deployment/${shortName}-service -n ${K8S_NAMESPACE} --timeout=120s || echo 'Lento pero seguro...'
+                                                echo "Esperando a ${shortName} (máx 120s)..."
+                                                kubectl rollout status deployment/${shortName}-service -n ${K8S_NAMESPACE} --timeout=120s || echo 'Rollout lento, continuando...'
                                             """
                                         }
                                     }
