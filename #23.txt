@@ -1,0 +1,558 @@
+Started by user admin
+Obtained Jenkinsfile.dev from git https://github.com/JuanRosero2/circle-guard-public.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/circleguard-dev-planB
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-credentials
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/circleguard-dev-planB/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials planB
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 35329df7cc2656bc3a577796350358f389244b6c (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 35329df7cc2656bc3a577796350358f389244b6c # timeout=10
+Commit message: "add: test al jenkinsfile2"
+ > git rev-list --no-walk eb4c805e91a698867200783f025f0d9795ae82ec # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+[2026-05-12T04:12:33.430Z] Selected Git installation does not exist. Using Default
+[2026-05-12T04:12:33.430Z] The recommended git tool is: NONE
+[2026-05-12T04:12:33.430Z] using credential github-credentials
+[2026-05-12T04:12:33.441Z]  > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/circleguard-dev-planB/.git # timeout=10
+[2026-05-12T04:12:33.443Z] Fetching changes from the remote Git repository
+[2026-05-12T04:12:33.444Z]  > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+[2026-05-12T04:12:33.447Z] Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+[2026-05-12T04:12:33.447Z]  > git --version # timeout=10
+[2026-05-12T04:12:33.450Z]  > git --version # 'git version 2.47.3'
+[2026-05-12T04:12:33.450Z] using GIT_ASKPASS to set credentials planB
+[2026-05-12T04:12:33.454Z]  > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-05-12T04:12:33.890Z]  > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+[2026-05-12T04:12:33.895Z] Checking out Revision 35329df7cc2656bc3a577796350358f389244b6c (refs/remotes/origin/master)
+[2026-05-12T04:12:33.895Z]  > git config core.sparsecheckout # timeout=10
+[2026-05-12T04:12:33.898Z]  > git checkout -f 35329df7cc2656bc3a577796350358f389244b6c # timeout=10
+[2026-05-12T04:12:33.908Z] Commit message: "add: test al jenkinsfile2"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:12:34.505Z] + ./gradlew test --no-daemon --continue
+[2026-05-12T04:12:34.505Z] openjdk version "21.0.10" 2026-01-20 LTS
+[2026-05-12T04:12:34.505Z] OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+[2026-05-12T04:12:34.505Z] OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+[2026-05-12T04:12:35.056Z] To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[2026-05-12T04:12:36.399Z] Daemon will be stopped at the end of the build 
+[2026-05-12T04:12:42.879Z] > Task :services:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:12:42.879Z] > Task :services:compileKotlin NO-SOURCE
+[2026-05-12T04:12:42.879Z] > Task :services:compileJava NO-SOURCE
+[2026-05-12T04:12:42.879Z] > Task :services:processResources NO-SOURCE
+[2026-05-12T04:12:42.879Z] > Task :services:classes UP-TO-DATE
+[2026-05-12T04:12:42.879Z] > Task :services:compileTestKotlin NO-SOURCE
+[2026-05-12T04:12:42.879Z] > Task :services:compileTestJava NO-SOURCE
+[2026-05-12T04:12:42.879Z] > Task :services:processTestResources NO-SOURCE
+[2026-05-12T04:12:42.879Z] > Task :services:testClasses UP-TO-DATE
+[2026-05-12T04:12:42.879Z] > Task :services:test NO-SOURCE
+[2026-05-12T04:12:42.879Z] > Task :services:circleguard-auth-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:12:42.879Z] > Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+[2026-05-12T04:12:43.430Z] > Task :services:circleguard-auth-service:compileJava UP-TO-DATE
+[2026-05-12T04:12:43.430Z] > Task :services:circleguard-auth-service:processResources UP-TO-DATE
+[2026-05-12T04:12:43.430Z] > Task :services:circleguard-auth-service:classes UP-TO-DATE
+[2026-05-12T04:12:43.430Z] > Task :services:circleguard-auth-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:12:43.680Z] > Task :services:circleguard-auth-service:compileTestJava UP-TO-DATE
+[2026-05-12T04:12:43.680Z] > Task :services:circleguard-auth-service:processTestResources UP-TO-DATE
+[2026-05-12T04:12:43.680Z] > Task :services:circleguard-auth-service:testClasses UP-TO-DATE
+[2026-05-12T04:12:43.931Z] > Task :services:circleguard-auth-service:test UP-TO-DATE
+[2026-05-12T04:12:43.931Z] > Task :services:circleguard-dashboard-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:12:43.931Z] > Task :services:circleguard-dashboard-service:compileKotlin NO-SOURCE
+[2026-05-12T04:12:44.181Z] > Task :services:circleguard-dashboard-service:compileJava UP-TO-DATE
+[2026-05-12T04:12:44.181Z] > Task :services:circleguard-dashboard-service:processResources UP-TO-DATE
+[2026-05-12T04:12:44.181Z] > Task :services:circleguard-dashboard-service:classes UP-TO-DATE
+[2026-05-12T04:12:44.181Z] > Task :services:circleguard-dashboard-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:12:44.181Z] > Task :services:circleguard-dashboard-service:compileTestJava UP-TO-DATE
+[2026-05-12T04:12:44.181Z] > Task :services:circleguard-dashboard-service:processTestResources NO-SOURCE
+[2026-05-12T04:12:44.181Z] > Task :services:circleguard-dashboard-service:testClasses UP-TO-DATE
+[2026-05-12T04:12:44.431Z] > Task :services:circleguard-dashboard-service:test UP-TO-DATE
+[2026-05-12T04:12:44.431Z] > Task :services:circleguard-file-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:12:44.431Z] > Task :services:circleguard-file-service:compileKotlin NO-SOURCE
+[2026-05-12T04:12:44.431Z] > Task :services:circleguard-file-service:compileJava UP-TO-DATE
+[2026-05-12T04:12:44.431Z] > Task :services:circleguard-file-service:processResources UP-TO-DATE
+[2026-05-12T04:12:44.431Z] > Task :services:circleguard-file-service:classes UP-TO-DATE
+[2026-05-12T04:12:44.431Z] > Task :services:circleguard-file-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:12:44.431Z] > Task :services:circleguard-file-service:compileTestJava UP-TO-DATE
+[2026-05-12T04:12:44.431Z] > Task :services:circleguard-file-service:processTestResources NO-SOURCE
+[2026-05-12T04:12:44.431Z] > Task :services:circleguard-file-service:testClasses UP-TO-DATE
+[2026-05-12T04:12:44.682Z] > Task :services:circleguard-file-service:test UP-TO-DATE
+[2026-05-12T04:12:44.682Z] > Task :services:circleguard-form-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:12:44.682Z] > Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+[2026-05-12T04:12:44.932Z] > Task :services:circleguard-form-service:compileJava UP-TO-DATE
+[2026-05-12T04:12:44.932Z] > Task :services:circleguard-form-service:processResources UP-TO-DATE
+[2026-05-12T04:12:44.932Z] > Task :services:circleguard-form-service:classes UP-TO-DATE
+[2026-05-12T04:12:44.932Z] > Task :services:circleguard-form-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:12:44.932Z] > Task :services:circleguard-form-service:compileTestJava UP-TO-DATE
+[2026-05-12T04:12:45.182Z] > Task :services:circleguard-form-service:processTestResources UP-TO-DATE
+[2026-05-12T04:12:45.182Z] > Task :services:circleguard-form-service:testClasses UP-TO-DATE
+[2026-05-12T04:12:45.182Z] > Task :services:circleguard-form-service:test UP-TO-DATE
+[2026-05-12T04:12:45.182Z] > Task :services:circleguard-gateway-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:12:45.182Z] > Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+[2026-05-12T04:12:45.433Z] > Task :services:circleguard-gateway-service:compileJava UP-TO-DATE
+[2026-05-12T04:12:45.433Z] > Task :services:circleguard-gateway-service:processResources UP-TO-DATE
+[2026-05-12T04:12:45.433Z] > Task :services:circleguard-gateway-service:classes UP-TO-DATE
+[2026-05-12T04:12:45.433Z] > Task :services:circleguard-gateway-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:12:45.433Z] > Task :services:circleguard-gateway-service:compileTestJava UP-TO-DATE
+[2026-05-12T04:12:45.433Z] > Task :services:circleguard-gateway-service:processTestResources NO-SOURCE
+[2026-05-12T04:12:45.433Z] > Task :services:circleguard-gateway-service:testClasses UP-TO-DATE
+[2026-05-12T04:12:45.433Z] > Task :services:circleguard-gateway-service:test UP-TO-DATE
+[2026-05-12T04:12:45.433Z] > Task :services:circleguard-identity-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:12:45.683Z] > Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+[2026-05-12T04:12:45.683Z] > Task :services:circleguard-identity-service:compileJava UP-TO-DATE
+[2026-05-12T04:12:45.683Z] > Task :services:circleguard-identity-service:processResources UP-TO-DATE
+[2026-05-12T04:12:45.933Z] > Task :services:circleguard-identity-service:classes UP-TO-DATE
+[2026-05-12T04:12:45.933Z] > Task :services:circleguard-identity-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:12:45.933Z] > Task :services:circleguard-identity-service:compileTestJava UP-TO-DATE
+[2026-05-12T04:12:45.933Z] > Task :services:circleguard-identity-service:processTestResources UP-TO-DATE
+[2026-05-12T04:12:45.933Z] > Task :services:circleguard-identity-service:testClasses UP-TO-DATE
+[2026-05-12T04:12:45.933Z] > Task :services:circleguard-identity-service:test UP-TO-DATE
+[2026-05-12T04:12:45.933Z] > Task :services:circleguard-notification-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:12:46.184Z] > Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+[2026-05-12T04:12:46.434Z] > Task :services:circleguard-notification-service:compileJava UP-TO-DATE
+[2026-05-12T04:12:46.434Z] > Task :services:circleguard-notification-service:processResources UP-TO-DATE
+[2026-05-12T04:12:46.434Z] > Task :services:circleguard-notification-service:classes UP-TO-DATE
+[2026-05-12T04:12:46.434Z] > Task :services:circleguard-notification-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:12:48.295Z] > Task :services:circleguard-notification-service:compileTestJava
+[2026-05-12T04:12:48.295Z] > Task :services:circleguard-notification-service:processTestResources
+[2026-05-12T04:12:48.295Z] > Task :services:circleguard-notification-service:testClasses
+[2026-05-12T04:12:53.489Z] 
+[2026-05-12T04:12:53.489Z] > Task :services:circleguard-notification-service:test
+[2026-05-12T04:12:53.489Z] 
+[2026-05-12T04:12:53.489Z] ExposureNotificationListenerTest > shouldHandleStatusChangeEventWithoutError() FAILED
+[2026-05-12T04:12:53.489Z]     java.lang.IllegalStateException at DefaultCacheAwareContextLoaderDelegate.java:180
+[2026-05-12T04:12:53.489Z]         Caused by: org.springframework.beans.factory.BeanCreationException at ConstructorResolver.java:648
+[2026-05-12T04:12:53.490Z]             Caused by: org.springframework.beans.BeanInstantiationException at SimpleInstantiationStrategy.java:177
+[2026-05-12T04:12:53.490Z]                 Caused by: java.lang.IllegalArgumentException at Assert.java:455
+[2026-05-12T04:12:53.490Z] 
+[2026-05-12T04:12:53.490Z] NotificationDispatcherTest > shouldDispatchToAllChannelsConcurrently() FAILED
+[2026-05-12T04:12:53.490Z]     java.lang.IllegalStateException at DefaultCacheAwareContextLoaderDelegate.java:180
+[2026-05-12T04:12:53.490Z]         Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException at ConstructorResolver.java:795
+[2026-05-12T04:12:53.490Z]             Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException at DefaultListableBeanFactory.java:1880
+[2026-05-12T04:12:54.040Z] 
+[2026-05-12T04:12:54.040Z] NotificationRetryTest > testEmailRetryLogic() FAILED
+[2026-05-12T04:12:54.040Z]     java.lang.IllegalStateException at DefaultCacheAwareContextLoaderDelegate.java:180
+[2026-05-12T04:12:54.040Z]         Caused by: org.springframework.beans.factory.BeanCreationException at ConstructorResolver.java:648
+[2026-05-12T04:12:54.040Z]             Caused by: org.springframework.beans.BeanInstantiationException at SimpleInstantiationStrategy.java:177
+[2026-05-12T04:12:54.040Z]                 Caused by: java.lang.IllegalArgumentException at Assert.java:455
+[2026-05-12T04:12:56.523Z] 
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.810Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Node -1 disconnected.
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.810Z  WARN 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.810Z  WARN 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.810Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Node -1 disconnected.
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.810Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Node -1 disconnected.
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.811Z  WARN 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.811Z  WARN 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.811Z  WARN 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.811Z  WARN 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.813Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.813Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.813Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.813Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.813Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.813Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.813Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.813Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.813Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.814Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.814Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.814Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.814Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.814Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.814Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.817Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.817Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.817Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.817Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.817Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.817Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.817Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.818Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.818Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.825Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-2 unregistered
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.825Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-3 unregistered
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.825Z  INFO 29311 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.826Z  INFO 29311 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.826Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-priority-group-1 unregistered
+[2026-05-12T04:12:56.523Z] 2026-05-12T04:12:55.826Z  INFO 29311 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-priority-group: Consumer stopped
+[2026-05-12T04:12:58.385Z] 
+[2026-05-12T04:12:58.385Z] > Task :services:circleguard-notification-service:test
+[2026-05-12T04:12:58.385Z] 
+[2026-05-12T04:12:58.385Z] 17 tests completed, 3 failed
+[2026-05-12T04:12:58.385Z] 
+[2026-05-12T04:12:58.385Z] > Task :services:circleguard-notification-service:test FAILED
+[2026-05-12T04:12:58.385Z] > Task :services:circleguard-promotion-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:12:58.385Z] > Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+[2026-05-12T04:12:58.636Z] > Task :services:circleguard-promotion-service:compileJava UP-TO-DATE
+[2026-05-12T04:12:58.636Z] > Task :services:circleguard-promotion-service:processResources UP-TO-DATE
+[2026-05-12T04:12:58.636Z] > Task :services:circleguard-promotion-service:classes UP-TO-DATE
+[2026-05-12T04:12:58.636Z] > Task :services:circleguard-promotion-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:12:58.886Z] > Task :services:circleguard-promotion-service:compileTestJava UP-TO-DATE
+[2026-05-12T04:12:58.886Z] > Task :services:circleguard-promotion-service:processTestResources UP-TO-DATE
+[2026-05-12T04:12:58.886Z] > Task :services:circleguard-promotion-service:testClasses UP-TO-DATE
+[2026-05-12T04:12:58.886Z] > Task :services:circleguard-promotion-service:test UP-TO-DATE
+[2026-05-12T04:12:58.886Z] 
+[2026-05-12T04:12:58.886Z] [Incubating] Problems report is available at: file:///var/jenkins_home/workspace/circleguard-dev-planB/build/reports/problems/problems-report.html
+[2026-05-12T04:12:58.886Z] 
+[2026-05-12T04:12:58.886Z] FAILURE: Build failed with an exception.
+[2026-05-12T04:12:58.886Z] 
+[2026-05-12T04:12:58.886Z] * What went wrong:
+[2026-05-12T04:12:58.886Z] Execution failed for task ':services:circleguard-notification-service:test'.
+[2026-05-12T04:12:58.886Z] > There were failing tests. See the report at: file:///var/jenkins_home/workspace/circleguard-dev-planB/services/circleguard-notification-service/build/reports/tests/test/index.html
+[2026-05-12T04:12:58.886Z] 
+[2026-05-12T04:12:58.886Z] * Try:
+[2026-05-12T04:12:58.886Z] > Run with --scan to get full insights.
+[2026-05-12T04:12:58.886Z] 
+[2026-05-12T04:12:58.886Z] Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+[2026-05-12T04:12:58.886Z] 
+[2026-05-12T04:12:58.886Z] You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+[2026-05-12T04:12:58.886Z] 
+[2026-05-12T04:12:58.886Z] For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+[2026-05-12T04:12:58.886Z] 
+[2026-05-12T04:12:58.886Z] BUILD FAILED in 24s
+[2026-05-12T04:12:58.886Z] 46 actionable tasks: 12 executed, 34 up-to-date
+[Pipeline] }
+[2026-05-12T04:12:59.195Z] ERROR: script returned exit code 1
+[Pipeline] // catchError
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Prepare Infrastructure)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:13:00.293Z] + docker inspect -f . bitnami/kubectl:latest
+[2026-05-12T04:13:00.293Z] .
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-05-12T04:13:00.494Z] Jenkins seems to be running inside container 4416c988c0231640a6cd079238107fd066823ec6dc074957fb15b1005b10bc98
+[2026-05-12T04:13:00.515Z] $ docker run -t -d -u 1000:1000 --entrypoint= --network host -w /var/jenkins_home/workspace/circleguard-dev-planB --volumes-from 4416c988c0231640a6cd079238107fd066823ec6dc074957fb15b1005b10bc98 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** bitnami/kubectl:latest cat
+[2026-05-12T04:13:01.298Z] $ docker top 0f94b9dfe3cdc670fd591c51509c7a401342057a984dfba585c385050d6e822b -eo pid,comm
+[Pipeline] {
+[Pipeline] withCredentials
+[2026-05-12T04:13:01.436Z] Masking supported pattern matches of $KUBECONFIG
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:13:01.507Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2026-05-12T04:13:01.507Z] 		 Affected argument(s) used the following variable(s): [KUBECONFIG]
+[2026-05-12T04:13:01.507Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2026-05-12T04:13:01.760Z] + export KUBECONFIG=****
+[2026-05-12T04:13:01.760Z] + KUBECONFIG=****
+[2026-05-12T04:13:01.760Z] + kubectl apply -f k8s/namespaces.yml
+[2026-05-12T04:13:02.011Z] namespace/cg-dev unchanged
+[2026-05-12T04:13:02.011Z] namespace/cg-stage unchanged
+[2026-05-12T04:13:02.011Z] namespace/cg-master unchanged
+[2026-05-12T04:13:02.011Z] + kubectl apply -f k8s/infra/ -n cg-dev
+[2026-05-12T04:13:02.261Z] deployment.apps/zookeeper configured
+[2026-05-12T04:13:02.261Z] service/zookeeper unchanged
+[2026-05-12T04:13:02.261Z] deployment.apps/kafka configured
+[2026-05-12T04:13:02.512Z] service/kafka unchanged
+[2026-05-12T04:13:02.512Z] deployment.apps/openldap unchanged
+[2026-05-12T04:13:02.512Z] service/openldap unchanged
+[2026-05-12T04:13:02.512Z] persistentvolumeclaim/neo4j-pvc unchanged
+[2026-05-12T04:13:02.512Z] deployment.apps/neo4j configured
+[2026-05-12T04:13:02.762Z] service/neo4j unchanged
+[2026-05-12T04:13:02.762Z] configmap/postgres-init unchanged
+[2026-05-12T04:13:02.762Z] persistentvolumeclaim/postgres-pvc unchanged
+[2026-05-12T04:13:02.762Z] deployment.apps/postgres unchanged
+[2026-05-12T04:13:03.012Z] service/postgres unchanged
+[2026-05-12T04:13:03.012Z] deployment.apps/redis unchanged
+[2026-05-12T04:13:03.012Z] service/redis unchanged
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[2026-05-12T04:13:03.182Z] $ docker stop --time=1 0f94b9dfe3cdc670fd591c51509c7a401342057a984dfba585c385050d6e822b
+[2026-05-12T04:13:04.414Z] $ docker rm -f --volumes 0f94b9dfe3cdc670fd591c51509c7a401342057a984dfba585c385050d6e822b
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Containerization & Deploy)
+[Pipeline] withCredentials
+[2026-05-12T04:13:05.765Z] Masking supported pattern matches of $P
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] retry
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:13:05.926Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2026-05-12T04:13:05.926Z] 		 Affected argument(s) used the following variable(s): [P]
+[2026-05-12T04:13:05.926Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2026-05-12T04:13:06.180Z] + echo ****
+[2026-05-12T04:13:06.180Z] + docker login -u juan0073 --password-stdin
+[2026-05-12T04:13:07.091Z] WARNING! Your password will be stored unencrypted in /var/jenkins_home/.docker/config.json.
+[2026-05-12T04:13:07.091Z] Configure a credential helper to remove this warning. See
+[2026-05-12T04:13:07.091Z] https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+[2026-05-12T04:13:07.091Z] 
+[2026-05-12T04:13:07.091Z] Login Succeeded
+[Pipeline] }
+[Pipeline] // retry
+[Pipeline] stage
+[Pipeline] { (Svc: auth)
+[Pipeline] retry
+[Pipeline] {
+[Pipeline] echo
+[2026-05-12T04:13:07.306Z] Construyendo y Pusheando circleguard-auth-service...
+[Pipeline] sh
+[2026-05-12T04:13:07.590Z] + docker build -t juan0073/circleguard-auth-service:dev-23 -t juan0073/circleguard-auth-service:dev-latest -f services/circleguard-auth-service/Dockerfile .
+[2026-05-12T04:13:07.841Z] #0 building with "default" instance using docker driver
+[2026-05-12T04:13:07.841Z] 
+[2026-05-12T04:13:07.841Z] #1 [internal] load build definition from Dockerfile
+[2026-05-12T04:13:07.841Z] #1 transferring dockerfile: 937B done
+[2026-05-12T04:13:07.841Z] #1 DONE 0.0s
+[2026-05-12T04:13:07.841Z] 
+[2026-05-12T04:13:07.841Z] #2 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+[2026-05-12T04:13:07.841Z] #2 DONE 0.0s
+[2026-05-12T04:13:07.841Z] 
+[2026-05-12T04:13:07.841Z] #3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T04:13:07.841Z] #3 DONE 0.1s
+[2026-05-12T04:13:07.841Z] 
+[2026-05-12T04:13:07.841Z] #4 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine
+[2026-05-12T04:13:08.752Z] #4 DONE 0.7s
+[2026-05-12T04:13:08.752Z] 
+[2026-05-12T04:13:08.752Z] #5 [internal] load .dockerignore
+[2026-05-12T04:13:08.752Z] #5 transferring context: 2B done
+[2026-05-12T04:13:08.752Z] #5 DONE 0.0s
+[2026-05-12T04:13:08.752Z] 
+[2026-05-12T04:13:08.752Z] #6 [internal] load build context
+[2026-05-12T04:13:08.752Z] #6 DONE 0.0s
+[2026-05-12T04:13:08.752Z] 
+[2026-05-12T04:13:08.752Z] #7 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T04:13:08.752Z] #7 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T04:13:08.752Z] #7 ...
+[2026-05-12T04:13:08.752Z] 
+[2026-05-12T04:13:08.752Z] #8 [builder  1/10] FROM docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986
+[2026-05-12T04:13:08.752Z] #8 resolve docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986 0.2s done
+[2026-05-12T04:13:08.752Z] #8 DONE 0.2s
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #7 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T04:13:09.002Z] #7 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b 0.3s done
+[2026-05-12T04:13:09.002Z] #7 DONE 0.3s
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #6 [internal] load build context
+[2026-05-12T04:13:09.002Z] #6 transferring context: 50.84kB done
+[2026-05-12T04:13:09.002Z] #6 DONE 0.0s
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #9 [stage-1 3/5] RUN addgroup -S circleguard && adduser -S circleguard -G circleguard
+[2026-05-12T04:13:09.002Z] #9 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #10 [builder  5/10] COPY build.gradle.kts .
+[2026-05-12T04:13:09.002Z] #10 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #11 [stage-1 4/5] COPY --from=builder /workspace/services/circleguard-auth-service/build/libs/*.jar app.jar
+[2026-05-12T04:13:09.002Z] #11 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #12 [builder  6/10] COPY settings.gradle.kts .
+[2026-05-12T04:13:09.002Z] #12 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #13 [builder  4/10] COPY gradle gradle/
+[2026-05-12T04:13:09.002Z] #13 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #14 [builder  8/10] RUN chmod +x gradlew
+[2026-05-12T04:13:09.002Z] #14 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #15 [stage-1 2/5] WORKDIR /app
+[2026-05-12T04:13:09.002Z] #15 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #16 [builder  9/10] COPY services/circleguard-auth-service/src services/circleguard-auth-service/src
+[2026-05-12T04:13:09.002Z] #16 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #17 [builder 10/10] RUN ./gradlew :services:circleguard-auth-service:bootJar --no-daemon -x test
+[2026-05-12T04:13:09.002Z] #17 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #18 [builder  2/10] WORKDIR /workspace
+[2026-05-12T04:13:09.002Z] #18 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #19 [builder  3/10] COPY gradlew .
+[2026-05-12T04:13:09.002Z] #19 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #20 [builder  7/10] COPY services/circleguard-auth-service/build.gradle.kts services/circleguard-auth-service/
+[2026-05-12T04:13:09.002Z] #20 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #21 [stage-1 5/5] RUN chown circleguard:circleguard app.jar
+[2026-05-12T04:13:09.002Z] #21 CACHED
+[2026-05-12T04:13:09.002Z] 
+[2026-05-12T04:13:09.002Z] #22 exporting to image
+[2026-05-12T04:13:09.002Z] #22 exporting layers done
+[2026-05-12T04:13:09.002Z] #22 exporting manifest sha256:b177d677795d94862c6d2d5d5e66c4a0a4c493f9b67e22823ea4d4bdd969d47c done
+[2026-05-12T04:13:09.002Z] #22 exporting config sha256:dcc6cf71bf981bbace20751e855de828d378f5a4c683b553427055e7ba4b6549 0.0s done
+[2026-05-12T04:13:09.002Z] #22 exporting attestation manifest sha256:38b92a197da3c942d73a91ef5a3d942c8714d197501caaeaec9b94d3a737f072 0.1s done
+[2026-05-12T04:13:09.002Z] #22 exporting manifest list sha256:b895e6bde70a15f048c6e84ed14355db52d70c755fe14e923d332c5fc1b23a5b
+[2026-05-12T04:13:09.252Z] #22 exporting manifest list sha256:b895e6bde70a15f048c6e84ed14355db52d70c755fe14e923d332c5fc1b23a5b 0.0s done
+[2026-05-12T04:13:09.252Z] #22 naming to docker.io/juan0073/circleguard-auth-service:dev-23 0.0s done
+[2026-05-12T04:13:09.252Z] #22 unpacking to docker.io/juan0073/circleguard-auth-service:dev-23 0.0s done
+[2026-05-12T04:13:09.252Z] #22 naming to docker.io/juan0073/circleguard-auth-service:dev-latest 0.0s done
+[2026-05-12T04:13:09.252Z] #22 unpacking to docker.io/juan0073/circleguard-auth-service:dev-latest 0.0s done
+[2026-05-12T04:13:09.503Z] #22 DONE 0.3s
+[Pipeline] sh
+[2026-05-12T04:13:10.040Z] + docker push juan0073/circleguard-auth-service:dev-23
+[2026-05-12T04:13:10.040Z] The push refers to repository [docker.io/juan0073/circleguard-auth-service]
+[2026-05-12T04:13:10.040Z] 6a0ac1617861: Waiting
+[2026-05-12T04:13:10.040Z] 2d1a277377d1: Waiting
+[2026-05-12T04:13:10.040Z] 6e338134b21e: Waiting
+[2026-05-12T04:13:10.040Z] 42516208460b: Waiting
+[2026-05-12T04:13:10.040Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:13:10.040Z] 77a66a314605: Waiting
+[2026-05-12T04:13:10.040Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:13:10.040Z] ed96b9e5011f: Waiting
+[2026-05-12T04:13:10.040Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:13:10.040Z] 41dc83a5a825: Waiting
+[2026-05-12T04:13:10.040Z] 42516208460b: Waiting
+[2026-05-12T04:13:10.040Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:13:10.040Z] 77a66a314605: Waiting
+[2026-05-12T04:13:10.040Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:13:10.040Z] ed96b9e5011f: Waiting
+[2026-05-12T04:13:10.040Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:13:10.040Z] 41dc83a5a825: Waiting
+[2026-05-12T04:13:10.040Z] 6a0ac1617861: Waiting
+[2026-05-12T04:13:10.040Z] 2d1a277377d1: Waiting
+[2026-05-12T04:13:10.040Z] 6e338134b21e: Waiting
+[2026-05-12T04:13:10.290Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:13:10.290Z] ed96b9e5011f: Waiting
+[2026-05-12T04:13:10.290Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:13:10.290Z] 41dc83a5a825: Waiting
+[2026-05-12T04:13:10.290Z] 6a0ac1617861: Waiting
+[2026-05-12T04:13:10.290Z] 2d1a277377d1: Waiting
+[2026-05-12T04:13:10.290Z] 6e338134b21e: Waiting
+[2026-05-12T04:13:10.290Z] 42516208460b: Waiting
+[2026-05-12T04:13:10.290Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:13:10.290Z] 77a66a314605: Waiting
+[2026-05-12T04:13:10.290Z] 42516208460b: Waiting
+[2026-05-12T04:13:10.290Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:13:10.290Z] 77a66a314605: Waiting
+[2026-05-12T04:13:10.290Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:13:10.290Z] ed96b9e5011f: Waiting
+[2026-05-12T04:13:10.290Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:13:10.290Z] 41dc83a5a825: Waiting
+[2026-05-12T04:13:10.290Z] 6a0ac1617861: Waiting
+[2026-05-12T04:13:10.290Z] 2d1a277377d1: Waiting
+[2026-05-12T04:13:10.290Z] 6e338134b21e: Waiting
+[2026-05-12T04:13:10.540Z] ed96b9e5011f: Waiting
+[2026-05-12T04:13:10.540Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:13:10.540Z] 41dc83a5a825: Waiting
+[2026-05-12T04:13:10.540Z] 6a0ac1617861: Waiting
+[2026-05-12T04:13:10.540Z] 2d1a277377d1: Waiting
+[2026-05-12T04:13:10.540Z] 6e338134b21e: Waiting
+[2026-05-12T04:13:10.540Z] 42516208460b: Waiting
+[2026-05-12T04:13:10.540Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:13:10.540Z] 77a66a314605: Waiting
+[2026-05-12T04:13:10.540Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:13:10.540Z] ed96b9e5011f: Waiting
+[2026-05-12T04:13:10.540Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:13:10.540Z] 41dc83a5a825: Waiting
+[2026-05-12T04:13:10.540Z] 6a0ac1617861: Waiting
+[2026-05-12T04:13:10.540Z] 2d1a277377d1: Waiting
+[2026-05-12T04:13:10.540Z] 6e338134b21e: Waiting
+[2026-05-12T04:13:10.540Z] 42516208460b: Waiting
+[2026-05-12T04:13:10.540Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:13:10.540Z] 77a66a314605: Waiting
+[2026-05-12T04:13:10.540Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:13:10.540Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:13:10.540Z] 41dc83a5a825: Waiting
+[2026-05-12T04:13:10.540Z] 6a0ac1617861: Waiting
+[2026-05-12T04:13:10.540Z] 2d1a277377d1: Layer already exists
+[2026-05-12T04:13:10.540Z] 6e338134b21e: Waiting
+[2026-05-12T04:13:10.540Z] 42516208460b: Waiting
+[2026-05-12T04:13:10.540Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:13:10.540Z] 77a66a314605: Waiting
+[2026-05-12T04:13:10.540Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:13:10.540Z] ed96b9e5011f: Waiting
+[2026-05-12T04:13:10.791Z] 6e338134b21e: Waiting
+[2026-05-12T04:13:10.791Z] 42516208460b: Waiting
+[2026-05-12T04:13:10.791Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:13:10.791Z] 77a66a314605: Waiting
+[2026-05-12T04:13:10.791Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:13:10.791Z] ed96b9e5011f: Waiting
+[2026-05-12T04:13:10.791Z] 0df8a4acd3ed: Layer already exists
+[2026-05-12T04:13:10.791Z] 41dc83a5a825: Waiting
+[2026-05-12T04:13:10.791Z] 6a0ac1617861: Waiting
+[2026-05-12T04:13:10.791Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T04:13:10.791Z] 77a66a314605: Layer already exists
+[2026-05-12T04:13:10.791Z] 5c48bccfe94e: Layer already exists
+[2026-05-12T04:13:10.791Z] ed96b9e5011f: Waiting
+[2026-05-12T04:13:10.791Z] 41dc83a5a825: Layer already exists
+[2026-05-12T04:13:10.791Z] 6a0ac1617861: Layer already exists
+[2026-05-12T04:13:10.791Z] 6e338134b21e: Layer already exists
+[2026-05-12T04:13:10.791Z] 42516208460b: Layer already exists
+[2026-05-12T04:13:11.701Z] ed96b9e5011f: Pushed
+[2026-05-12T04:13:14.184Z] dev-23: digest: sha256:b895e6bde70a15f048c6e84ed14355db52d70c755fe14e923d332c5fc1b23a5b size: 856
+[Pipeline] }
+[Pipeline] // retry
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:13:14.628Z] + docker inspect -f . bitnami/kubectl:latest
+[2026-05-12T04:13:14.628Z] .
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-05-12T04:13:14.806Z] Jenkins seems to be running inside container 4416c988c0231640a6cd079238107fd066823ec6dc074957fb15b1005b10bc98
+[2026-05-12T04:13:14.822Z] $ docker run -t -d -u 1000:1000 --entrypoint= --network host -w /var/jenkins_home/workspace/circleguard-dev-planB --volumes-from 4416c988c0231640a6cd079238107fd066823ec6dc074957fb15b1005b10bc98 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** bitnami/kubectl:latest cat
+[2026-05-12T04:13:15.146Z] $ docker top 3d33d81bb665627afd6ac862b92b6636502e088aa7eee917dbc76f7f99a19ac4 -eo pid,comm
+[Pipeline] {
+[Pipeline] withCredentials
+[2026-05-12T04:13:15.227Z] Masking supported pattern matches of $KUBECONFIG
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:13:15.281Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2026-05-12T04:13:15.281Z] 		 Affected argument(s) used the following variable(s): [KUBECONFIG]
+[2026-05-12T04:13:15.281Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2026-05-12T04:13:15.535Z] + export KUBECONFIG=****
+[2026-05-12T04:13:15.535Z] + KUBECONFIG=****
+[2026-05-12T04:13:15.535Z] + kubectl apply -f k8s/services/auth-deployment.yml -n cg-dev
+[2026-05-12T04:13:15.785Z] configmap/auth-service-config unchanged
+[2026-05-12T04:13:15.785Z] deployment.apps/auth-service configured
+[2026-05-12T04:13:15.785Z] service/auth-service unchanged
+[2026-05-12T04:13:15.785Z] + kubectl set image deployment/auth-service auth-service=juan0073/circleguard-auth-service:dev-23 -n cg-dev
+[2026-05-12T04:13:15.785Z] deployment.apps/auth-service image updated
+[2026-05-12T04:13:15.785Z] + echo 'Esperando a auth (máx 120s)...'
+[2026-05-12T04:13:15.785Z] Esperando a auth (máx 120s)...
+[2026-05-12T04:13:15.785Z] + kubectl rollout status deployment/auth-service -n cg-dev --timeout=120s
+[2026-05-12T04:13:15.785Z] Waiting for deployment "auth-service" rollout to finish: 0 out of 1 new replicas have been updated...
+[2026-05-12T04:13:15.785Z] Waiting for deployment "auth-service" rollout to finish: 0 out of 1 new replicas have been updated...
+[2026-05-12T04:13:15.785Z] Waiting for deployment "auth-service" rollout to finish: 1 old replicas are pending termination...
+[2026-05-12T04:13:16.696Z] Waiting for deployment "auth-service" rollout to finish: 1 old replicas are pending termination...

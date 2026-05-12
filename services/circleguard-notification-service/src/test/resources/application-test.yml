@@ -7,6 +7,7 @@ spring:
     exclude:
       - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
       - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.mail.MailHealthContributorAutoConfiguration
   mail:
     host: localhost
     port: 25
@@ -24,6 +25,11 @@ spring:
 management:
   endpoints:
     enabled-by-default: false
+  health:
+    mail:
+      enabled: false
+    defaults:
+      enabled: false
 
 auth:
   api:

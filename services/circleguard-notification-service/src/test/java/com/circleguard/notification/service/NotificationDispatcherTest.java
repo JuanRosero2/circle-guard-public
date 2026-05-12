@@ -47,6 +47,12 @@ class NotificationDispatcherTest {
     @MockBean
     private freemarker.template.Configuration freemarkerConfig;
 
+    @MockBean
+    private org.springframework.kafka.core.KafkaTemplate<String, Object> kafkaTemplate;
+
+    @MockBean
+    private AuditLogService auditLogService;
+
     @Test
     void shouldDispatchToAllChannelsConcurrently() throws Exception {
         // Setup slow services to test concurrency
