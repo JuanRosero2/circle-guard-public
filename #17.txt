@@ -1,0 +1,361 @@
+Started by user admin
+Obtained Jenkinsfile.dev from git https://github.com/JuanRosero2/circle-guard-public.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/circleguard-dev-planB
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-credentials
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/circleguard-dev-planB/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials planB
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 95e1dc8e2c519deeda0b896abfd1342ca007b74e (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 95e1dc8e2c519deeda0b896abfd1342ca007b74e # timeout=10
+Commit message: "jenkins9"
+ > git rev-list --no-walk 7fa921745b6f7df6e115fb3ec64a724057e9eb3d # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+[2026-05-12T03:10:54.633Z] Selected Git installation does not exist. Using Default
+[2026-05-12T03:10:54.633Z] The recommended git tool is: NONE
+[2026-05-12T03:10:54.633Z] using credential github-credentials
+[2026-05-12T03:10:54.643Z]  > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/circleguard-dev-planB/.git # timeout=10
+[2026-05-12T03:10:54.647Z] Fetching changes from the remote Git repository
+[2026-05-12T03:10:54.649Z]  > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+[2026-05-12T03:10:54.652Z] Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+[2026-05-12T03:10:54.652Z]  > git --version # timeout=10
+[2026-05-12T03:10:54.655Z]  > git --version # 'git version 2.47.3'
+[2026-05-12T03:10:54.655Z] using GIT_ASKPASS to set credentials planB
+[2026-05-12T03:10:54.659Z]  > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-05-12T03:10:55.129Z]  > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+[2026-05-12T03:10:55.134Z] Checking out Revision 95e1dc8e2c519deeda0b896abfd1342ca007b74e (refs/remotes/origin/master)
+[2026-05-12T03:10:55.134Z]  > git config core.sparsecheckout # timeout=10
+[2026-05-12T03:10:55.139Z]  > git checkout -f 95e1dc8e2c519deeda0b896abfd1342ca007b74e # timeout=10
+[2026-05-12T03:10:55.148Z] Commit message: "jenkins9"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T03:10:55.691Z] + ./gradlew test --no-daemon --continue
+[2026-05-12T03:10:55.691Z] openjdk version "21.0.10" 2026-01-20 LTS
+[2026-05-12T03:10:55.691Z] OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+[2026-05-12T03:10:55.691Z] OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+[2026-05-12T03:10:56.242Z] To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[2026-05-12T03:10:57.152Z] Daemon will be stopped at the end of the build 
+[2026-05-12T03:11:02.347Z] > Task :services:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T03:11:02.347Z] > Task :services:compileKotlin NO-SOURCE
+[2026-05-12T03:11:02.347Z] > Task :services:compileJava NO-SOURCE
+[2026-05-12T03:11:02.347Z] > Task :services:processResources NO-SOURCE
+[2026-05-12T03:11:02.347Z] > Task :services:classes UP-TO-DATE
+[2026-05-12T03:11:02.347Z] > Task :services:compileTestKotlin NO-SOURCE
+[2026-05-12T03:11:02.347Z] > Task :services:compileTestJava NO-SOURCE
+[2026-05-12T03:11:02.347Z] > Task :services:processTestResources NO-SOURCE
+[2026-05-12T03:11:02.347Z] > Task :services:testClasses UP-TO-DATE
+[2026-05-12T03:11:02.347Z] > Task :services:test NO-SOURCE
+[2026-05-12T03:11:02.347Z] > Task :services:circleguard-auth-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T03:11:02.897Z] > Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+[2026-05-12T03:11:03.448Z] > Task :services:circleguard-auth-service:compileJava UP-TO-DATE
+[2026-05-12T03:11:03.448Z] > Task :services:circleguard-auth-service:processResources UP-TO-DATE
+[2026-05-12T03:11:03.448Z] > Task :services:circleguard-auth-service:classes UP-TO-DATE
+[2026-05-12T03:11:03.448Z] > Task :services:circleguard-auth-service:compileTestKotlin NO-SOURCE
+[2026-05-12T03:11:03.448Z] > Task :services:circleguard-auth-service:compileTestJava UP-TO-DATE
+[2026-05-12T03:11:03.448Z] > Task :services:circleguard-auth-service:processTestResources UP-TO-DATE
+[2026-05-12T03:11:03.448Z] > Task :services:circleguard-auth-service:testClasses UP-TO-DATE
+[2026-05-12T03:11:03.448Z] > Task :services:circleguard-auth-service:test UP-TO-DATE
+[2026-05-12T03:11:03.448Z] > Task :services:circleguard-dashboard-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T03:11:03.698Z] > Task :services:circleguard-dashboard-service:compileKotlin NO-SOURCE
+[2026-05-12T03:11:03.948Z] > Task :services:circleguard-dashboard-service:compileJava UP-TO-DATE
+[2026-05-12T03:11:03.948Z] > Task :services:circleguard-dashboard-service:processResources UP-TO-DATE
+[2026-05-12T03:11:03.948Z] > Task :services:circleguard-dashboard-service:classes UP-TO-DATE
+[2026-05-12T03:11:03.948Z] > Task :services:circleguard-dashboard-service:compileTestKotlin NO-SOURCE
+[2026-05-12T03:11:03.948Z] > Task :services:circleguard-dashboard-service:compileTestJava UP-TO-DATE
+[2026-05-12T03:11:03.948Z] > Task :services:circleguard-dashboard-service:processTestResources NO-SOURCE
+[2026-05-12T03:11:03.948Z] > Task :services:circleguard-dashboard-service:testClasses UP-TO-DATE
+[2026-05-12T03:11:03.948Z] > Task :services:circleguard-dashboard-service:test UP-TO-DATE
+[2026-05-12T03:11:03.948Z] > Task :services:circleguard-file-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T03:11:03.948Z] > Task :services:circleguard-file-service:compileKotlin NO-SOURCE
+[2026-05-12T03:11:04.199Z] > Task :services:circleguard-file-service:compileJava UP-TO-DATE
+[2026-05-12T03:11:04.199Z] > Task :services:circleguard-file-service:processResources UP-TO-DATE
+[2026-05-12T03:11:04.199Z] > Task :services:circleguard-file-service:classes UP-TO-DATE
+[2026-05-12T03:11:04.199Z] > Task :services:circleguard-file-service:compileTestKotlin NO-SOURCE
+[2026-05-12T03:11:04.199Z] > Task :services:circleguard-file-service:compileTestJava UP-TO-DATE
+[2026-05-12T03:11:04.199Z] > Task :services:circleguard-file-service:processTestResources NO-SOURCE
+[2026-05-12T03:11:04.199Z] > Task :services:circleguard-file-service:testClasses UP-TO-DATE
+[2026-05-12T03:11:04.199Z] > Task :services:circleguard-file-service:test UP-TO-DATE
+[2026-05-12T03:11:04.199Z] > Task :services:circleguard-form-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T03:11:04.449Z] > Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+[2026-05-12T03:11:04.449Z] > Task :services:circleguard-form-service:compileJava UP-TO-DATE
+[2026-05-12T03:11:04.449Z] > Task :services:circleguard-form-service:processResources UP-TO-DATE
+[2026-05-12T03:11:04.449Z] > Task :services:circleguard-form-service:classes UP-TO-DATE
+[2026-05-12T03:11:04.449Z] > Task :services:circleguard-form-service:compileTestKotlin NO-SOURCE
+[2026-05-12T03:11:04.449Z] > Task :services:circleguard-form-service:compileTestJava UP-TO-DATE
+[2026-05-12T03:11:04.449Z] > Task :services:circleguard-form-service:processTestResources UP-TO-DATE
+[2026-05-12T03:11:04.449Z] > Task :services:circleguard-form-service:testClasses UP-TO-DATE
+[2026-05-12T03:11:04.699Z] > Task :services:circleguard-form-service:test UP-TO-DATE
+[2026-05-12T03:11:04.699Z] > Task :services:circleguard-gateway-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T03:11:04.699Z] > Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+[2026-05-12T03:11:04.950Z] > Task :services:circleguard-gateway-service:compileJava UP-TO-DATE
+[2026-05-12T03:11:04.950Z] > Task :services:circleguard-gateway-service:processResources UP-TO-DATE
+[2026-05-12T03:11:04.950Z] > Task :services:circleguard-gateway-service:classes UP-TO-DATE
+[2026-05-12T03:11:04.950Z] > Task :services:circleguard-gateway-service:compileTestKotlin NO-SOURCE
+[2026-05-12T03:11:04.950Z] > Task :services:circleguard-gateway-service:compileTestJava UP-TO-DATE
+[2026-05-12T03:11:04.950Z] > Task :services:circleguard-gateway-service:processTestResources NO-SOURCE
+[2026-05-12T03:11:04.950Z] > Task :services:circleguard-gateway-service:testClasses UP-TO-DATE
+[2026-05-12T03:11:04.950Z] > Task :services:circleguard-gateway-service:test UP-TO-DATE
+[2026-05-12T03:11:04.950Z] > Task :services:circleguard-identity-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T03:11:04.950Z] > Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+[2026-05-12T03:11:05.200Z] > Task :services:circleguard-identity-service:compileJava UP-TO-DATE
+[2026-05-12T03:11:05.200Z] > Task :services:circleguard-identity-service:processResources UP-TO-DATE
+[2026-05-12T03:11:05.200Z] > Task :services:circleguard-identity-service:classes UP-TO-DATE
+[2026-05-12T03:11:05.200Z] > Task :services:circleguard-identity-service:compileTestKotlin NO-SOURCE
+[2026-05-12T03:11:05.450Z] > Task :services:circleguard-identity-service:compileTestJava UP-TO-DATE
+[2026-05-12T03:11:05.450Z] > Task :services:circleguard-identity-service:processTestResources UP-TO-DATE
+[2026-05-12T03:11:05.450Z] > Task :services:circleguard-identity-service:testClasses UP-TO-DATE
+[2026-05-12T03:11:05.450Z] > Task :services:circleguard-identity-service:test UP-TO-DATE
+[2026-05-12T03:11:05.450Z] > Task :services:circleguard-notification-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T03:11:05.450Z] > Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+[2026-05-12T03:11:05.701Z] > Task :services:circleguard-notification-service:compileJava UP-TO-DATE
+[2026-05-12T03:11:05.701Z] > Task :services:circleguard-notification-service:processResources UP-TO-DATE
+[2026-05-12T03:11:05.701Z] > Task :services:circleguard-notification-service:classes UP-TO-DATE
+[2026-05-12T03:11:05.701Z] > Task :services:circleguard-notification-service:compileTestKotlin NO-SOURCE
+[2026-05-12T03:11:05.701Z] > Task :services:circleguard-notification-service:compileTestJava UP-TO-DATE
+[2026-05-12T03:11:05.701Z] > Task :services:circleguard-notification-service:processTestResources NO-SOURCE
+[2026-05-12T03:11:05.701Z] > Task :services:circleguard-notification-service:testClasses UP-TO-DATE
+[2026-05-12T03:11:10.895Z] 
+[2026-05-12T03:11:10.895Z] > Task :services:circleguard-notification-service:test
+[2026-05-12T03:11:10.895Z] 
+[2026-05-12T03:11:10.895Z] ExposureNotificationListenerTest > shouldHandleStatusChangeEventWithoutError() FAILED
+[2026-05-12T03:11:10.895Z]     java.lang.IllegalStateException at DefaultCacheAwareContextLoaderDelegate.java:180
+[2026-05-12T03:11:10.895Z]         Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException at ConstructorResolver.java:795
+[2026-05-12T03:11:10.895Z]             Caused by: org.springframework.beans.factory.BeanCreationException at ConstructorResolver.java:648
+[2026-05-12T03:11:10.895Z]                 Caused by: org.springframework.beans.BeanInstantiationException at SimpleInstantiationStrategy.java:177
+[2026-05-12T03:11:10.895Z]                     Caused by: java.lang.IllegalArgumentException at Assert.java:455
+[2026-05-12T03:11:13.378Z] 
+[2026-05-12T03:11:13.378Z] NotificationRetryTest > testEmailRetryLogic() FAILED
+[2026-05-12T03:11:13.378Z]     java.lang.IllegalStateException at DefaultCacheAwareContextLoaderDelegate.java:180
+[2026-05-12T03:11:13.378Z]         Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException at ConstructorResolver.java:795
+[2026-05-12T03:11:13.378Z]             Caused by: org.springframework.beans.factory.BeanCreationException at ConstructorResolver.java:648
+[2026-05-12T03:11:13.378Z]                 Caused by: org.springframework.beans.BeanInstantiationException at SimpleInstantiationStrategy.java:177
+[2026-05-12T03:11:13.378Z]                     Caused by: java.lang.IllegalArgumentException at Assert.java:455
+[2026-05-12T03:11:15.240Z] 
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.126Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.127Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.127Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.127Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.127Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.129Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.129Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.129Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.129Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.129Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.129Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.129Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.129Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.129Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.135Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-priority-group-1 unregistered
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.136Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-priority-group: Consumer stopped
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.136Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-2 unregistered
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.136Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.136Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-3 unregistered
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.137Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.166Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Node -1 disconnected.
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.166Z  WARN 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.166Z  WARN 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.175Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Node -1 disconnected.
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.175Z  WARN 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:15.240Z] 2026-05-12T03:11:15.175Z  WARN 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:15.490Z] 2026-05-12T03:11:15.361Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Node -1 disconnected.
+[2026-05-12T03:11:15.490Z] 2026-05-12T03:11:15.361Z  WARN 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:15.490Z] 2026-05-12T03:11:15.361Z  WARN 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:15.490Z] 2026-05-12T03:11:15.418Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Node -1 disconnected.
+[2026-05-12T03:11:15.490Z] 2026-05-12T03:11:15.419Z  WARN 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:15.490Z] 2026-05-12T03:11:15.419Z  WARN 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:15.740Z] 2026-05-12T03:11:15.427Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Node -1 disconnected.
+[2026-05-12T03:11:15.740Z] 2026-05-12T03:11:15.427Z  WARN 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:15.740Z] 2026-05-12T03:11:15.427Z  WARN 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:15.991Z] 2026-05-12T03:11:15.763Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Node -1 disconnected.
+[2026-05-12T03:11:15.991Z] 2026-05-12T03:11:15.763Z  WARN 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:15.991Z] 2026-05-12T03:11:15.764Z  WARN 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:15.991Z] 2026-05-12T03:11:15.821Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Node -1 disconnected.
+[2026-05-12T03:11:15.991Z] 2026-05-12T03:11:15.821Z  WARN 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:15.991Z] 2026-05-12T03:11:15.822Z  WARN 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:15.991Z] 2026-05-12T03:11:15.830Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Node -1 disconnected.
+[2026-05-12T03:11:15.991Z] 2026-05-12T03:11:15.830Z  WARN 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:15.991Z] 2026-05-12T03:11:15.831Z  WARN 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:16.902Z] 2026-05-12T03:11:16.567Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Node -1 disconnected.
+[2026-05-12T03:11:16.902Z] 2026-05-12T03:11:16.567Z  WARN 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:16.902Z] 2026-05-12T03:11:16.567Z  WARN 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:16.902Z] 2026-05-12T03:11:16.575Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Node -1 disconnected.
+[2026-05-12T03:11:16.902Z] 2026-05-12T03:11:16.575Z  WARN 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:16.902Z] 2026-05-12T03:11:16.575Z  WARN 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:16.902Z] 2026-05-12T03:11:16.685Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Node -1 disconnected.
+[2026-05-12T03:11:16.902Z] 2026-05-12T03:11:16.685Z  WARN 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T03:11:16.902Z] 2026-05-12T03:11:16.685Z  WARN 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T03:11:17.452Z] 2026-05-12T03:11:17.158Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.452Z] 2026-05-12T03:11:17.159Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.159Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.159Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.159Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.159Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.159Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.159Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.159Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.160Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.160Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.160Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-5, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.160Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-4, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.160Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.163Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-6, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.165Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.165Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.165Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.166Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.166Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.166Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.166Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.166Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.167Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.175Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-priority-group-4 unregistered
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.175Z  INFO 21926 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-priority-group: Consumer stopped
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.181Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-5 unregistered
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.181Z  INFO 21926 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.182Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-6 unregistered
+[2026-05-12T03:11:17.453Z] 2026-05-12T03:11:17.182Z  INFO 21926 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+[2026-05-12T03:11:17.453Z] 
+[2026-05-12T03:11:17.453Z] > Task :services:circleguard-notification-service:test
+[2026-05-12T03:11:17.453Z] 
+[2026-05-12T03:11:17.453Z] 17 tests completed, 2 failed
+[2026-05-12T03:11:17.453Z] 
+[2026-05-12T03:11:17.453Z] > Task :services:circleguard-notification-service:test FAILED
+[2026-05-12T03:11:17.453Z] > Task :services:circleguard-promotion-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T03:11:17.703Z] > Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+[2026-05-12T03:11:18.254Z] > Task :services:circleguard-promotion-service:compileJava UP-TO-DATE
+[2026-05-12T03:11:18.254Z] > Task :services:circleguard-promotion-service:processResources UP-TO-DATE
+[2026-05-12T03:11:18.254Z] > Task :services:circleguard-promotion-service:classes UP-TO-DATE
+[2026-05-12T03:11:18.254Z] > Task :services:circleguard-promotion-service:compileTestKotlin NO-SOURCE
+[2026-05-12T03:11:18.504Z] > Task :services:circleguard-promotion-service:compileTestJava UP-TO-DATE
+[2026-05-12T03:11:18.504Z] > Task :services:circleguard-promotion-service:processTestResources UP-TO-DATE
+[2026-05-12T03:11:18.504Z] > Task :services:circleguard-promotion-service:testClasses UP-TO-DATE
+[2026-05-12T03:11:18.504Z] > Task :services:circleguard-promotion-service:test UP-TO-DATE
+[2026-05-12T03:11:18.504Z] 
+[2026-05-12T03:11:18.504Z] [Incubating] Problems report is available at: file:///var/jenkins_home/workspace/circleguard-dev-planB/build/reports/problems/problems-report.html
+[2026-05-12T03:11:18.504Z] 
+[2026-05-12T03:11:18.504Z] FAILURE: Build failed with an exception.
+[2026-05-12T03:11:18.504Z] 
+[2026-05-12T03:11:18.504Z] * What went wrong:
+[2026-05-12T03:11:18.504Z] Execution failed for task ':services:circleguard-notification-service:test'.
+[2026-05-12T03:11:18.504Z] > There were failing tests. See the report at: file:///var/jenkins_home/workspace/circleguard-dev-planB/services/circleguard-notification-service/build/reports/tests/test/index.html
+[2026-05-12T03:11:18.504Z] 
+[2026-05-12T03:11:18.504Z] * Try:
+[2026-05-12T03:11:18.504Z] > Run with --scan to get full insights.
+[2026-05-12T03:11:18.504Z] 
+[2026-05-12T03:11:18.504Z] Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+[2026-05-12T03:11:18.504Z] 
+[2026-05-12T03:11:18.504Z] You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+[2026-05-12T03:11:18.504Z] 
+[2026-05-12T03:11:18.504Z] For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+[2026-05-12T03:11:18.504Z] 
+[2026-05-12T03:11:18.504Z] BUILD FAILED in 22s
+[2026-05-12T03:11:18.504Z] 45 actionable tasks: 10 executed, 35 up-to-date
+[Pipeline] }
+[2026-05-12T03:11:18.805Z] ERROR: script returned exit code 1
+[Pipeline] // catchError
+[Pipeline] }
+[Pipeline] // script
+Post stage
+[Pipeline] junit
+[2026-05-12T03:11:19.005Z] Recording test results
+[2026-05-12T03:11:19.070Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Containerization)
+[Pipeline] withCredentials
+[2026-05-12T03:11:19.285Z] Masking supported pattern matches of $P
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T03:11:19.370Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2026-05-12T03:11:19.370Z] 		 Affected argument(s) used the following variable(s): [P]
+[2026-05-12T03:11:19.370Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2026-05-12T03:11:19.627Z] + echo ****
+[2026-05-12T03:11:19.627Z] + docker login -u juan0073 --password-stdin
+[2026-05-12T03:11:34.390Z] Error response from daemon: Get "https://registry-1.docker.io/v2/": net/http: TLS handshake timeout
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy Infrastructure)
+Stage "Deploy Infrastructure" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy Services (Parallel))
+Stage "Deploy Services (Parallel)" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Final Health Check)
+Stage "Final Health Check" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
+[2026-05-12T03:11:35.546Z] + docker image prune -f --filter dangling=true
+[2026-05-12T03:11:35.546Z] Total reclaimed space: 0B
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
