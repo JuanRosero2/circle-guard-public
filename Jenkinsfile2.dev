@@ -1,0 +1,169 @@
+// Jenkinsfile.dev — CircleGuard Dev Pipeline
+// Triggered on: feature/* and develop branches
+// Purpose: Build, unit test, containerize, and deploy to cg-dev namespace
+
+def SERVICES = [
+    'circleguard-auth-service',
+    'circleguard-identity-service',
+    'circleguard-gateway-service',
+    'circleguard-form-service',
+    'circleguard-promotion-service',
+    'circleguard-notification-service'
+]
+
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_REGISTRY = 'juan0073'
+        K8S_NAMESPACE   = 'cg-dev'
+        IMAGE_TAG       = "dev-${BUILD_NUMBER}"
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        timeout(time: 60, unit: 'MINUTES')
+        timestamps()
+    }
+
+    triggers {
+        pollSCM('H/5 * * * *')
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+                sh 'git log --oneline -5'
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                sh '''
+                    chmod +x gradlew
+                    ./gradlew \
+                        :services:circleguard-auth-service:test \
+                        :services:circleguard-identity-service:test \
+                        :services:circleguard-gateway-service:test \
+                        :services:circleguard-form-service:test \
+                        :services:circleguard-promotion-service:test \
+                        :services:circleguard-notification-service:test \
+                        --no-daemon --continue
+                '''
+            }
+            post {
+                always {
+                    junit(
+                        testResults: 'services/*/build/test-results/test/*.xml',
+                        allowEmptyResults: false
+                    )
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'services/circleguard-auth-service/build/reports/tests/test',
+                        reportFiles: 'index.html',
+                        reportName: 'Unit Test Report - Auth Service'
+                    ])
+                }
+            }
+        }
+
+        stage('Containerization') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-credentials',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    script {
+                        parallel(SERVICES.collectEntries { svc ->
+                            [svc, {
+                                sh """
+                                    docker build \
+                                        -t ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
+                                        -t ${DOCKER_REGISTRY}/${svc}:dev-latest \
+                                        -f services/${svc}/Dockerfile \
+                                        .
+                                    docker push ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG}
+                                    docker push ${DOCKER_REGISTRY}/${svc}:dev-latest
+                                """
+                            }]
+                        })
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to cg-dev') {
+            steps {
+                script {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
+                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                            sh '''
+                                export KUBECONFIG=$KUBECONFIG
+                                kubectl apply -f k8s/namespaces.yml
+                                kubectl apply -f k8s/infra/ -n cg-dev
+                            '''
+                            try {
+                                SERVICES.each { svc ->
+                                    def shortName = svc.replace('circleguard-', '').replace('-service', '')
+                                    sh """
+                                        export KUBECONFIG=$KUBECONFIG
+                                        kubectl apply -f k8s/services/${shortName}-deployment.yml -n cg-dev
+                                        kubectl set image deployment/${shortName}-service \
+                                            ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} \
+                                            -n cg-dev
+                                        kubectl rollout status deployment/${shortName}-service -n cg-dev --timeout=300s
+                                    """
+                                }
+                            } catch (Exception e) {
+                                sh """
+                                    export KUBECONFIG=$KUBECONFIG
+                                    echo "--- DEBUG: POD STATUS ---"
+                                    kubectl get pods -n cg-dev
+                                    echo "--- DEBUG: EVENTS ---"
+                                    kubectl get events -n cg-dev --sort-by='.lastTimestamp' | tail -n 20
+                                    echo "--- DEBUG: AUTH SERVICE LOGS ---"
+                                    kubectl logs -l app=auth-service -n cg-dev --tail=50
+                                    error "Deployment failed: \${e.getMessage()}"
+                                """
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Smoke Test (Dev)') {
+            steps {
+                script {
+                    docker.image('bitnami/kubectl:latest').inside('--entrypoint=""') {
+                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                            sh '''
+                                export KUBECONFIG=$KUBECONFIG
+                                kubectl get pods -n cg-dev
+                                echo "✅ Dev deployment complete — pods are running"
+                            '''
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ DEV PIPELINE SUCCEEDED — Build: ${BUILD_NUMBER}, Tag: ${IMAGE_TAG}"
+        }
+        failure {
+            echo "❌ DEV PIPELINE FAILED — Check the logs for details"
+        }
+        always {
+            sh 'docker image prune -f --filter "dangling=true" || true'
+        }
+    }
+}
