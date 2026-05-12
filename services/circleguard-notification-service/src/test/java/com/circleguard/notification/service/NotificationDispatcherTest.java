@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -15,6 +17,17 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @ActiveProfiles("test")
 class NotificationDispatcherTest {
+
+    @TestConfiguration
+    static class Config {
+        @Bean
+        public WebClient.Builder webClientBuilder() {
+            WebClient.Builder builder = mock(WebClient.Builder.class);
+            when(builder.baseUrl(anyString())).thenReturn(builder);
+            when(builder.build()).thenReturn(mock(WebClient.class));
+            return builder;
+        }
+    }
 
     @Autowired
     private NotificationDispatcher dispatcher;
@@ -30,9 +43,6 @@ class NotificationDispatcherTest {
 
     @MockBean
     private PushService pushService;
-
-    @MockBean
-    private WebClient.Builder webClientBuilder;
 
     @MockBean
     private freemarker.template.Configuration freemarkerConfig;

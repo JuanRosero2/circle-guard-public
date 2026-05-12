@@ -1,0 +1,744 @@
+Started by user admin
+Obtained Jenkinsfile.dev from git https://github.com/JuanRosero2/circle-guard-public.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/circleguard-dev-planB@2
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-credentials
+Cloning the remote Git repository
+Cloning repository https://github.com/JuanRosero2/circle-guard-public.git
+ > git init /var/jenkins_home/workspace/circleguard-dev-planB@2 # timeout=10
+Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials planB
+ > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision eb4c805e91a698867200783f025f0d9795ae82ec (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f eb4c805e91a698867200783f025f0d9795ae82ec # timeout=10
+Commit message: "add: test al jenkinsfile"
+ > git rev-list --no-walk 67171402e0f97d9ee50e4ffc1216a2e16f320199 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+[2026-05-12T03:59:59.306Z] Selected Git installation does not exist. Using Default
+[2026-05-12T03:59:59.306Z] The recommended git tool is: NONE
+[2026-05-12T03:59:59.307Z] using credential github-credentials
+[2026-05-12T03:59:59.322Z]  > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/circleguard-dev-planB@2/.git # timeout=10
+[2026-05-12T03:59:59.325Z] Fetching changes from the remote Git repository
+[2026-05-12T03:59:59.327Z]  > git config remote.origin.url https://github.com/JuanRosero2/circle-guard-public.git # timeout=10
+[2026-05-12T03:59:59.331Z] Fetching upstream changes from https://github.com/JuanRosero2/circle-guard-public.git
+[2026-05-12T03:59:59.331Z]  > git --version # timeout=10
+[2026-05-12T03:59:59.334Z]  > git --version # 'git version 2.47.3'
+[2026-05-12T03:59:59.334Z] using GIT_ASKPASS to set credentials planB
+[2026-05-12T03:59:59.338Z]  > git fetch --tags --force --progress -- https://github.com/JuanRosero2/circle-guard-public.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-05-12T03:59:59.794Z]  > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+[2026-05-12T03:59:59.797Z] Checking out Revision eb4c805e91a698867200783f025f0d9795ae82ec (refs/remotes/origin/master)
+[2026-05-12T03:59:59.797Z]  > git config core.sparsecheckout # timeout=10
+[2026-05-12T03:59:59.799Z]  > git checkout -f eb4c805e91a698867200783f025f0d9795ae82ec # timeout=10
+[2026-05-12T03:59:59.826Z] Commit message: "add: test al jenkinsfile"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:00:00.300Z] + ./gradlew test --no-daemon --continue
+[2026-05-12T04:00:00.300Z] openjdk version "21.0.10" 2026-01-20 LTS
+[2026-05-12T04:00:00.300Z] OpenJDK Runtime Environment Temurin-21.0.10+7 (build 21.0.10+7-LTS)
+[2026-05-12T04:00:00.300Z] OpenJDK 64-Bit Server VM Temurin-21.0.10+7 (build 21.0.10+7-LTS, mixed mode)
+[2026-05-12T04:00:01.211Z] To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[2026-05-12T04:00:01.761Z] Daemon will be stopped at the end of the build 
+[2026-05-12T04:00:08.242Z] > Task :services:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:00:08.242Z] > Task :services:compileKotlin NO-SOURCE
+[2026-05-12T04:00:08.242Z] > Task :services:compileJava NO-SOURCE
+[2026-05-12T04:00:08.242Z] > Task :services:processResources NO-SOURCE
+[2026-05-12T04:00:08.242Z] > Task :services:classes UP-TO-DATE
+[2026-05-12T04:00:08.242Z] > Task :services:compileTestKotlin NO-SOURCE
+[2026-05-12T04:00:08.242Z] > Task :services:compileTestJava NO-SOURCE
+[2026-05-12T04:00:08.242Z] > Task :services:processTestResources NO-SOURCE
+[2026-05-12T04:00:08.242Z] > Task :services:testClasses UP-TO-DATE
+[2026-05-12T04:00:08.242Z] > Task :services:test NO-SOURCE
+[2026-05-12T04:00:08.242Z] > Task :services:circleguard-auth-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:00:08.242Z] > Task :services:circleguard-auth-service:compileKotlin NO-SOURCE
+[2026-05-12T04:00:10.103Z] > Task :services:circleguard-auth-service:compileJava
+[2026-05-12T04:00:10.103Z] > Task :services:circleguard-auth-service:processResources
+[2026-05-12T04:00:10.103Z] > Task :services:circleguard-auth-service:classes
+[2026-05-12T04:00:10.103Z] > Task :services:circleguard-auth-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:00:10.654Z] > Task :services:circleguard-auth-service:compileTestJava
+[2026-05-12T04:00:10.904Z] > Task :services:circleguard-auth-service:processTestResources
+[2026-05-12T04:00:10.904Z] > Task :services:circleguard-auth-service:testClasses
+[2026-05-12T04:00:15.026Z] > Task :services:circleguard-auth-service:test
+[2026-05-12T04:00:15.026Z] > Task :services:circleguard-dashboard-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:00:15.026Z] > Task :services:circleguard-dashboard-service:compileKotlin NO-SOURCE
+[2026-05-12T04:00:15.277Z] > Task :services:circleguard-dashboard-service:compileJava
+[2026-05-12T04:00:15.277Z] > Task :services:circleguard-dashboard-service:processResources
+[2026-05-12T04:00:15.277Z] > Task :services:circleguard-dashboard-service:classes
+[2026-05-12T04:00:15.277Z] > Task :services:circleguard-dashboard-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:00:15.527Z] > Task :services:circleguard-dashboard-service:compileTestJava
+[2026-05-12T04:00:15.527Z] > Task :services:circleguard-dashboard-service:processTestResources NO-SOURCE
+[2026-05-12T04:00:15.527Z] > Task :services:circleguard-dashboard-service:testClasses
+[2026-05-12T04:00:18.755Z] > Task :services:circleguard-dashboard-service:test
+[2026-05-12T04:00:18.755Z] > Task :services:circleguard-file-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:00:18.755Z] > Task :services:circleguard-file-service:compileKotlin NO-SOURCE
+[2026-05-12T04:00:19.006Z] > Task :services:circleguard-file-service:compileJava
+[2026-05-12T04:00:19.006Z] > Task :services:circleguard-file-service:processResources
+[2026-05-12T04:00:19.006Z] > Task :services:circleguard-file-service:classes
+[2026-05-12T04:00:19.006Z] > Task :services:circleguard-file-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:00:19.006Z] > Task :services:circleguard-file-service:compileTestJava
+[2026-05-12T04:00:19.006Z] > Task :services:circleguard-file-service:processTestResources NO-SOURCE
+[2026-05-12T04:00:19.006Z] > Task :services:circleguard-file-service:testClasses
+[2026-05-12T04:00:21.488Z] > Task :services:circleguard-file-service:test
+[2026-05-12T04:00:21.488Z] > Task :services:circleguard-form-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:00:21.738Z] > Task :services:circleguard-form-service:compileKotlin NO-SOURCE
+[2026-05-12T04:00:22.649Z] > Task :services:circleguard-form-service:compileJava
+[2026-05-12T04:00:22.649Z] > Task :services:circleguard-form-service:processResources
+[2026-05-12T04:00:22.649Z] > Task :services:circleguard-form-service:classes
+[2026-05-12T04:00:22.649Z] > Task :services:circleguard-form-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:00:23.200Z] 
+[2026-05-12T04:00:23.200Z] > Task :services:circleguard-form-service:compileTestJava
+[2026-05-12T04:00:23.200Z] Note: Some input files use unchecked or unsafe operations.
+[2026-05-12T04:00:23.200Z] Note: Recompile with -Xlint:unchecked for details.
+[2026-05-12T04:00:23.200Z] 
+[2026-05-12T04:00:23.200Z] > Task :services:circleguard-form-service:processTestResources
+[2026-05-12T04:00:23.200Z] > Task :services:circleguard-form-service:testClasses
+[2026-05-12T04:00:27.322Z] > Task :services:circleguard-form-service:test
+[2026-05-12T04:00:27.322Z] > Task :services:circleguard-gateway-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:00:27.322Z] > Task :services:circleguard-gateway-service:compileKotlin NO-SOURCE
+[2026-05-12T04:00:27.873Z] > Task :services:circleguard-gateway-service:compileJava
+[2026-05-12T04:00:27.873Z] > Task :services:circleguard-gateway-service:processResources
+[2026-05-12T04:00:27.873Z] > Task :services:circleguard-gateway-service:classes
+[2026-05-12T04:00:27.873Z] > Task :services:circleguard-gateway-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:00:28.123Z] 
+[2026-05-12T04:00:28.123Z] > Task :services:circleguard-gateway-service:compileTestJava
+[2026-05-12T04:00:28.123Z] Note: /var/jenkins_home/workspace/circleguard-dev-planB@2/services/circleguard-gateway-service/src/test/java/com/circleguard/gateway/service/QrValidationServiceTest.java uses unchecked or unsafe operations.
+[2026-05-12T04:00:28.123Z] Note: Recompile with -Xlint:unchecked for details.
+[2026-05-12T04:00:28.123Z] 
+[2026-05-12T04:00:28.123Z] > Task :services:circleguard-gateway-service:processTestResources NO-SOURCE
+[2026-05-12T04:00:28.123Z] > Task :services:circleguard-gateway-service:testClasses
+[2026-05-12T04:00:31.350Z] > Task :services:circleguard-gateway-service:test
+[2026-05-12T04:00:31.350Z] > Task :services:circleguard-identity-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:00:31.350Z] > Task :services:circleguard-identity-service:compileKotlin NO-SOURCE
+[2026-05-12T04:00:31.901Z] 
+[2026-05-12T04:00:31.901Z] > Task :services:circleguard-identity-service:compileJava
+[2026-05-12T04:00:31.901Z] Note: /var/jenkins_home/workspace/circleguard-dev-planB@2/services/circleguard-identity-service/src/main/java/com/circleguard/identity/config/JwtAuthenticationFilter.java uses unchecked or unsafe operations.
+[2026-05-12T04:00:31.901Z] Note: Recompile with -Xlint:unchecked for details.
+[2026-05-12T04:00:31.901Z] 
+[2026-05-12T04:00:31.901Z] > Task :services:circleguard-identity-service:processResources
+[2026-05-12T04:00:31.901Z] > Task :services:circleguard-identity-service:classes
+[2026-05-12T04:00:31.901Z] > Task :services:circleguard-identity-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:00:32.812Z] > Task :services:circleguard-identity-service:compileTestJava
+[2026-05-12T04:00:32.812Z] > Task :services:circleguard-identity-service:processTestResources
+[2026-05-12T04:00:32.812Z] > Task :services:circleguard-identity-service:testClasses
+[2026-05-12T04:00:38.006Z] 2026-05-12T04:00:37.843Z  INFO 27771 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2026-05-12T04:00:38.006Z] Hibernate: drop table if exists identity_mappings cascade 
+[2026-05-12T04:00:38.006Z] > Task :services:circleguard-identity-service:test
+[2026-05-12T04:00:38.006Z] > Task :services:circleguard-notification-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:00:38.256Z] > Task :services:circleguard-notification-service:compileKotlin NO-SOURCE
+[2026-05-12T04:00:39.167Z] > Task :services:circleguard-notification-service:compileJava
+[2026-05-12T04:00:39.167Z] > Task :services:circleguard-notification-service:processResources
+[2026-05-12T04:00:39.167Z] > Task :services:circleguard-notification-service:classes
+[2026-05-12T04:00:39.167Z] > Task :services:circleguard-notification-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:00:39.417Z] > Task :services:circleguard-notification-service:compileTestJava
+[2026-05-12T04:00:39.417Z] > Task :services:circleguard-notification-service:processTestResources
+[2026-05-12T04:00:39.417Z] > Task :services:circleguard-notification-service:testClasses
+[2026-05-12T04:00:44.611Z] 
+[2026-05-12T04:00:44.611Z] > Task :services:circleguard-notification-service:test
+[2026-05-12T04:00:44.611Z] 
+[2026-05-12T04:00:44.611Z] ExposureNotificationListenerTest > shouldHandleStatusChangeEventWithoutError() FAILED
+[2026-05-12T04:00:44.611Z]     java.lang.IllegalStateException at DefaultCacheAwareContextLoaderDelegate.java:180
+[2026-05-12T04:00:44.611Z]         Caused by: org.springframework.beans.factory.BeanCreationException at ConstructorResolver.java:648
+[2026-05-12T04:00:44.611Z]             Caused by: org.springframework.beans.BeanInstantiationException at SimpleInstantiationStrategy.java:177
+[2026-05-12T04:00:44.611Z]                 Caused by: java.lang.IllegalArgumentException at Assert.java:455
+[2026-05-12T04:00:45.954Z] 
+[2026-05-12T04:00:45.954Z] NotificationDispatcherTest > shouldDispatchToAllChannelsConcurrently() FAILED
+[2026-05-12T04:00:45.954Z]     java.lang.IllegalStateException at DefaultCacheAwareContextLoaderDelegate.java:180
+[2026-05-12T04:00:45.955Z]         Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException at ConstructorResolver.java:795
+[2026-05-12T04:00:45.955Z]             Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException at DefaultListableBeanFactory.java:1880
+[2026-05-12T04:00:46.205Z] 
+[2026-05-12T04:00:46.205Z] NotificationRetryTest > testEmailRetryLogic() FAILED
+[2026-05-12T04:00:46.205Z]     java.lang.IllegalStateException at DefaultCacheAwareContextLoaderDelegate.java:180
+[2026-05-12T04:00:46.205Z]         Caused by: org.springframework.beans.factory.BeanCreationException at ConstructorResolver.java:648
+[2026-05-12T04:00:46.205Z]             Caused by: org.springframework.beans.BeanInstantiationException at SimpleInstantiationStrategy.java:177
+[2026-05-12T04:00:46.205Z]                 Caused by: java.lang.IllegalArgumentException at Assert.java:455
+[2026-05-12T04:00:46.455Z] 
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.274Z  INFO 27851 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.274Z  INFO 27851 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.274Z  INFO 27851 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.274Z  INFO 27851 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.274Z  INFO 27851 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.274Z  INFO 27851 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.274Z  INFO 27851 --- [circleguard-notification-service] [ntainer#2-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.274Z  INFO 27851 --- [circleguard-notification-service] [ntainer#1-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.274Z  INFO 27851 --- [circleguard-notification-service] [ntainer#0-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.275Z  INFO 27851 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.275Z  INFO 27851 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.275Z  INFO 27851 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-priority-group-1, groupId=notification-priority-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.275Z  INFO 27851 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.275Z  INFO 27851 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-2, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.275Z  INFO 27851 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notification-group-3, groupId=notification-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.278Z  INFO 27851 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.278Z  INFO 27851 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.278Z  INFO 27851 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.279Z  INFO 27851 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.279Z  INFO 27851 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.279Z  INFO 27851 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.279Z  INFO 27851 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.279Z  INFO 27851 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.279Z  INFO 27851 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.285Z  INFO 27851 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-2 unregistered
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.286Z  INFO 27851 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-group-3 unregistered
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.286Z  INFO 27851 --- [circleguard-notification-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.286Z  INFO 27851 --- [circleguard-notification-service] [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-group: Consumer stopped
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.287Z  INFO 27851 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notification-priority-group-1 unregistered
+[2026-05-12T04:00:46.455Z] 2026-05-12T04:00:46.287Z  INFO 27851 --- [circleguard-notification-service] [ntainer#2-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notification-priority-group: Consumer stopped
+[2026-05-12T04:00:48.938Z] 
+[2026-05-12T04:00:48.938Z] > Task :services:circleguard-notification-service:test FAILED
+[2026-05-12T04:00:48.938Z] 
+[2026-05-12T04:00:48.938Z] 17 tests completed, 3 failed
+[2026-05-12T04:00:48.938Z] 
+[2026-05-12T04:00:48.938Z] > Task :services:circleguard-promotion-service:checkKotlinGradlePluginConfigurationErrors
+[2026-05-12T04:00:48.938Z] > Task :services:circleguard-promotion-service:compileKotlin NO-SOURCE
+[2026-05-12T04:00:50.281Z] 
+[2026-05-12T04:00:50.281Z] > Task :services:circleguard-promotion-service:compileJava
+[2026-05-12T04:00:50.281Z] Note: /var/jenkins_home/workspace/circleguard-dev-planB@2/services/circleguard-promotion-service/src/main/java/com/circleguard/promotion/security/JwtAuthenticationFilter.java uses unchecked or unsafe operations.
+[2026-05-12T04:00:50.281Z] Note: Recompile with -Xlint:unchecked for details.
+[2026-05-12T04:00:50.281Z] 
+[2026-05-12T04:00:50.281Z] > Task :services:circleguard-promotion-service:processResources
+[2026-05-12T04:00:50.281Z] > Task :services:circleguard-promotion-service:classes
+[2026-05-12T04:00:50.281Z] > Task :services:circleguard-promotion-service:compileTestKotlin NO-SOURCE
+[2026-05-12T04:00:52.145Z] > Task :services:circleguard-promotion-service:compileTestJava
+[2026-05-12T04:00:52.145Z] > Task :services:circleguard-promotion-service:processTestResources
+[2026-05-12T04:00:52.145Z] > Task :services:circleguard-promotion-service:testClasses
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.048Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.048Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.048Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.048Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.048Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.048Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.049Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.049Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-1, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.049Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.050Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-2, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.053Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.054Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.054Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.054Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.054Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:01:10.105Z] 2026-05-12T04:01:08.054Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.060Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-2 unregistered
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.061Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.063Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-1 unregistered
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.063Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.066Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Node -1 disconnected.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.066Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.066Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.073Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Node -1 disconnected.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.073Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.073Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.076Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Node -1 disconnected.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.076Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.076Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.095Z  INFO 28094 --- [circleguard-promotion-service] [ionShutdownHook] o.neo4j.driver.internal.InternalDriver   : Closing driver instance 806357397
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.217Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Node -1 disconnected.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.217Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.217Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.224Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Node -1 disconnected.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.224Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.224Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.305Z  INFO 28094 --- [circleguard-promotion-service] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.319Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.319Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.319Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.319Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.319Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.319Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.319Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.319Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-4, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.319Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.319Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-3, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.320Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.320Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.321Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.322Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.323Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.323Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.334Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-4 unregistered
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.334Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.334Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-3 unregistered
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.335Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.344Z  INFO 28094 --- [circleguard-promotion-service] [ionShutdownHook] o.neo4j.driver.internal.InternalDriver   : Closing driver instance 1932384587
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.418Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Node -1 disconnected.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.418Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.418Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.425Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Node -1 disconnected.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.426Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.426Z  WARN 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Bootstrap broker localhost:9092 (id: -1 rack: null) disconnected
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.551Z  INFO 28094 --- [circleguard-promotion-service] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.554Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.106Z] 2026-05-12T04:01:08.554Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.554Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.554Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.554Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.554Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Unsubscribed all topics or patterns and assigned partitions
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.554Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.554Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.554Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-6, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.554Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-promotion-service-group-5, groupId=promotion-service-group] Request joining group due to: consumer pro-actively leaving the group
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.555Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.556Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.556Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.556Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.556Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.556Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.565Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-6 unregistered
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.566Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.568Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-promotion-service-group-5 unregistered
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.569Z  INFO 28094 --- [circleguard-promotion-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : promotion-service-group: Consumer stopped
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.573Z  INFO 28094 --- [circleguard-promotion-service] [ionShutdownHook] o.neo4j.driver.internal.InternalDriver   : Closing driver instance 391802624
+[2026-05-12T04:01:10.107Z] 2026-05-12T04:01:08.787Z  INFO 28094 --- [circleguard-promotion-service] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2026-05-12T04:01:10.107Z] > Task :services:circleguard-promotion-service:test
+[2026-05-12T04:01:10.107Z] 
+[2026-05-12T04:01:10.107Z] [Incubating] Problems report is available at: file:///var/jenkins_home/workspace/circleguard-dev-planB@2/build/reports/problems/problems-report.html
+[2026-05-12T04:01:10.107Z] 
+[2026-05-12T04:01:10.107Z] FAILURE: Build failed with an exception.
+[2026-05-12T04:01:10.107Z] 
+[2026-05-12T04:01:10.107Z] * What went wrong:
+[2026-05-12T04:01:10.107Z] Execution failed for task ':services:circleguard-notification-service:test'.
+[2026-05-12T04:01:10.107Z] > There were failing tests. See the report at: file:///var/jenkins_home/workspace/circleguard-dev-planB@2/services/circleguard-notification-service/build/reports/tests/test/index.html
+[2026-05-12T04:01:10.107Z] 
+[2026-05-12T04:01:10.107Z] * Try:
+[2026-05-12T04:01:10.107Z] > Run with --scan to get full insights.
+[2026-05-12T04:01:10.107Z] 
+[2026-05-12T04:01:10.107Z] Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+[2026-05-12T04:01:10.107Z] 
+[2026-05-12T04:01:10.107Z] You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+[2026-05-12T04:01:10.107Z] 
+[2026-05-12T04:01:10.107Z] For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+[2026-05-12T04:01:10.107Z] 
+[2026-05-12T04:01:10.107Z] BUILD FAILED in 1m 8s
+[2026-05-12T04:01:10.107Z] 46 actionable tasks: 46 executed
+[Pipeline] }
+[2026-05-12T04:01:10.153Z] ERROR: script returned exit code 1
+[Pipeline] // catchError
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Containerization & Deploy)
+[Pipeline] withCredentials
+[2026-05-12T04:01:10.393Z] Masking supported pattern matches of $P
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] retry
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:01:10.535Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2026-05-12T04:01:10.535Z] 		 Affected argument(s) used the following variable(s): [P]
+[2026-05-12T04:01:10.535Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2026-05-12T04:01:10.793Z] + echo ****
+[2026-05-12T04:01:10.793Z] + docker login -u juan0073 --password-stdin
+[2026-05-12T04:01:12.136Z] WARNING! Your password will be stored unencrypted in /var/jenkins_home/.docker/config.json.
+[2026-05-12T04:01:12.136Z] Configure a credential helper to remove this warning. See
+[2026-05-12T04:01:12.136Z] https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+[2026-05-12T04:01:12.136Z] 
+[2026-05-12T04:01:12.136Z] Login Succeeded
+[Pipeline] }
+[Pipeline] // retry
+[Pipeline] stage
+[Pipeline] { (Svc: auth)
+[Pipeline] retry
+[Pipeline] {
+[Pipeline] echo
+[2026-05-12T04:01:12.315Z] Construyendo circleguard-auth-service...
+[Pipeline] sh
+[2026-05-12T04:01:12.630Z] + docker build -t juan0073/circleguard-auth-service:dev-20 -t juan0073/circleguard-auth-service:dev-latest -f services/circleguard-auth-service/Dockerfile .
+[2026-05-12T04:01:12.880Z] #0 building with "default" instance using docker driver
+[2026-05-12T04:01:12.880Z] 
+[2026-05-12T04:01:12.880Z] #1 [internal] load build definition from Dockerfile
+[2026-05-12T04:01:12.880Z] #1 transferring dockerfile: 937B done
+[2026-05-12T04:01:12.880Z] #1 DONE 0.1s
+[2026-05-12T04:01:12.880Z] 
+[2026-05-12T04:01:12.880Z] #2 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+[2026-05-12T04:01:13.130Z] #2 DONE 0.0s
+[2026-05-12T04:01:13.130Z] 
+[2026-05-12T04:01:13.130Z] #3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jdk-alpine
+[2026-05-12T04:01:13.130Z] #3 DONE 0.1s
+[2026-05-12T04:01:13.130Z] 
+[2026-05-12T04:01:13.130Z] #4 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine
+[2026-05-12T04:01:13.681Z] #4 DONE 0.8s
+[2026-05-12T04:01:13.681Z] 
+[2026-05-12T04:01:13.681Z] #5 [internal] load .dockerignore
+[2026-05-12T04:01:13.931Z] #5 transferring context:
+[2026-05-12T04:01:13.932Z] #5 transferring context: 2B done
+[2026-05-12T04:01:13.932Z] #5 DONE 0.3s
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #6 [internal] load build context
+[2026-05-12T04:01:14.182Z] #6 DONE 0.0s
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #7 [builder  1/10] FROM docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986
+[2026-05-12T04:01:14.182Z] #7 resolve docker.io/library/eclipse-temurin:21-jdk-alpine@sha256:4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986 0.1s done
+[2026-05-12T04:01:14.182Z] #7 DONE 0.1s
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #8 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T04:01:14.182Z] #8 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b
+[2026-05-12T04:01:14.182Z] #8 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9cda5d60dab40f0e15c6507b815ed897238b 0.1s done
+[2026-05-12T04:01:14.182Z] #8 DONE 0.1s
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #6 [internal] load build context
+[2026-05-12T04:01:14.182Z] #6 transferring context: 115.84kB done
+[2026-05-12T04:01:14.182Z] #6 DONE 0.1s
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #9 [builder  7/10] COPY services/circleguard-auth-service/build.gradle.kts services/circleguard-auth-service/
+[2026-05-12T04:01:14.182Z] #9 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #10 [builder  3/10] COPY gradlew .
+[2026-05-12T04:01:14.182Z] #10 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #11 [builder  5/10] COPY build.gradle.kts .
+[2026-05-12T04:01:14.182Z] #11 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #12 [builder  2/10] WORKDIR /workspace
+[2026-05-12T04:01:14.182Z] #12 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #13 [stage-1 3/5] RUN addgroup -S circleguard && adduser -S circleguard -G circleguard
+[2026-05-12T04:01:14.182Z] #13 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #14 [builder  8/10] RUN chmod +x gradlew
+[2026-05-12T04:01:14.182Z] #14 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #15 [stage-1 4/5] COPY --from=builder /workspace/services/circleguard-auth-service/build/libs/*.jar app.jar
+[2026-05-12T04:01:14.182Z] #15 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #16 [builder 10/10] RUN ./gradlew :services:circleguard-auth-service:bootJar --no-daemon -x test
+[2026-05-12T04:01:14.182Z] #16 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #17 [stage-1 2/5] WORKDIR /app
+[2026-05-12T04:01:14.182Z] #17 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #18 [builder  4/10] COPY gradle gradle/
+[2026-05-12T04:01:14.182Z] #18 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #19 [builder  6/10] COPY settings.gradle.kts .
+[2026-05-12T04:01:14.182Z] #19 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #20 [builder  9/10] COPY services/circleguard-auth-service/src services/circleguard-auth-service/src
+[2026-05-12T04:01:14.182Z] #20 CACHED
+[2026-05-12T04:01:14.182Z] 
+[2026-05-12T04:01:14.182Z] #21 [stage-1 5/5] RUN chown circleguard:circleguard app.jar
+[2026-05-12T04:01:14.432Z] #21 CACHED
+[2026-05-12T04:01:14.432Z] 
+[2026-05-12T04:01:14.432Z] #22 exporting to image
+[2026-05-12T04:01:14.432Z] #22 exporting layers done
+[2026-05-12T04:01:14.432Z] #22 exporting manifest sha256:b177d677795d94862c6d2d5d5e66c4a0a4c493f9b67e22823ea4d4bdd969d47c done
+[2026-05-12T04:01:14.432Z] #22 exporting config sha256:dcc6cf71bf981bbace20751e855de828d378f5a4c683b553427055e7ba4b6549 0.0s done
+[2026-05-12T04:01:14.432Z] #22 exporting attestation manifest sha256:a816c40f61835fab7197a69e8e4354ab40d1059511b2331617141c6448d63b30 0.1s done
+[2026-05-12T04:01:14.432Z] #22 exporting manifest list sha256:f247d72a6ca4d2a115e1ec651621f70674b8bdb1096c8ec140dae412b411040a
+[2026-05-12T04:01:14.432Z] #22 exporting manifest list sha256:f247d72a6ca4d2a115e1ec651621f70674b8bdb1096c8ec140dae412b411040a 0.0s done
+[2026-05-12T04:01:14.432Z] #22 naming to docker.io/juan0073/circleguard-auth-service:dev-20 done
+[2026-05-12T04:01:14.432Z] #22 unpacking to docker.io/juan0073/circleguard-auth-service:dev-20 0.0s done
+[2026-05-12T04:01:14.432Z] #22 naming to docker.io/juan0073/circleguard-auth-service:dev-latest done
+[2026-05-12T04:01:14.432Z] #22 unpacking to docker.io/juan0073/circleguard-auth-service:dev-latest 0.0s done
+[2026-05-12T04:01:14.432Z] #22 DONE 0.3s
+[Pipeline] sh
+[2026-05-12T04:01:15.285Z] + docker push juan0073/circleguard-auth-service:dev-20
+[2026-05-12T04:01:15.285Z] The push refers to repository [docker.io/juan0073/circleguard-auth-service]
+[2026-05-12T04:01:15.536Z] 6e338134b21e: Waiting
+[2026-05-12T04:01:15.536Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:01:15.536Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:01:15.536Z] 41dc83a5a825: Waiting
+[2026-05-12T04:01:15.536Z] 77a66a314605: Waiting
+[2026-05-12T04:01:15.536Z] 6a0ac1617861: Waiting
+[2026-05-12T04:01:15.536Z] 2d1a277377d1: Waiting
+[2026-05-12T04:01:15.536Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:15.536Z] 42516208460b: Waiting
+[2026-05-12T04:01:15.536Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:01:15.786Z] 41dc83a5a825: Waiting
+[2026-05-12T04:01:15.786Z] 77a66a314605: Waiting
+[2026-05-12T04:01:15.786Z] 6a0ac1617861: Waiting
+[2026-05-12T04:01:15.786Z] 2d1a277377d1: Waiting
+[2026-05-12T04:01:15.786Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:15.786Z] 42516208460b: Waiting
+[2026-05-12T04:01:15.786Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:01:15.786Z] 6e338134b21e: Waiting
+[2026-05-12T04:01:15.786Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:01:15.786Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:01:15.786Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:15.786Z] 42516208460b: Waiting
+[2026-05-12T04:01:15.786Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:01:15.786Z] 6e338134b21e: Waiting
+[2026-05-12T04:01:15.786Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:01:15.786Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:01:15.786Z] 41dc83a5a825: Waiting
+[2026-05-12T04:01:15.786Z] 77a66a314605: Waiting
+[2026-05-12T04:01:15.786Z] 6a0ac1617861: Waiting
+[2026-05-12T04:01:15.786Z] 2d1a277377d1: Waiting
+[2026-05-12T04:01:16.037Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:16.037Z] 42516208460b: Waiting
+[2026-05-12T04:01:16.037Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:01:16.037Z] 6e338134b21e: Waiting
+[2026-05-12T04:01:16.037Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:01:16.037Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:01:16.037Z] 41dc83a5a825: Waiting
+[2026-05-12T04:01:16.037Z] 77a66a314605: Waiting
+[2026-05-12T04:01:16.037Z] 6a0ac1617861: Waiting
+[2026-05-12T04:01:16.037Z] 2d1a277377d1: Waiting
+[2026-05-12T04:01:16.037Z] 6e338134b21e: Waiting
+[2026-05-12T04:01:16.037Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:01:16.037Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:01:16.037Z] 41dc83a5a825: Waiting
+[2026-05-12T04:01:16.037Z] 77a66a314605: Waiting
+[2026-05-12T04:01:16.037Z] 6a0ac1617861: Waiting
+[2026-05-12T04:01:16.037Z] 2d1a277377d1: Waiting
+[2026-05-12T04:01:16.037Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:16.037Z] 42516208460b: Waiting
+[2026-05-12T04:01:16.037Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:01:16.037Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:01:16.037Z] 6e338134b21e: Waiting
+[2026-05-12T04:01:16.037Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:01:16.037Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:01:16.037Z] 41dc83a5a825: Waiting
+[2026-05-12T04:01:16.037Z] 77a66a314605: Waiting
+[2026-05-12T04:01:16.037Z] 6a0ac1617861: Waiting
+[2026-05-12T04:01:16.037Z] 2d1a277377d1: Waiting
+[2026-05-12T04:01:16.037Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:16.037Z] 42516208460b: Waiting
+[2026-05-12T04:01:16.287Z] 41dc83a5a825: Waiting
+[2026-05-12T04:01:16.287Z] 77a66a314605: Waiting
+[2026-05-12T04:01:16.287Z] 6a0ac1617861: Waiting
+[2026-05-12T04:01:16.287Z] 2d1a277377d1: Waiting
+[2026-05-12T04:01:16.287Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:16.287Z] 42516208460b: Waiting
+[2026-05-12T04:01:16.287Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:01:16.287Z] 6e338134b21e: Waiting
+[2026-05-12T04:01:16.287Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:01:16.287Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:01:16.287Z] 6e338134b21e: Layer already exists
+[2026-05-12T04:01:16.287Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:01:16.287Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:01:16.287Z] 41dc83a5a825: Waiting
+[2026-05-12T04:01:16.287Z] 77a66a314605: Waiting
+[2026-05-12T04:01:16.287Z] 6a0ac1617861: Waiting
+[2026-05-12T04:01:16.287Z] 2d1a277377d1: Waiting
+[2026-05-12T04:01:16.287Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:16.287Z] 42516208460b: Waiting
+[2026-05-12T04:01:16.287Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:01:16.537Z] 0df8a4acd3ed: Waiting
+[2026-05-12T04:01:16.537Z] 5ef4bf1bda35: Waiting
+[2026-05-12T04:01:16.537Z] 41dc83a5a825: Waiting
+[2026-05-12T04:01:16.537Z] 77a66a314605: Waiting
+[2026-05-12T04:01:16.537Z] 6a0ac1617861: Waiting
+[2026-05-12T04:01:16.537Z] 2d1a277377d1: Layer already exists
+[2026-05-12T04:01:16.537Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:16.537Z] 42516208460b: Waiting
+[2026-05-12T04:01:16.537Z] 5c48bccfe94e: Waiting
+[2026-05-12T04:01:16.537Z] 6a0ac1617861: Layer already exists
+[2026-05-12T04:01:16.537Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:16.537Z] 42516208460b: Layer already exists
+[2026-05-12T04:01:16.537Z] 5c48bccfe94e: Layer already exists
+[2026-05-12T04:01:16.537Z] 0df8a4acd3ed: Layer already exists
+[2026-05-12T04:01:16.537Z] 5ef4bf1bda35: Layer already exists
+[2026-05-12T04:01:16.537Z] 41dc83a5a825: Layer already exists
+[2026-05-12T04:01:16.537Z] 77a66a314605: Layer already exists
+[2026-05-12T04:01:16.537Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:16.788Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:16.788Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:17.038Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:17.038Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:17.038Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:17.289Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:17.289Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:17.539Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:17.539Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:17.539Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:17.789Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:17.789Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:18.039Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:18.039Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:18.039Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:18.290Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:18.290Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:18.540Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:18.540Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:18.540Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:18.790Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:18.790Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:19.041Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:19.041Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:19.041Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:19.291Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:19.291Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:19.541Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:19.541Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:19.541Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:19.792Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:19.792Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:20.042Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:20.042Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:20.042Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:20.292Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:20.292Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:20.543Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:20.543Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:20.543Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:20.793Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:20.793Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:21.044Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:21.044Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:21.044Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:21.294Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:21.294Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:21.544Z] e7dbcc9174d1: Waiting
+[2026-05-12T04:01:22.455Z] e7dbcc9174d1: Pushed
+[2026-05-12T04:01:24.938Z] dev-20: digest: sha256:f247d72a6ca4d2a115e1ec651621f70674b8bdb1096c8ec140dae412b411040a size: 856
+[Pipeline] }
+[Pipeline] // retry
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:01:25.722Z] + docker inspect -f . bitnami/kubectl:latest
+[2026-05-12T04:01:25.722Z] .
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-05-12T04:01:25.845Z] Jenkins seems to be running inside container 4416c988c0231640a6cd079238107fd066823ec6dc074957fb15b1005b10bc98
+[2026-05-12T04:01:25.866Z] $ docker run -t -d -u 1000:1000 --entrypoint= --network host -w /var/jenkins_home/workspace/circleguard-dev-planB@2 --volumes-from 4416c988c0231640a6cd079238107fd066823ec6dc074957fb15b1005b10bc98 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** bitnami/kubectl:latest cat
+[2026-05-12T04:01:26.316Z] $ docker top fb7a615f3b5d0d8649e92edbf4c2bd39f9de770ed3b4837589ccfab2d8ed7774 -eo pid,comm
+[Pipeline] {
+[Pipeline] withCredentials
+[2026-05-12T04:01:26.413Z] Masking supported pattern matches of $KUBECONFIG
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:01:26.470Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2026-05-12T04:01:26.470Z] 		 Affected argument(s) used the following variable(s): [KUBECONFIG]
+[2026-05-12T04:01:26.470Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2026-05-12T04:01:26.724Z] + export KUBECONFIG=****
+[2026-05-12T04:01:26.724Z] + KUBECONFIG=****
+[2026-05-12T04:01:26.724Z] + kubectl apply -f k8s/namespaces.yml
+[2026-05-12T04:01:26.974Z] namespace/cg-dev unchanged
+[2026-05-12T04:01:26.974Z] namespace/cg-stage unchanged
+[2026-05-12T04:01:26.974Z] namespace/cg-master unchanged
+[2026-05-12T04:01:26.974Z] + kubectl apply -f k8s/infra/ -n cg-dev
+[2026-05-12T04:01:27.225Z] deployment.apps/zookeeper unchanged
+[2026-05-12T04:01:27.225Z] service/zookeeper unchanged
+[2026-05-12T04:01:27.225Z] deployment.apps/kafka unchanged
+[2026-05-12T04:01:27.225Z] service/kafka unchanged
+[2026-05-12T04:01:27.225Z] deployment.apps/openldap unchanged
+[2026-05-12T04:01:27.359Z] Sending interrupt signal to process
+Aborted by admin
+[2026-05-12T04:01:27.475Z] service/openldap unchanged
+[2026-05-12T04:01:27.475Z] persistentvolumeclaim/neo4j-pvc unchanged
+[2026-05-12T04:01:27.475Z] deployment.apps/neo4j unchanged
+[2026-05-12T04:01:27.475Z] service/neo4j unchanged
+[2026-05-12T04:01:27.475Z] configmap/postgres-init unchanged
+[2026-05-12T04:01:27.477Z] script returned exit code 143
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[2026-05-12T04:01:27.593Z] $ docker stop --time=1 fb7a615f3b5d0d8649e92edbf4c2bd39f9de770ed3b4837589ccfab2d8ed7774
+[2026-05-12T04:01:28.902Z] $ docker rm -f --volumes fb7a615f3b5d0d8649e92edbf4c2bd39f9de770ed3b4837589ccfab2d8ed7774
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
+[2026-05-12T04:01:29.945Z] + docker image prune -f --filter dangling=true
+[2026-05-12T04:01:29.945Z] Total reclaimed space: 0B
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:01:30.356Z] + docker inspect -f . bitnami/kubectl:latest
+[2026-05-12T04:01:30.356Z] .
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-05-12T04:01:30.477Z] Jenkins seems to be running inside container 4416c988c0231640a6cd079238107fd066823ec6dc074957fb15b1005b10bc98
+[2026-05-12T04:01:30.498Z] $ docker run -t -d -u 1000:1000 --entrypoint= --network host -w /var/jenkins_home/workspace/circleguard-dev-planB@2 --volumes-from 4416c988c0231640a6cd079238107fd066823ec6dc074957fb15b1005b10bc98 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** bitnami/kubectl:latest cat
+[2026-05-12T04:01:30.942Z] $ docker top b4aada390a92e0c32125a568de1f9b5225cba748e5fe4a26625c7fdfa6887c28 -eo pid,comm
+[Pipeline] {
+[Pipeline] withCredentials
+[2026-05-12T04:01:31.030Z] Masking supported pattern matches of $KUBECONFIG
+[Pipeline] {
+[Pipeline] sh
+[2026-05-12T04:01:31.114Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2026-05-12T04:01:31.114Z] 		 Affected argument(s) used the following variable(s): [KUBECONFIG]
+[2026-05-12T04:01:31.114Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2026-05-12T04:01:31.368Z] + export KUBECONFIG=****
+[2026-05-12T04:01:31.368Z] + KUBECONFIG=****
+[2026-05-12T04:01:31.368Z] + kubectl get pods -n cg-dev
+[2026-05-12T04:01:31.368Z] NAME                                    READY   STATUS             RESTARTS         AGE
+[2026-05-12T04:01:31.368Z] auth-service-55f857649f-nkxtg           0/1     Running            5 (118s ago)     14m
+[2026-05-12T04:01:31.368Z] auth-service-7dfbbfd694-vmt8j           0/1     ImagePullBackOff   0                43m
+[2026-05-12T04:01:31.368Z] form-service-689bdd7bfb-wjbrt           1/1     Running            0                8m23s
+[2026-05-12T04:01:31.368Z] gateway-service-59c7cb86f5-9bgtl        1/1     Running            0                10m
+[2026-05-12T04:01:31.368Z] identity-service-6485478f9c-hbcdh       0/1     Running            4 (2m10s ago)    12m
+[2026-05-12T04:01:31.369Z] identity-service-7df8d568bd-dwvwj       0/1     CrashLoopBackOff   10 (4m ago)      39m
+[2026-05-12T04:01:31.369Z] kafka-774d9fc6d9-gzltp                  0/1     CrashLoopBackOff   13 (75s ago)     43m
+[2026-05-12T04:01:31.369Z] neo4j-5dcb9dfc7d-ctdqq                  0/1     Error              13 (5m44s ago)   43m
+[2026-05-12T04:01:31.369Z] notification-service-845f7bd7fc-dtrwm   0/1     ImagePullBackOff   0                22m
+[2026-05-12T04:01:31.369Z] notification-service-878bf876-7ljn5     0/1     Running            1 (19s ago)      2m52s
+[2026-05-12T04:01:31.369Z] openldap-58c4d5b788-wfsfk               1/1     Running            0                43m
+[2026-05-12T04:01:31.369Z] postgres-f598947b6-r2p79                1/1     Running            0                43m
+[2026-05-12T04:01:31.369Z] promotion-service-6578458645-br5df      0/1     CrashLoopBackOff   6 (23s ago)      7m37s
+[2026-05-12T04:01:31.369Z] promotion-service-7cc8c57b6-jq2vd       0/1     ImagePullBackOff   0                27m
+[2026-05-12T04:01:31.369Z] redis-867c7b685c-9hj2l                  1/1     Running            0                43m
+[2026-05-12T04:01:31.369Z] zookeeper-675f9848cc-2bfc8              1/1     Running            0                43m
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[2026-05-12T04:01:31.697Z] $ docker stop --time=1 b4aada390a92e0c32125a568de1f9b5225cba748e5fe4a26625c7fdfa6887c28
+[2026-05-12T04:01:32.876Z] $ docker rm -f --volumes b4aada390a92e0c32125a568de1f9b5225cba748e5fe4a26625c7fdfa6887c28
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: ff9d2177-cb99-42f2-8fd0-caa2cc173c17
+Finished: ABORTED

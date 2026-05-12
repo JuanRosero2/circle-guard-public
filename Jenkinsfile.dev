@@ -1,5 +1,5 @@
-// Jenkinsfile.dev — CircleGuard Emergency Pipeline
-// Simplificado al máximo para asegurar el despliegue
+// Jenkinsfile.dev — CircleGuard Emergency Pipeline Optimized
+// Estabilizado para evitar redundancia y colapsos de memoria
 
 def SERVICES = [
     'circleguard-auth-service',
@@ -35,8 +35,23 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 script {
+                    // catchError asegura que los fallos en tests no detengan el despliegue
                     catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
                         sh './gradlew test --no-daemon --continue'
+                    }
+                }
+            }
+        }
+
+        stage('Prepare Infrastructure') {
+            steps {
+                docker.image('bitnami/kubectl:latest').inside('--entrypoint="" --network host') {
+                    withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                        sh """
+                            export KUBECONFIG=$KUBECONFIG
+                            kubectl apply -f k8s/namespaces.yml
+                            kubectl apply -f k8s/infra/ -n ${K8S_NAMESPACE}
+                        """
                     }
                 }
             }
@@ -46,7 +61,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'U', passwordVariable: 'P')]) {
                     script {
-                        // Reintento de login por si hay fallos de red (TLS timeout)
+                        // Reintento de login por si hay fallos de red
                         retry(3) {
                             sh "echo $P | docker login -u $U --password-stdin"
                         }
@@ -56,7 +71,7 @@ pipeline {
                             
                             stage("Svc: ${shortName}") {
                                 retry(2) {
-                                    echo "Construyendo ${svc}..."
+                                    echo "Construyendo y Pusheando ${svc}..."
                                     sh "docker build -t ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} -t ${DOCKER_REGISTRY}/${svc}:dev-latest -f services/${svc}/Dockerfile ."
                                     sh "docker push ${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG}"
                                 }
@@ -65,11 +80,9 @@ pipeline {
                                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                                         sh """
                                             export KUBECONFIG=$KUBECONFIG
-                                            kubectl apply -f k8s/namespaces.yml
-                                            kubectl apply -f k8s/infra/ -n ${K8S_NAMESPACE}
                                             kubectl apply -f k8s/services/${shortName}-deployment.yml -n ${K8S_NAMESPACE}
                                             kubectl set image deployment/${shortName}-service ${shortName}-service=${DOCKER_REGISTRY}/${svc}:${IMAGE_TAG} -n ${K8S_NAMESPACE}
-                                            echo "Esperando a ${shortName}..."
+                                            echo "Esperando a ${shortName} (máx 120s)..."
                                             kubectl rollout status deployment/${shortName}-service -n ${K8S_NAMESPACE} --timeout=120s || echo 'Rollout lento, continuando...'
                                         """
                                     }

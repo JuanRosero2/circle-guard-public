@@ -4,17 +4,31 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
+import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @SpringBootTest
 @ActiveProfiles("test")
 class ExposureNotificationListenerTest {
+
+    @TestConfiguration
+    static class Config {
+        @Bean
+        public WebClient.Builder webClientBuilder() {
+            WebClient.Builder builder = mock(WebClient.Builder.class);
+            when(builder.baseUrl(anyString())).thenReturn(builder);
+            when(builder.build()).thenReturn(mock(WebClient.class));
+            return builder;
+        }
+    }
 
     @Autowired
     private ExposureNotificationListener listener;
@@ -33,9 +47,6 @@ class ExposureNotificationListenerTest {
 
     @MockBean
     private org.springframework.mail.javamail.JavaMailSender mailSender;
-
-    @MockBean
-    private WebClient.Builder webClientBuilder;
 
     @MockBean
     private LmsService lmsService;

@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,6 +22,17 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @ActiveProfiles("test")
 public class NotificationRetryTest {
+
+    @TestConfiguration
+    static class Config {
+        @Bean
+        public WebClient.Builder webClientBuilder() {
+            WebClient.Builder builder = mock(WebClient.Builder.class);
+            when(builder.baseUrl(anyString())).thenReturn(builder);
+            when(builder.build()).thenReturn(mock(WebClient.class));
+            return builder;
+        }
+    }
 
     @Autowired
     private EmailService emailService;
@@ -49,9 +62,6 @@ public class NotificationRetryTest {
     private NotificationDispatcher notificationDispatcher;
 
     @MockBean
-    private WebClient.Builder webClientBuilder;
-
-    @MockBean
     private SmsService smsService;
 
     @MockBean
@@ -75,8 +85,7 @@ public class NotificationRetryTest {
         // Verify mailSender.send was called exactly 3 times
         verify(mailSender, times(3)).send(any(SimpleMailMessage.class));
         
-        // Verify audit logs were emitted (2 retries, 1 failed)
-        // KafkaTemplate.send(topic, key, payload)
+        // Verify audit logs were emitted
         verify(kafkaTemplate, atLeast(3)).send(eq("notification.audit"), anyString(), anyMap());
     }
 }
