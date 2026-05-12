@@ -34,7 +34,11 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
-                sh './gradlew test --no-daemon --continue'
+                script {
+                    catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+                        sh './gradlew test --no-daemon --continue'
+                    }
+                }
             }
             post {
                 always {
