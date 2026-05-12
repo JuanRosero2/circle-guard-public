@@ -1,6 +1,7 @@
-# Release Notes for v37
-Date: Mon May 11 23:30:00 UTC 2026
+# Release Notes for v38
+Date: Tue May 12 06:19:34 UTC 2026
 ## Commits in this Release:
+55891a9 jenkins.master
 4ea8105 chore: sincronizar resiliencia y logs hacia todos los pipelines
 6dd652a fix: test automation and Jenkinsfile release notes
 1d9c4e7 fix: test automation and Jenkinsfile release notes
