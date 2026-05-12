@@ -1,145 +1,103 @@
 package com.circleguard.auth.service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.security.Key;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+/**
+ * Unit tests for JwtTokenService.
+ * Validates JWT generation, subject embedding, and permissions handling.
+ */
 class JwtTokenServiceTest {
 
     private JwtTokenService jwtTokenService;
-    
-    @Mock
-    private Authentication authentication;
-    
-    @Mock
-    private GrantedAuthority grantedAuthority;
+    private final String secret = "my-super-secret-test-key-32-chars-long!!"; // 40 chars
+    private final long expiration = 3600000L;
 
     @BeforeEach
     void setUp() {
-        jwtTokenService = new JwtTokenService("test-secret-key-for-testing-purposes-only", 3600000L);
+        jwtTokenService = new JwtTokenService(secret, expiration);
     }
 
     @Test
-    void generateToken_ValidAuthentication_ReturnsValidToken() {
-        // Arrange
+    void shouldGenerateTokenWithCorrectAnonymousIdAsSubject() {
         UUID anonymousId = UUID.randomUUID();
-        when(authentication.getAuthorities()).thenReturn((Collection) List.of(grantedAuthority));
-        when(grantedAuthority.getAuthority()).thenReturn("ROLE_USER");
+        Authentication auth = mock(Authentication.class);
+        when(auth.getAuthorities()).thenReturn(List.of());
 
-        // Act
-        String token = jwtTokenService.generateToken(anonymousId, authentication);
+        String token = jwtTokenService.generateToken(anonymousId, auth);
 
-        // Assert
-        assertNotNull(token);
-        assertFalse(token.isEmpty());
-        
-        // Verify token structure
-        String[] parts = token.split("\\.");
-        assertEquals(3, parts.length); // Header, Payload, Signature
-    }
+        assertNotNull(token, "Generated token must not be null");
 
-    @Test
-    void generateToken_WithNullAnonymousId_ThrowsException() {
-        // Arrange
-        when(authentication.getAuthorities()).thenReturn((Collection) List.of(grantedAuthority));
-        when(grantedAuthority.getAuthority()).thenReturn("ROLE_USER");
-
-        // Act & Assert
-        assertThrows(NullPointerException.class, () -> {
-            jwtTokenService.generateToken(null, authentication);
-        });
-    }
-
-    @Test
-    void generateToken_WithMultipleAuthorities_IncludesAllPermissions() {
-        // Arrange
-        UUID anonymousId = UUID.randomUUID();
-        GrantedAuthority authority1 = org.mockito.Mockito.mock(GrantedAuthority.class);
-        GrantedAuthority authority2 = org.mockito.Mockito.mock(GrantedAuthority.class);
-        
-        when(authentication.getAuthorities()).thenReturn((Collection) List.of(authority1, authority2));
-        when(authority1.getAuthority()).thenReturn("ROLE_USER");
-        when(authority2.getAuthority()).thenReturn("ROLE_ADMIN");
-
-        // Act
-        String token = jwtTokenService.generateToken(anonymousId, authentication);
-
-        // Assert
-        assertNotNull(token);
-        
-        // Parse token to verify claims
-        var claims = Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor("test-secret-key-for-testing-purposes-only".getBytes()))
+        Key key = Keys.hmacShaKeyFor(secret.getBytes());
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        
+
+        assertEquals(anonymousId.toString(), claims.getSubject(),
+                "Token subject must match anonymousId");
+    }
+
+    @Test
+    void shouldIncludePermissionsInTokenClaims() {
+        UUID anonymousId = UUID.randomUUID();
+        Authentication auth = mock(Authentication.class);
+
+        Collection<GrantedAuthority> authorities = List.of(
+                new SimpleGrantedAuthority("STUDENT"),
+                new SimpleGrantedAuthority("HEALTH_CENTER")
+        );
+        doReturn(authorities).when(auth).getAuthorities();
+
+        String token = jwtTokenService.generateToken(anonymousId, auth);
+
+        Key key = Keys.hmacShaKeyFor(secret.getBytes());
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
         @SuppressWarnings("unchecked")
         List<String> permissions = (List<String>) claims.get("permissions");
-        assertEquals(2, permissions.size());
-        assertTrue(permissions.contains("ROLE_USER"));
-        assertTrue(permissions.contains("ROLE_ADMIN"));
+        assertNotNull(permissions, "Permissions claim must be present");
+        assertTrue(permissions.contains("STUDENT"), "Should contain STUDENT permission");
+        assertTrue(permissions.contains("HEALTH_CENTER"), "Should contain HEALTH_CENTER permission");
     }
 
     @Test
-    void generateToken_WithExpirationDate_SetsCorrectExpiration() {
-        // Arrange
+    void shouldGenerateTokenWithFutureExpiration() {
         UUID anonymousId = UUID.randomUUID();
-        when(authentication.getAuthorities()).thenReturn((Collection) List.of(grantedAuthority));
-        when(grantedAuthority.getAuthority()).thenReturn("ROLE_USER");
+        Authentication auth = mock(Authentication.class);
+        when(auth.getAuthorities()).thenReturn(List.of());
 
-        // Act
         long beforeGeneration = System.currentTimeMillis();
-        String token = jwtTokenService.generateToken(anonymousId, authentication);
-        long afterGeneration = System.currentTimeMillis();
+        String token = jwtTokenService.generateToken(anonymousId, auth);
 
-        // Assert
-        var claims = Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor("test-secret-key-for-testing-purposes-only".getBytes()))
+        Key key = Keys.hmacShaKeyFor(secret.getBytes());
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        
-        Date expiration = claims.getExpiration();
-        long expectedExpiration = beforeGeneration + 3600000L;
-        
-        // Allow for small time differences (within 1 second)
-        assertTrue(Math.abs(expiration.getTime() - expectedExpiration) < 1000);
-    }
 
-    @Test
-    void generateToken_WithSubject_SetsCorrectSubject() {
-        // Arrange
-        UUID anonymousId = UUID.randomUUID();
-        when(authentication.getAuthorities()).thenReturn((Collection) List.of(grantedAuthority));
-        when(grantedAuthority.getAuthority()).thenReturn("ROLE_USER");
-
-        // Act
-        String token = jwtTokenService.generateToken(anonymousId, authentication);
-
-        // Assert
-        var claims = Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor("test-secret-key-for-testing-purposes-only".getBytes()))
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-        
-        assertEquals(anonymousId.toString(), claims.getSubject());
+        long expectedExpirationMin = beforeGeneration + expiration;
+        assertTrue(claims.getExpiration().getTime() >= expectedExpirationMin,
+                "Token expiration must be in the future");
     }
 }

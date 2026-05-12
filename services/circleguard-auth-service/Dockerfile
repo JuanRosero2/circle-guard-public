@@ -1,55 +1,32 @@
-# ============================================================
-# Stage 1: Builder — Compila el JAR desde la raíz del monorepo
-# El contexto de build SIEMPRE es la raíz del repositorio (.)
-# para que Gradle pueda resolver el proyecto multi-módulo.
-# ============================================================
-FROM eclipse-temurin:17-jdk-alpine AS builder
-
+# Stage 1: Build
+FROM eclipse-temurin:21-jdk-alpine AS builder
 WORKDIR /workspace
 
-# Copiar wrapper de Gradle y archivos de configuración del monorepo
+# Copy Gradle wrapper and root build files
 COPY gradlew .
-COPY gradle/ gradle/
+COPY gradle gradle/
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
+COPY services/circleguard-auth-service/build.gradle.kts services/circleguard-auth-service/
 
-# Copiar únicamente el source del servicio que vamos a compilar
-COPY services/circleguard-auth-service/ services/circleguard-auth-service/
-
-# Dar permisos de ejecución al wrapper
 RUN chmod +x gradlew
 
-# Compilar solo el módulo auth-service, sin tests, sin daemon
-# --no-daemon evita que el proceso quede colgado dentro del contenedor
-RUN ./gradlew :services:circleguard-auth-service:bootJar -x test --no-daemon
+# Copy source code
+COPY services/circleguard-auth-service/src services/circleguard-auth-service/src
 
-# ============================================================
-# Stage 2: Runtime — Imagen mínima de producción
-# ============================================================
-FROM eclipse-temurin:17-jre-alpine AS runtime
+# Build the JAR (skip tests - tests run in pipeline)
+RUN ./gradlew :services:circleguard-auth-service:bootJar --no-daemon -x test
 
-# Crear grupo y usuario no-root para ejecutar la aplicación
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-
+# Stage 2: Runtime
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-# Copiar el JAR compilado desde el stage builder
+RUN addgroup -S circleguard && adduser -S circleguard -G circleguard
+
 COPY --from=builder /workspace/services/circleguard-auth-service/build/libs/*.jar app.jar
 
-# Cambiar propietario del directorio a usuario no-root
-RUN chown -R appuser:appgroup /app
-
-USER appuser
+RUN chown circleguard:circleguard app.jar
+USER circleguard
 
 EXPOSE 8180
-
-# HEALTHCHECK usando wget (incluido en Alpine) contra el endpoint de Actuator
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-    CMD wget -qO- http://localhost:8180/actuator/health || exit 1
-
-# JVM flags: UseContainerSupport respeta los límites de CPU/RAM del contenedor
-# MaxRAMPercentage=75 usa hasta el 75% de la RAM asignada al contenedor
-ENTRYPOINT ["java", \
-    "-XX:+UseContainerSupport", \
-    "-XX:MaxRAMPercentage=75", \
-    "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cg-dev
+  labels:
+    environment: development
+    app: circleguard
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cg-stage
+  labels:
+    environment: staging
+    app: circleguard
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cg-master
+  labels:
+    environment: production
+    app: circleguard

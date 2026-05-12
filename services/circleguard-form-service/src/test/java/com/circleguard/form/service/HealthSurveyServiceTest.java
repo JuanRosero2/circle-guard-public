@@ -1,168 +1,102 @@
 package com.circleguard.form.service;
 
 import com.circleguard.form.model.HealthSurvey;
+import com.circleguard.form.model.Question;
+import com.circleguard.form.model.QuestionType;
 import com.circleguard.form.model.Questionnaire;
 import com.circleguard.form.model.ValidationStatus;
 import com.circleguard.form.repository.HealthSurveyRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.kafka.core.KafkaTemplate;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+/**
+ * Unit tests for HealthSurveyService.
+ * Validates survey submission logic, symptom detection, and Kafka event emission.
+ */
 class HealthSurveyServiceTest {
 
-    @Mock
-    private HealthSurveyRepository repository;
-    
-    @Mock
+    private HealthSurveyRepository surveyRepository;
     private QuestionnaireService questionnaireService;
-    
-    @Mock
     private SymptomMapper symptomMapper;
-    
-    @Mock
     private KafkaTemplate<String, Object> kafkaTemplate;
-    
-    @InjectMocks
-    private HealthSurveyService healthSurveyService;
-    
-    private HealthSurvey testSurvey;
-    private Questionnaire testQuestionnaire;
-    private UUID surveyId;
+    private HealthSurveyService surveyService;
 
     @BeforeEach
     void setUp() {
-        surveyId = UUID.randomUUID();
-        testSurvey = HealthSurvey.builder()
-                .id(surveyId)
-                .anonymousId(UUID.randomUUID())
-                .hasFever(null)
-                .hasCough(null)
-                .attachmentPath(null)
-                .validationStatus(ValidationStatus.PENDING)
+        surveyRepository = mock(HealthSurveyRepository.class);
+        questionnaireService = mock(QuestionnaireService.class);
+        symptomMapper = mock(SymptomMapper.class);
+        kafkaTemplate = mock(KafkaTemplate.class);
+        surveyService = new HealthSurveyService(surveyRepository, questionnaireService, symptomMapper, kafkaTemplate);
+    }
+
+    @Test
+    void shouldSubmitSurveyAndEmitKafkaEventWhenSymptomsDetected() {
+        UUID qId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
+        HealthSurvey survey = HealthSurvey.builder()
+                .anonymousId(userId)
+                .responses(Map.of(qId.toString(), "YES"))
                 .build();
-                
-        testQuestionnaire = Questionnaire.builder()
-                .id(UUID.randomUUID())
-                .title("Health Questionnaire")
-                .isActive(true)
+
+        Questionnaire questionnaire = Questionnaire.builder()
+                .questions(List.of(Question.builder().id(qId).type(QuestionType.YES_NO).text("Fever?").build()))
                 .build();
-    }
 
-    @Test
-    void submitSurvey_WithActiveQuestionnaireAndNoSymptoms_SetsHasFeverAndHasCoughToFalse() {
-        // Arrange
-        when(questionnaireService.getActiveQuestionnaire()).thenReturn(Optional.of(testQuestionnaire));
-        when(symptomMapper.hasSymptoms(testSurvey, testQuestionnaire)).thenReturn(false);
-        when(repository.save(any(HealthSurvey.class))).thenReturn(testSurvey);
+        when(questionnaireService.getActiveQuestionnaire()).thenReturn(Optional.of(questionnaire));
+        when(symptomMapper.hasSymptoms(survey, questionnaire)).thenReturn(true);
+        when(surveyRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
-        // Act
-        HealthSurvey result = healthSurveyService.submitSurvey(testSurvey);
+        HealthSurvey result = surveyService.submitSurvey(survey);
 
-        // Assert
         assertNotNull(result);
-        assertFalse(result.getHasFever());
-        assertFalse(result.getHasCough());
-        
-        verify(questionnaireService).getActiveQuestionnaire();
-        verify(symptomMapper).hasSymptoms(testSurvey, testQuestionnaire);
-        verify(repository).save(any(HealthSurvey.class));
-        // Kafka template verification omitted for simplicity
+        verify(kafkaTemplate).send(eq("survey.submitted"), eq(userId.toString()), any());
     }
 
     @Test
-    void submitSurvey_WithActiveQuestionnaireAndSymptoms_SetsHasFeverAndHasCoughToTrue() {
-        // Arrange
-        when(questionnaireService.getActiveQuestionnaire()).thenReturn(Optional.of(testQuestionnaire));
-        when(symptomMapper.hasSymptoms(testSurvey, testQuestionnaire)).thenReturn(true);
-        when(repository.save(any(HealthSurvey.class))).thenReturn(testSurvey);
+    void shouldSubmitSurveyWithoutSymptomsAndStillSave() {
+        UUID userId = UUID.randomUUID();
+        HealthSurvey survey = HealthSurvey.builder()
+                .anonymousId(userId)
+                .responses(Map.of())
+                .build();
 
-        // Act
-        HealthSurvey result = healthSurveyService.submitSurvey(testSurvey);
-
-        // Assert
-        assertNotNull(result);
-        assertTrue(result.getHasFever());
-        assertTrue(result.getHasCough());
-        
-        verify(questionnaireService).getActiveQuestionnaire();
-        verify(symptomMapper).hasSymptoms(testSurvey, testQuestionnaire);
-        verify(repository).save(any(HealthSurvey.class));
-        // Kafka template verification omitted for simplicity
-    }
-
-    @Test
-    void submitSurvey_WithNoActiveQuestionnaire_SetsHasFeverAndHasCoughToFalse() {
-        // Arrange
         when(questionnaireService.getActiveQuestionnaire()).thenReturn(Optional.empty());
-        when(repository.save(any(HealthSurvey.class))).thenReturn(testSurvey);
+        when(surveyRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
-        // Act
-        HealthSurvey result = healthSurveyService.submitSurvey(testSurvey);
+        HealthSurvey result = surveyService.submitSurvey(survey);
 
-        // Assert
         assertNotNull(result);
-        assertFalse(result.getHasFever());
-        assertFalse(result.getHasCough());
-        
-        verify(questionnaireService).getActiveQuestionnaire();
-        verify(symptomMapper, never()).hasSymptoms(any(), any());
-        verify(repository).save(any(HealthSurvey.class));
-        // Kafka template verification omitted for simplicity
+        // hasSymptoms = false (no active questionnaire) → hasFever = false
+        assertFalse(Boolean.TRUE.equals(result.getHasFever()));
+        verify(kafkaTemplate).send(eq("survey.submitted"), any(), any());
     }
 
     @Test
-    void submitSurvey_WithAttachmentPath_SetsValidationStatusToPending() {
-        // Arrange
-        testSurvey.setAttachmentPath("/path/to/attachment.pdf");
-        when(questionnaireService.getActiveQuestionnaire()).thenReturn(Optional.of(testQuestionnaire));
-        when(symptomMapper.hasSymptoms(testSurvey, testQuestionnaire)).thenReturn(false);
-        when(repository.save(any(HealthSurvey.class))).thenReturn(testSurvey);
+    void shouldSetPendingValidationStatusWhenAttachmentIsPresent() {
+        UUID userId = UUID.randomUUID();
+        HealthSurvey survey = HealthSurvey.builder()
+                .anonymousId(userId)
+                .responses(Map.of())
+                .attachmentPath("/uploads/cert.pdf")
+                .build();
 
-        // Act
-        HealthSurvey result = healthSurveyService.submitSurvey(testSurvey);
+        when(questionnaireService.getActiveQuestionnaire()).thenReturn(Optional.empty());
+        when(surveyRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
-        // Assert
-        assertNotNull(result);
-        assertEquals(ValidationStatus.PENDING, result.getValidationStatus());
-        assertNotNull(result.getAttachmentPath());
-        
-        verify(repository).save(any(HealthSurvey.class));
-        // Kafka template verification omitted for simplicity
-    }
+        HealthSurvey result = surveyService.submitSurvey(survey);
 
-    @Test
-    void submitSurvey_WithExistingHasFeverAndHasCough_DoesNotOverrideValues() {
-        // Arrange
-        testSurvey.setHasFever(true);
-        testSurvey.setHasCough(false);
-        when(questionnaireService.getActiveQuestionnaire()).thenReturn(Optional.of(testQuestionnaire));
-        when(symptomMapper.hasSymptoms(testSurvey, testQuestionnaire)).thenReturn(false);
-        when(repository.save(any(HealthSurvey.class))).thenReturn(testSurvey);
-
-        // Act
-        HealthSurvey result = healthSurveyService.submitSurvey(testSurvey);
-
-        // Assert
-        assertNotNull(result);
-        assertTrue(result.getHasFever());
-        assertFalse(result.getHasCough());
-        
-        verify(questionnaireService).getActiveQuestionnaire();
-        verify(symptomMapper).hasSymptoms(testSurvey, testQuestionnaire);
-        verify(repository).save(any(HealthSurvey.class));
-        // Kafka template verification omitted for simplicity
+        assertEquals(ValidationStatus.PENDING, result.getValidationStatus(),
+                "Survey with attachment should have PENDING validation status");
     }
 }

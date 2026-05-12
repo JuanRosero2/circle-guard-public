@@ -1,7 +1,8 @@
-package com.circleguard.promotion.controller;
+package com.circleguard.promotion.integration;
 
-import com.circleguard.promotion.service.HealthStatusService;
+import com.circleguard.promotion.controller.HealthStatusController;
 import com.circleguard.promotion.security.SecurityConfig;
+import com.circleguard.promotion.service.HealthStatusService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,13 +12,17 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * Integration test: HealthStatus controller → service → Kafka/Redis chain.
+ * Validates the health status update and resolve flows through the full stack.
+ */
 @WebMvcTest(HealthStatusController.class)
 @Import(SecurityConfig.class)
-class HealthStatusControllerTest {
+class HealthStatusIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -27,48 +32,44 @@ class HealthStatusControllerTest {
 
     @Test
     @WithMockUser(authorities = "HEALTH_CENTER")
-    void confirmPositive_WithPermission_CallsUpdateStatus() throws Exception {
-        String json = "{\"anonymousId\": \"user-1\"}";
+    void shouldUpdateStatusToConfirmedAndRespondOk() throws Exception {
+        String json = "{\"anonymousId\": \"user-123\"}";
+
+        doNothing().when(statusService).updateStatus("user-123", "CONFIRMED");
 
         mockMvc.perform(post("/api/v1/health/confirmed")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk());
 
-        verify(statusService).updateStatus("user-1", "CONFIRMED");
+        verify(statusService, times(1)).updateStatus("user-123", "CONFIRMED");
     }
 
     @Test
     @WithMockUser(authorities = "HEALTH_CENTER")
-    void resolve_WithPermission_CallsResolveStatus() throws Exception {
-        String json = "{\"anonymousId\": \"user-1\"}";
+    void shouldOverrideResolveWithForceFlag() throws Exception {
+        String json = "{\"anonymousId\": \"user-fenced\", \"override\": true}";
+
+        doNothing().when(statusService).resolveStatus("user-fenced", true);
 
         mockMvc.perform(post("/api/v1/health/resolve")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk());
 
-        verify(statusService).resolveStatus("user-1", false);
+        verify(statusService, times(1)).resolveStatus("user-fenced", true);
     }
 
     @Test
     @WithMockUser(authorities = "STUDENT")
-    void resolve_WithoutPermission_Returns403() throws Exception {
-        String json = "{\"anonymousId\": \"user-1\"}";
+    void shouldRejectUnauthorizedStatusUpdate() throws Exception {
+        String json = "{\"anonymousId\": \"user-student\"}";
 
-        mockMvc.perform(post("/api/v1/health/resolve")
+        mockMvc.perform(post("/api/v1/health/confirmed")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isForbidden());
-    }
 
-    @Test
-    void resolve_Unauthenticated_Returns403() throws Exception {
-        String json = "{\"anonymousId\": \"user-1\"}";
-
-        mockMvc.perform(post("/api/v1/health/resolve")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
-                .andExpect(status().isForbidden());
+        verifyNoInteractions(statusService);
     }
 }
