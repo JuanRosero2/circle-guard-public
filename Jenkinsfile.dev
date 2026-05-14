@@ -32,7 +32,7 @@ pipeline {
         stage('Tests') {
             steps {
                 script {
-                    // catchError asegura que los fallos en tests no detengan el despliegue
+                    
                     catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
                         sh './gradlew test --no-daemon --continue'
                     }
@@ -65,7 +65,6 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'U', passwordVariable: 'P')]) {
                     script {
-                        // Reintento de login por si hay fallos de red
                         retry(3) {
                             sh "echo $P | docker login -u $U --password-stdin"
                         }
